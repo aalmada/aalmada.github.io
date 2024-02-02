@@ -513,7 +513,7 @@ As a summary, these are the conclusions for each of the points focused above:
 
 I hope you liked this article and find it useful. Share it with your team.
 
-> NOTE: This article focused on the client side of the enumeration. If you want to implement `IEnumerable`, you can find some tips in my other article “[How to use Span<T> and Memory<T>](https://aalmada.github.io/posts/How-to-use-Span-and-Memory/)”. If you want to implement `IQueryable`, check the open-source project [Relinq](https://github.com/re-motion/Relinq).
+> NOTE: This article focused on the client side of the enumeration. If you want to implement `IEnumerable`, you can find some tips in my other article “[How to use Span&lt;T&gt; and Memory&lt;T&gt;](https://aalmada.github.io/posts/How-to-use-Span-and-Memory/)”. If you want to implement `IQueryable`, check the open-source project [Relinq](https://github.com/re-motion/Relinq).
 
 
 
