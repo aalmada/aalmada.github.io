@@ -90,7 +90,7 @@ public static double? Average(this IEnumerable<int> enumerable)
 
 It uses the `Count()` extension method to check if the enumerable is empty and exits early. Unfortunately this does way more computation than most expect…
 
-From the highlighted points on the enumeration interfaces, we already know that these can only enumerate sequentially and ha
+From the highlighted points on the enumeration interfaces, we already know that these can only enumerate sequentially and have no more information on the collection. `Count()` implementation looks something like this:
 
 ```csharp
 public static int MyCount<T>(this IEnumerable<T> enumerable) 
@@ -111,7 +111,7 @@ This means the previous code example is enumerating the collection three times. 
 
 > NOTE: LINQ uses an optimization where, if the collection implements `ICollection`, it simply calls the `Count` property. The issue is that many enumerables don’t implement it. To avoid any surprise, I always assume they don’t.
 
-There is a better solution. `Any()` is an extension method that returns true if the enumerable contains at least one element; otherwise false. `Any()` implementation looks something like this:
+There is a better solution. `Any()` is an extension method that returns `true` if the enumerable contains at least one element; otherwise false. `Any()` implementation looks something like this:
 
 ```csharp
 public static bool MyAny<T>(this IEnumerable<T> enumerable) 
@@ -205,7 +205,7 @@ public static double? Average(this IReadOnlyCollection<int> enumerable)
 
 > NOTE: Although `ICollection` should derive from `IReadOnlyCollection`, for historical reasons and to maintain backwards compatibility, it doesn’t. So, you cannot pass an `ICollection` to this method. To fully support all scenarios, you should have one more extension method for `ICollection`. On the other hand, this causes ambiguity problems for collections that implement both interfaces, forcing you to cast to one of them.
 
-> Always expose the highest admissible level interface of the returned collection, and consume the lowest admissible level interface. `IEnumerable`, `IReadOnlyCollection`, `IReadOnlyList` and `IReadOnlyDictionary` maintain immutability.
+> Ensure that you consistently expose the most permissive interface for the returned collection and consume the least permissive interface. Maintain immutability by utilizing interfaces such as `IEnumerable`, `IReadOnlyCollection`, `IReadOnlyList`, and `IReadOnlyDictionary`.
 
 ## Yield
 
@@ -366,7 +366,7 @@ The .NET drivers for databases usually support `IQueryable` and I’m going to s
 
 The Entity Framework (EF) is an object-relational mapping (ORM) that includes “LINQ-to-SQL”, meaning it supports LINQ queries on a SQL database engine.
 
-The following is an example based on the database model defined in the “Entity Framework Core Quick Overview” article. It applies a LINQ query on the Blogs property, that is of type `DbSet<Blog>`.
+The following is an example based on the database model defined in the “Entity Framework Core Quick Overview” article. It applies a LINQ query on the `Blogs` property, that is of type `DbSet<Blog>`.
 
 ```csharp
 using (var db = new BloggingContext())
@@ -396,7 +396,7 @@ WHERE [blog].[Rating] > 3
 ORDER BY [blog].[Rating] DESC
 ```
 
-Notice that it’s equivalent to the LINQ query defined in the code. This means it will be fully performed by the database engine. The `foreach` just has to enumerate the result returned. No filtering, projection, ordering or element counting is performed directly by LINQ operators.
+Notice that it’s equivalent to the LINQ query defined in the code. This means it will be fully performed by the database engine. The `foreach` just has to enumerate the result returned. No filtering, projection, ordering or element counting is performed directly in-memory by LINQ operators.
 
 > NOTE: You can get the `ToSql()` extension method from a gist by Rion Williams ([updated versions are down the comments](https://gist.github.com/rionmonster/2c59f449e67edf8cd6164e9fe66c545a)).
 
@@ -501,7 +501,7 @@ As a summary, these are the conclusions for each of the points focused above:
 
 - If required, always use `Any()` to find if an `IEnumerable` contains any element.
 
-- Always expose the highest admissible level interface of the returned collection, and consume the lowest admissible level interface. `IEnumerable`, `IReadOnlyCollection`, `IReadOnlyList` and `IReadOnlyDictionary` maintain immutability.
+- Ensure that you consistently expose the most permissive interface for the returned collection and consume the least permissive interface. Maintain immutability by utilizing interfaces such as `IEnumerable`, `IReadOnlyCollection`, `IReadOnlyList`, and `IReadOnlyDictionary`.
 
 - Use `yield` when generating enumerables.
 
