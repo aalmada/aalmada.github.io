@@ -3,8 +3,8 @@ layout: post
 read_time: true
 show_date: true
 title: "ToList(), or not ToList(), that is the question"
-date: 2023-07-22
-img_path: /assets/img/posts/20230722
+date: 2018-07-25
+img_path: /assets/img/posts/20180725
 image: Plaza.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
