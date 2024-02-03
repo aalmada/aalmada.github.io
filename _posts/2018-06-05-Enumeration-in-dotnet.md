@@ -3,8 +3,8 @@ layout: post
 read_time: true
 show_date: true
 title: "Enumeration in .NET"
-date: 2018-05-05
-img_path: /assets/img/posts/20180505
+date: 2018-06-05
+img_path: /assets/img/posts/20180605
 image: Paintball.jpeg
 tags: [development, .net, csharp]
 category: development

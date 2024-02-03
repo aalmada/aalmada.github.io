@@ -3,8 +3,8 @@ layout: post
 read_time: true
 show_date: true
 title: "Enumeration in .NET - Count()"
-date: 2018-05-09
-img_path: /assets/img/posts/20180509
+date: 2018-06-09
+img_path: /assets/img/posts/20180609
 image: Giraffe.jpeg
 tags: [development, .net, csharp]
 category: development
