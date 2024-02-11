@@ -308,6 +308,17 @@ For conciseness, only the overload for `sbyte` type is shown here.
 
 `NetFabric.Numerics.Tensors` provides these overloads for the primitive operators, but you can easily implement your own operator and use it in a similar manner.
 
+## Leveraging Tensors with Lists
+
+The `CollectionsMarshal.AsSpan()` method provides access to the internal array of a `List<T>`, returning a `Span<T>` that seamlessly integrates with tensor operations, functioning as both a source and a destination. However, when used as a destination, it's crucial to ensure that all items already exist, making it suitable for inplace operations.
+
+```csharp
+var span = CollectionsMarshal.AsSpan(list);
+Tensor.Square(span, span);
+```
+
+This code squares all items in the list inplace.
+
 ## Working with tensors for structured data
 
 The tensors in `NetFabric.Numerics.Tensors` can handle any value-type that meets the minimum requirements. For example, the following 2D vector implementation can be used in `Sum` because it implements both `IAdditionOperators<T, T, T>` and `IAdditiveIdentity<T, T>`:
