@@ -288,3 +288,5 @@ The use of SIMD can radically improve performance of arithmetic intensive operat
 The `Sum()` is just one example where the use of vectorization can be used. I hope you found this article helpful in understanding the concepts so that you can apply to different scenarios in your projects.
 
 For documentation on the more advanced `System.Runtime.Intrinsics` namespace, check the "Introduction to vectorization with Vector128 and Vector256".
+
+> **Note**: Employing SIMD can significantly increase the complexity of the source code. This complexity can make the code harder to maintain and increase the likelihood of bugs. To address this challenge, I've created a library that simplifies and enhances the reusability and extensibility of iterations. You can learn more about it in my other article, "[A Generic Tensor Library for .NET](https://aalmada.github.io/posts/A-generic-tensor-library-for-dotnet/)," which provides detailed guidance on its usage.
