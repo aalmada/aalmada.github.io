@@ -28,17 +28,17 @@ You can enable these features by setting the variables to `1` and disable them b
 
 The following settings correspond to the given scenarios:
 
-- No SIMD
+- No SIMD:
   - `DOTNET_EnableHWIntrinsic` - `0`
-- Up to 128-bit SIMD
+- Support 128-bit SIMD:
   - `DOTNET_EnableHWIntrinsic` - `1`
   - `DOTNET_EnableAVX2` - `0`
   - `DOTNET_EnableAVX512F` - `0`
-- Up to 256-bit SIMD
+- Support up to 256-bit SIMD:
   - `DOTNET_EnableHWIntrinsic` - `1`
   - `DOTNET_EnableAVX2` - `1`
   - `DOTNET_EnableAVX512F` - `0`
-- Up to 512-bit SIMD
+- Support up to 512-bit SIMD:
   - `DOTNET_EnableHWIntrinsic` - `1`
   - `DOTNET_EnableAVX2` - `1`
   - `DOTNET_EnableAVX512F` - `1`
@@ -126,21 +126,19 @@ You can now execute the unit tests using the settings from the selected file.
 
 ## Command Line
 
-When operating in Visual Studio Code, I typically initiate the execution of unit tests by running the `dotnet test` command in a terminal.
+You can run the unit tests from the command line by using the `dotnet test` command. This comes in handy when working with Visual Studio Code or when configuring continuous integration pipelines.
 
-The `dotnet test` command permits the configuration of environment variables using the `--environment` option or its shorter form `-e`. Here's how it can be used for up to 128-bit SIMD:
+The `dotnet test` command permits the configuration of environment variables using the `--environment` option or its shorter form `-e`. Here's an example of how it can be used to support 128-bit SIMD:
 
 ```bash
 dotnet test -e:DOTNET_EnableAVX2=0 -e:DOTNET_EnableAVX512F=0
 ```
 
-The `dotnet test` command also accommodates the use of `.runsettings` files with the `--settings` option or its abbreviated form `-s`. Here's an example of its usage:
+The `dotnet test` command can also accommodates the use of `.runsettings` files with the `--settings` option or its abbreviated form `-s`. Here's the equivalent example using a setting file:
 
 ```bash
-dotnet test -s:_Vector256.runsettings
+dotnet test -s:_Vector128.runsettings
 ```
-
-> Note: These commands can be incorporated into the setup of continuous integration pipelines.
 
 # Performance Testing
 
