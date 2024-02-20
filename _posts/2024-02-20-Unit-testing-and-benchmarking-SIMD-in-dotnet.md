@@ -45,6 +45,8 @@ The following settings correspond to the given scenarios:
 
 Keep in mind that these variables only provide the option to disable features. If you aim to test the application with 512-bit SIMD, it's necessary for the hardware to support it. You can only force the application to use a lower bit SIMD or even turn off all SIMD.
 
+Keep in mind that `Vector<T>` will consistently utilize the maximum bit count available, while the availability of `Vector128<T>`, `Vector256<T>`, and `Vector512<T>` depends on the supported bit count and may be enabled or disabled accordingly.
+
 # Unit Testing
 
 There are various methods to execute unit tests in .NET. In this section, I will discuss the ones that I have used and successfully configured to handle multiple scenarios.
