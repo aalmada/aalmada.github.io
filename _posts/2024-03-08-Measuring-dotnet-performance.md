@@ -126,7 +126,7 @@ BenchmarkDotNet automatically filters out outlier results and notifies you if th
 
 Additionally, it provides information on the versions of BenchmarkDotNet and .NET used, along with hardware system characteristics:
 
-```ini
+```
 BenchmarkDotNet v0.13.8, macOS Sonoma 14.4 (23E214) [Darwin 23.4.0]
 Apple M1, 1 CPU, 8 logical and 8 physical cores
 .NET SDK 8.0.201
