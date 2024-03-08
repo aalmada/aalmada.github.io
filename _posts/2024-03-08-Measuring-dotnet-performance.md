@@ -5,7 +5,7 @@ show_date: true
 title: "Measuring .NET Performance: Unleashing the Power of BenchmarkDotNet"
 date: 2024-03-08
 img_path: /assets/img/posts/20240308
-image: Alcantara.jpg
+image: BelaVista.jpg
 tags: [development, .net, csharp, benchmarking]
 category: development
 ---
@@ -370,7 +370,7 @@ In this setup, you can observe how the item type influences performance across d
 
 ## Comparing .NET Versions
 
-Understanding how the performance of a particular feature has evolved between two or more versions of .NET can be insightful. This comparison can be achieved by configuring multiple jobs, which can be done in two different ways.
+Understanding how the performance of a particular feature has evolved between two or more versions of .NET can be insightful. This comparison can be achieved by configuring multiple jobs.
 
 You can set up the configuration in the `Program.cs` file as follows:
 
