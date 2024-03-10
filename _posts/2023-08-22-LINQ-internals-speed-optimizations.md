@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20230822
 image: Pine-processionary.jpg
 tags: [development, .net, csharp, linq, performance]
 category: development
+redirect_from: /LINQ-internals-speed-optimizations.html
 ---
 
 Behind the elegant facade of LINQ lies a meticulously engineered core designed for more than just simplicity. This article delves into the technical intricacies of LINQ, focusing on the "speed optimizations" that enhance its execution efficiency. These optimizations also have many shortcomings.

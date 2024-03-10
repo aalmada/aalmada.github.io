@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20180605
 image: Paintball.jpeg
 tags: [development, .net, csharp]
 category: development
+redirect_from: /Enumeration-in-dotnet.html
 ---
 
 All .NET developers know and use [`IEnumerable`](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) but when reviewing code I’ve found that many fall into the same pitfalls, resulting in applications with easily avoidable performance issues.
@@ -39,7 +40,7 @@ In this article I will explore further the consequences of these.
 The simplest way to enumerate is to use a `foreach` loop. Lets start with a simple method that takes an `IEnumerable<int>` and outputs all its items to the console:
 
 ```csharp
-public void Enumerate(IEnumerable<int> enumerable) 
+public void Enumerate(IEnumerable<int> enumerable)
 {
     foreach (var item in enumerable)
     {
@@ -51,7 +52,7 @@ public void Enumerate(IEnumerable<int> enumerable)
 [You can check at SharpLab that, in reality, the above code is expanded to a while loop](https://sharplab.io/#v2:D4AQDABCCMDcCwAocVoBYHIMxQEwQGEIBvJCcqHENCAUQDsBXAWwFMAnAQwBdWAKGFgA8AS3rcAfBFZM2XAEYAbVgEoISAJClEFXRABmAe3atOAYwAWEPgDdO7CCN7NH9abI6clqsnvLa/PxgATj4nVmYVTECIAF9fcnjEWKA===). Focusing on the enumeration, we can resume it to this:
 
 ```csharp
-public void Enumerate(IEnumerable<int> enumerable) 
+public void Enumerate(IEnumerable<int> enumerable)
 {
     using(var enumerator = enumerable.GetEnumerator())
     {
@@ -75,7 +76,7 @@ This is very simple but lets now focus on the nuances…
 It’s good practice to validate arguments and avoid unnecessary computation, so I’ve found the following very often:
 
 ```csharp
-public static double? Average(this IEnumerable<int> enumerable) 
+public static double? Average(this IEnumerable<int> enumerable)
 {
     if(enumerable.Count() == 0)
         return null;
@@ -93,7 +94,7 @@ It uses the `Count()` extension method to check if the enumerable is empty and e
 From the highlighted points on the enumeration interfaces, we already know that these can only enumerate sequentially and have no more information on the collection. `Count()` implementation looks something like this:
 
 ```csharp
-public static int MyCount<T>(this IEnumerable<T> enumerable) 
+public static int MyCount<T>(this IEnumerable<T> enumerable)
 {
     var count = 0;
     using(var enumerator = enumerable.GetEnumerator())
@@ -114,7 +115,7 @@ This means the previous code example is enumerating the collection three times. 
 There is a better solution. `Any()` is an extension method that returns `true` if the enumerable contains at least one element; otherwise false. `Any()` implementation looks something like this:
 
 ```csharp
-public static bool MyAny<T>(this IEnumerable<T> enumerable) 
+public static bool MyAny<T>(this IEnumerable<T> enumerable)
 {
   using (var enumerator = enumerable.GetEnumerator())
   {
@@ -128,7 +129,7 @@ Notice that it creates an instance of `IEnumerator` and then calls `MoveNext()` 
 You should always use `Any()` to check if an enumerable is empty:
 
 ```csharp
-public void DoSomething<T>(IEnumerable<T> enumerable) 
+public void DoSomething<T>(IEnumerable<T> enumerable)
 {
     if (!enumerable.Any())
         return;
@@ -140,7 +141,7 @@ public void DoSomething<T>(IEnumerable<T> enumerable)
 Usually, you don’t even need to check if it’s empty. The `foreach` doesn’t enter the loop in that case. Here’s an implementation of `Average()` that creates one single instance of `IEnumerator` and enumerates the collection only once:
 
 ```csharp
-public static double? Average(this IEnumerable<int> enumerable) 
+public static double? Average(this IEnumerable<int> enumerable)
 {
     var sum = 0;
     var count = 0;
@@ -149,7 +150,7 @@ public static double? Average(this IEnumerable<int> enumerable)
         sum += value;
         count++;
     }
-    
+
     if(count == 0)
         return null;
 
@@ -190,15 +191,15 @@ public static IReadOnlyList<int> MyRange(int start, int count)
 You can add one more `Average()` extension method for `IReadOnlyCollection` that takes advantage of availability of the `Count` property and guaranteeing that the method will not mutate the collection. It improves performance by not creating the instance of `IEnumerator` and not calling `MoveNext()` when the collection is empty:
 
 ```csharp
-public static double? Average(this IReadOnlyCollection<int> enumerable) 
+public static double? Average(this IReadOnlyCollection<int> enumerable)
 {
     if (enumerable.Count == 0)
         return null;
-    
+
     var sum = 0;
     foreach (var value in enumerable)
         sum += value;
-    
+
     return sum / (double)enumerable.Count;
 }
 ```
@@ -292,7 +293,7 @@ LINQ expressions can be reused, maintaining the lazy evaluation behavior:
 
 ```csharp
 var numbers = Enumerable.Range(start, count);
-        
+
 var evenNumbers = numbers
     .Where(number => (number & 0x01) == 0);
 
@@ -514,14 +515,3 @@ As a summary, these are the conclusions for each of the points focused above:
 I hope you liked this article and find it useful. Share it with your team.
 
 > NOTE: This article focused on the client side of the enumeration. If you want to implement `IEnumerable`, you can find some tips in my other article “[How to use Span&lt;T&gt; and Memory&lt;T&gt;](https://aalmada.github.io/posts/How-to-use-Span-and-Memory/)”. If you want to implement `IQueryable`, check the open-source project [Relinq](https://github.com/re-motion/Relinq).
-
-
-
-
-
-
-
-
-
-
-

@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20230916
 image: Depth-camera-AR.png
 tags: [.net, opinion]
 category: development
+redirect_from: /My-adventure-with-dotnet-development.html
 ---
 
 I've been immersed in the .NET world since version 1.0, and it's been an incredible journey. Throughout the years, .NET has consistently been my primary development tool of choice. In this article, I'll delve into my experiences as a developer within the .NET ecosystem and offer insights into its current status and adoption trends.

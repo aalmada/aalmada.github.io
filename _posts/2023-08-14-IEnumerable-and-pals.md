@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20230814
 image: IEnumerable.png
 tags: [development, .net, csharp, linq, performance]
 category: development
+redirect_from: /IEnumerable-and-pals.html
 ---
 
 ## Introduction

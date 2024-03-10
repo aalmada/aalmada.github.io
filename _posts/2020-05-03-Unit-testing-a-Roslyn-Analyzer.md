@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20200503
 image: PracaComercio.jpg
 tags: [development, .net, csharp, roslyn, analyzer, unit testing]
 category: development
+redirect_from: /Unit-testing-a-Roslyn-Analyzer.html
 ---
 
 I’ve been writing here many stories about enumeration in .NET. I know it’s hard to remember everything, specially when developing large projects with several other developers. I decided to develop [NetFabric.Hyperlinq.Analyzer](https://github.com/NetFabric/NetFabric.Hyperlinq.Analyzer) that peer reviews the code while it’s typed. I actually use it myself to develop [NetFabric.Hyperlinq](https://github.com/NetFabric/NetFabric.Hyperlinq).
@@ -28,7 +29,7 @@ The easiest way to start developing an analyzer is to use [the template availabl
     namespace ConsoleApplication1
     {
         class TypeName
-        {   
+        {
         }
     }";
             var expected = new DiagnosticResult
@@ -54,7 +55,7 @@ The easiest way to start developing an analyzer is to use [the template availabl
     namespace ConsoleApplication1
     {
         class TYPENAME
-        {   
+        {
         }
     }";
             VerifyCSharpFix(test, fixtest);
@@ -76,7 +77,7 @@ I came up with this idea while developing another project that I spun-off from t
 - [NetFabric.CodeAnalysis](https://www.nuget.org/packages/NetFabric.CodeAnalysis/) — contains the logic used by the analyzer to check if a type is an enumerable. It covers more scenarios than just checking if it implements IEnumerable or IAsyncEnumerable.
 - [NetFabric.Reflection](https://www.nuget.org/packages/NetFabric.Reflection/) — contains the exact same logic but for [reflection](https://docs.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/reflection). It’s used by my fluent assertions library [NetFabric.Assertive](https://github.com/NetFabric/NetFabric.Assertive).
 
-These packages are used on different contexts (*compile time* vs. *run time*) but have the exact same functionality so I wanted to use the same testing data. This means a lot less code to maintain…
+These packages are used on different contexts (_compile time_ vs. _run time_) but have the exact same functionality so I wanted to use the same testing data. This means a lot less code to maintain…
 
 For the case of the analyzer, I added a folder TestData to my unit testing project. Inside of it, I added a folder tree for each diagnostic analyzer with source files split into tests with or without diagnostics reported:
 
@@ -167,7 +168,7 @@ I found two reasons to have source files excluded from the build:
 - The source doesn’t have to compile correctly for the analyzer to be run. It’s important that unit tests include these scenarios.
 - The fixed source files used to test the code fixers may not have enough changes to avoid naming collisions.
 
-In Visual Studio, you can exclude each of these files by right-clicking of them in the *Solution Explorer* and then clicking on *Exclude From Project+.
+In Visual Studio, you can exclude each of these files by right-clicking of them in the _Solution Explorer_ and then clicking on \*Exclude From Project+.
 
 Alternatively, you can use a naming pattern and set a rule. I add a `.Fix` to the end of the name of the files used to test the code fixer and I add the following to the `.csproj` file:
 
@@ -181,7 +182,7 @@ Alternatively, you can use a naming pattern and set a rule. I add a `.Fix` to th
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-``` 
+```
 
 This guarantees that the `.Fix.cs` files are not compiled but still copied on build.
 
@@ -201,7 +202,7 @@ I now can pass an array of strings to either verifiers but the analyzer is only 
 ```csharp
 public class RefEnumerationVariableAnalyzerTests : CodeFixVerifier
 {
-    protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer() 
+    protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         => new RefEnumerationVariableAnalyzer();
 
     protected override CodeFixProvider GetCSharpCodeFixProvider()
@@ -262,6 +263,3 @@ It’s possible to take advantage of the IDE tools to develop the source code us
 You can always access the source code in [my analyzer repository](https://github.com/NetFabric/NetFabric.Hyperlinq.Analyzer) to check on any detail that I missed.
 
 I hope you found this information useful.
-
-
-

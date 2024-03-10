@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20180723
 image: Eagle.jpeg
 tags: [development, .net, csharp]
 category: development
+redirect_from: /Enumeration-in-dotnet-finding-an-item.html
 ---
 
 ## Finding an item
@@ -19,7 +20,7 @@ I already mentioned in the first article of this series that `IEnumerable`:
 
 This implies high costs when trying to find an item. This article focus on the methods `First()` and `Single()`, commonly used to search for an item, and how its real cost can be hidden.
 
-## First() and Single() 
+## First() and Single()
 
 `First()` and `Single()` are extension methods for `IEnumerable<T>` that return the first element of a sequence. The sequence is usually filtered using an `Where()` operation and we are interested only in the first item.
 
@@ -58,7 +59,7 @@ public static T Single<T>(this IEnumerable<T> enumerable)
 
 Both methods get an instance of `IEnumerator` and call `MoveNext()`. If it returns `false`, it means it’s empty so, they throw an `InvalidOperationException`, otherwise, `First()` simply returns the value.
 
-`Single()` calls `MoveNext()` a second time to check if there are more elements, throwing an `InvalidOperationException` if it returns `true`. 
+`Single()` calls `MoveNext()` a second time to check if there are more elements, throwing an `InvalidOperationException` if it returns `true`.
 
 ## FirstOrDefault() and SingleOrDefault()
 
@@ -161,4 +162,4 @@ This is the same complexity for when using the first version of these methods af
 
 To avoid O(n) complexity when getting an item, you should consider data structures that supply more efficient methods to find the elements. The Dictionary is commonly used but there are many more options. Search on the web for “data structures and algorithms” to learn more about the alternatives.
 
-You should only need to check if the query returns more than one value during development or testing. If it should return just one value and it doesn't, then there's either an issue either with the data or with the query. You may use `Single()` or `SingleOrDefault()` to perform these tests. You should not use them in production because they considerably impact performance of the application to detect. 
+You should only need to check if the query returns more than one value during development or testing. If it should return just one value and it doesn't, then there's either an issue either with the data or with the query. You may use `Single()` or `SingleOrDefault()` to perform these tests. You should not use them in production because they considerably impact performance of the application to detect.

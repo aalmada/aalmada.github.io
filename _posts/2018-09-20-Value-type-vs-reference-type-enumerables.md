@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20180920
 image: Warp.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
+redirect_from: /Value-type-vs-reference-type-enumerables.html
 ---
 
 ## Introduction

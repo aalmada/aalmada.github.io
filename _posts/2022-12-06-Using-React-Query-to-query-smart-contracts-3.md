@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20221206
 image: Lichen.jpeg
 tags: [development, web3, react, react-query]
 category: development
+redirect_from: /Using-React-Query-to-query-smart-contracts-3.html
 ---
 
 Wallets that support multiple accounts and multiple blockchains, like MetaMask, make it very easy for a user to change active account and active blockchain. A web3 frontend should react immediately to these changes.

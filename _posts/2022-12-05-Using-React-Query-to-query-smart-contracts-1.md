@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20221205
 image: Cluster.jpeg
 tags: [development, web3, react, react-query]
 category: development
+redirect_from: /Using-React-Query-to-query-smart-contracts-1.html
 ---
 
 > React Query is often described as the missing data-fetching library for React, but in more technical terms, it makes fetching, caching, synchronizing and updating server state in your React applications a breeze.

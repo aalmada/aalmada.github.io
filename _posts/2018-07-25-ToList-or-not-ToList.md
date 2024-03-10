@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20180725
 image: Plaza.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
+redirect_from: /ToList-or-not-ToList.html
 ---
 
 ## Introduction

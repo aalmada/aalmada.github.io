@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20231003
 image: ForEach.png
 tags: [.net, csharp, performance, simd, intrinsics]
 category: development
+redirect_from: /The-battle-of-loops.html
 ---
 
 Within the realm of C# programming, distinguishing between similar constructs can significantly enhance your coding prowess. This article delves into the comparison of two C# iteration methods: `foreach` and `ForEach`. Despite their apparent similarities, they function differently.

@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20230830
 image: Sunset-beach.jpeg
 tags: [development, .net, csharp, roslyn]
 category: development
+redirect_from: /Handling-enumerables-in-Roslyn.html
 ---
 
 Roslyn Analyzers and Code Generators are essential tools in the world of .NET development. Analyzers offer real-time code analysis at compile time, catching issues and promoting best practices by interpreting the code before compilation. This ensures that potential problems are identified early in the development process. Code Generators, also operating at compile time, automate the creation of repetitive code snippets. By doing so, they enhance code quality, boost efficiency, and streamline the development process.

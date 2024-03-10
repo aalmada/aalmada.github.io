@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20210628
 image: OConnell-Bridge.jpg
 tags: [development, .net, csharp, simd, performance, benchmarks]
 category: development
+redirect_from: /CPU-branching-and-parallelization.html
 ---
 
 ## Introduction

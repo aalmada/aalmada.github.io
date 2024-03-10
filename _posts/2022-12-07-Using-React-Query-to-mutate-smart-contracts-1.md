@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20221207
 image: Rollercoaster.jpeg
 tags: [development, web3, react, react-query]
 category: development
+redirect_from: /Using-React-Query-to-mutate-smart-contracts-1.html
 ---
 
 In [previous posts](https://aalmada.github.io/Using-React-Query-to-query-smart-contracts-3.html) I explained how React Query can be used to query smart contracts, that is, to perform read calls. Now I’m going to explain how to mutate, that is, to execute transactions on the blockchain.

@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20221207
 image: Victory.jpeg
 tags: [development, web3, react, react-query]
 category: development
+redirect_from: /Using-React-Query-to-mutate-smart-contracts-1.html
 ---
 
 > NOTE: This series of articles use [TypeChain](https://github.com/dethcrypto/TypeChain) to make strongly-typed calls to Ethereum. Please check its [documentation and discussion board](https://github.com/dethcrypto/TypeChain) to learn how to set it up. It’s also assumed some knowledge of React Query.

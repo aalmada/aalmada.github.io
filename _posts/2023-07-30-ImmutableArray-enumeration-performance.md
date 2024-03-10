@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20230730
 image: Surf.jpg
 tags: [development, .net, csharp, performance, benchmarks]
 category: development
+redirect_from: /ImmutableArray-enumeration-performance.html
 ---
 
 ## Introduction

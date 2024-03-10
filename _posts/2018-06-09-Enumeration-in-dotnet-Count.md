@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20180609
 image: Giraffe.jpeg
 tags: [development, .net, csharp]
 category: development
+redirect_from: /Enumeration-in-dotnet-Count.html
 ---
 
 ## Count()
@@ -93,20 +94,20 @@ Apple M1, 1 CPU, 8 logical and 8 physical cores
   DefaultJob : .NET 8.0.0 (8.0.23.53103), Arm64 RyuJIT AdvSIMD
 ```
 
-| Method                   | ItemsCount | Mean       | Error     | StdDev    | Gen0   | Allocated |
-|------------------------- |----------- |-----------:|----------:|----------:|-------:|----------:|
-| **Enumerable_Count**         | **0**          |  **22.629 ns** | **0.0165 ns** | **0.0146 ns** | **0.0089** |      **56 B** |
-| FilteredEnumerable_Count | 0          |  21.174 ns | 0.0976 ns | 0.0815 ns | 0.0089 |      56 B |
-| Collection_Count         | 0          |   2.920 ns | 0.0025 ns | 0.0023 ns |      - |         - |
-| FilteredCollection_Count | 0          |   9.021 ns | 0.0142 ns | 0.0118 ns |      - |         - |
-| **Enumerable_Count**         | **10**         |  **54.165 ns** | **0.1742 ns** | **0.1629 ns** | **0.0089** |      **56 B** |
-| FilteredEnumerable_Count | 10         |  56.801 ns | 0.1018 ns | 0.0850 ns | 0.0089 |      56 B |
-| Collection_Count         | 10         |   2.934 ns | 0.0359 ns | 0.0336 ns |      - |         - |
-| FilteredCollection_Count | 10         |  26.009 ns | 0.0593 ns | 0.0526 ns |      - |         - |
-| **Enumerable_Count**         | **100**        | **393.815 ns** | **1.0288 ns** | **0.9120 ns** | **0.0086** |      **56 B** |
-| FilteredEnumerable_Count | 100        | 396.215 ns | 1.0694 ns | 1.0003 ns | 0.0086 |      56 B |
-| Collection_Count         | 100        |   2.961 ns | 0.0020 ns | 0.0016 ns |      - |         - |
-| FilteredCollection_Count | 100        | 180.376 ns | 0.3111 ns | 0.2429 ns |      - |         - |
+| Method                   | ItemsCount |           Mean |         Error |        StdDev |       Gen0 | Allocated |
+| ------------------------ | ---------- | -------------: | ------------: | ------------: | ---------: | --------: |
+| **Enumerable_Count**     | **0**      |  **22.629 ns** | **0.0165 ns** | **0.0146 ns** | **0.0089** |  **56 B** |
+| FilteredEnumerable_Count | 0          |      21.174 ns |     0.0976 ns |     0.0815 ns |     0.0089 |      56 B |
+| Collection_Count         | 0          |       2.920 ns |     0.0025 ns |     0.0023 ns |          - |         - |
+| FilteredCollection_Count | 0          |       9.021 ns |     0.0142 ns |     0.0118 ns |          - |         - |
+| **Enumerable_Count**     | **10**     |  **54.165 ns** | **0.1742 ns** | **0.1629 ns** | **0.0089** |  **56 B** |
+| FilteredEnumerable_Count | 10         |      56.801 ns |     0.1018 ns |     0.0850 ns |     0.0089 |      56 B |
+| Collection_Count         | 10         |       2.934 ns |     0.0359 ns |     0.0336 ns |          - |         - |
+| FilteredCollection_Count | 10         |      26.009 ns |     0.0593 ns |     0.0526 ns |          - |         - |
+| **Enumerable_Count**     | **100**    | **393.815 ns** | **1.0288 ns** | **0.9120 ns** | **0.0086** |  **56 B** |
+| FilteredEnumerable_Count | 100        |     396.215 ns |     1.0694 ns |     1.0003 ns |     0.0086 |      56 B |
+| Collection_Count         | 100        |       2.961 ns |     0.0020 ns |     0.0016 ns |          - |         - |
+| FilteredCollection_Count | 100        |     180.376 ns |     0.3111 ns |     0.2429 ns |          - |         - |
 
 As expected, `Enumerable_Count` allocates on the heap and its mean time increases directly with the number of elements, which is all bad.
 

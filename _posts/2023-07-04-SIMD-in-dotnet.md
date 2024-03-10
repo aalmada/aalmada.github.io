@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20230704
 image: Margarida.jpg
 tags: [development, .net, csharp, performance, math, simd, intrinsics]
 category: development
+redirect_from: /SIMD-in-dotnet.html
 ---
 
 ## What is SIMD?

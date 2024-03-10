@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20240308
 image: BelaVista.jpg
 tags: [development, .net, csharp, benchmarking]
 category: development
+redirect_from: /Measuring-dotnet-performance.html
 ---
 
 As a software engineer, I regard performance as a crucial metric for assessing the quality of my code. In my [previous article](https://aalmada.github.io/posts/Performance-optimizations/), I emphasized how performance impacts user behavior, costs, and the environment. Let's break it down:
