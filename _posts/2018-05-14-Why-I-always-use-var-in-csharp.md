@@ -31,9 +31,9 @@ When employing `var`, the variables will compile to the correct type in both sce
 
 ## ‘var’ Eliminates Value Type Boxing
 
-In the .NET framework, value types are "boxed" when cast to an interface type, causing them to be copied to the heap, and all method calls become virtual. This implicit boxing occurs when assigned to a variable declared as an interface type.
+In the .NET framework, value types are [boxed](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-and-unboxing) when cast to an interface type, causing them to be copied to the heap, and all method calls become virtual. This implicit boxing occurs when assigned to a variable declared as an interface type.
 
-Typically, `GetEnumerator()` returns `IEnumerator<T>`, a reference type. However, `List<T>.GetEnumerator()` returns `List<T>.Enumerator`, a value type that implements `IEnumerator<T>`. If cast to the interface, the value is "boxed". Many people overlook this distinction, but getting the type wrong can significantly impact performance. By using `var`, automatic avoidance of "boxing" is ensured.
+Typically, `GetEnumerator()` returns `IEnumerator<T>`, a reference type. However, `List<T>.GetEnumerator()` returns `List<T>.Enumerator`, a value type that implements `IEnumerator<T>`. If cast to the interface, the value is boxed. Many people overlook this distinction, but getting the type wrong can significantly impact performance. By using `var`, automatic avoidance of accidental boxing is ensured.
 
 > I've developed an analyzer featuring a rule to detect instances of this case: [NetFabric.Hyperlinq.Analyzer](https://github.com/NetFabric/NetFabric.Hyperlinq.Analyzer/blob/master/docs/reference/HLQ001_AssignmentBoxing.md)
 
@@ -45,10 +45,16 @@ In Integrated Development Environments (IDEs) like Visual Studio and Rider, vari
 
 This rationale also holds true for [fluent code](https://www.red-gate.com/simple-talk/dotnet/net-framework/fluent-code-in-c/) styles. Consider LINQ usage, where it's unusual to encounter each method result assigned to a variable with an explicitly declared type. Instead, data effortlessly flows from one method to another, enabling the code to be read like a coherent English sentence.
 
-The same guiding principle extends to [lambda expressions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). While many users tend to use them without specifying parameter types, a common downside is the use of short parameter names like `i`. Even worse, some opt for an underscore, introducing potential confusion with a [discard](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards). Personally, I consistently opt for more descriptive names such as `item` or `index`, aligning with the parameter's actual purpose. For those favoring explicit types, strongly-typed delegates serve as an alternative, though this choice is less common.
+The same guiding principle extends to [lambda expressions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). I frequently find the use of short parameter names like `i`. Even worse, some opt for the use of `_`, introducing potential confusion with a [discard](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards) placeholder while they are not discarding the parameter. 
+
+Personally, I consistently opt for more descriptive names such as `item`, `person`, or `account`, aligning with the parameter's actual purpose. 
+
+For those favoring explicit types, strongly-typed delegates serve as an alternative, I don't remember seeing anyone using this approach since lambdas were introduced.
 
 ## Conclusions
 
 C# is great at inferring types and allow strongly-typed code all over. `var` doesn’t contradict this and can be a great tool. Use it. You won’t regret.
+
+I've found that I'm more productive and make fewer errors when I use `var`.
 
 > NOTE: [C++ 11 introduces an equivalent `auto` keyword](https://en.cppreference.com/w/cpp/language/auto). Scott Meyers wrote in his “[Effective Modern C++](https://www.oreilly.com/library/view/effective-modern-c/9781491908419/)” book a great explanation on why you should also use it.
