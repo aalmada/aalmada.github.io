@@ -10,9 +10,9 @@ tags: [network, ubiquiti, unifi, docker, portainer, raspberry pi]
 category: network
 ---
 
-For years, my home network has relied on Ubiquiti UniFi, delivering seamless connectivity across every corner of the house. Its robust suite of features provides exceptional network management tools, ensuring a secure environment with regular software updates. A standout capability is its ability to segregate IoT and guest devices into isolated SSIDs and networks, bolstering overall network security and organization.
+For years, my home network has relied on [Ubiquiti UniFi](https://www.ui.com/), delivering seamless connectivity across every corner of the house. Its robust suite of features provides exceptional network management tools, ensuring a secure environment with regular software updates. A standout capability is its ability to segregate IoT and guest devices into isolated SSIDs and networks, bolstering overall network security and organization.
 
-Initially, I managed the network using a UniFi Cloud Key—a compact pen-computer with built-in network connectivity. Its seamless integration into the UniFi ecosystem and automatic update feature were advantageous. However, due to its inability to support the latest software versions, I transitioned to hosting the controller software on a Raspberry Pi, avoiding costly upgrades. I began with a Raspberry Pi 3, then progressed to a 4, and now utilize a 5 for enhanced performance and compatibility.
+Initially, I managed the network using a UniFi Cloud Key—a compact pen-computer with built-in network connectivity. Its seamless integration into the UniFi ecosystem and automatic update feature were advantageous. However, due to its inability to support the latest software versions, I transitioned to hosting the controller software on a [Raspberry Pi](https://www.raspberrypi.com/products/), avoiding costly upgrades. I began with a Raspberry Pi 3, then progressed to a 4, and now utilize a 5 for enhanced performance and compatibility.
 
 Presently, I employ a Raspberry Pi 5 with 4 GB of RAM, housed in a fanless aluminum case. It operates efficiently, utilizing less than 2% of CPU, around 30% of memory, and consistently maintaining a temperature below 50ºC.
 
@@ -37,7 +37,7 @@ Click **Next**, and in the **Use OS customizations?** prompt, click **EDIT SETTI
 
 If you intend to connect the Raspberry Pi to your Wi-Fi network, tick the box for **Configure wireless LAN**, and provide the necessary information.
 
-Enable the checkbox for **Set locale settings**, and select your timezone. As we won't be attaching a keyboard directly to the Raspberry Pi, choose the desired **Keyboard layout**.
+Enable the checkbox for **Set locale settings**, and select your timezone. As we won't be attaching a keyboard directly to the Raspberry Pi, choose any of the options for the **Keyboard layout**.
 
 After configuring the settings, click **Save**, and then confirm the settings usage by clicking **Yes**.
 
@@ -47,7 +47,7 @@ Once completed, eject the SD card from the reader and insert it into the Raspber
 
 ## Installing Docker and Portainer
 
-For streamlined container installation and management, I recommend using Portainer, which requires Docker to be installed. To proceed, follow the instructions outlined in this separate [tutorial for Docker installation](https://pimylifeup.com/raspberry-pi-docker/), followed by this additional [tutorial for Portainer installation](https://pimylifeup.com/raspberry-pi-portainer/).
+For streamlined container installation and management, I recommend using [Portainer](https://www.portainer.io/), which requires [Docker](https://www.docker.com/) to be installed. To proceed, follow the instructions outlined in this separate [tutorial for Docker installation](https://pimylifeup.com/raspberry-pi-docker/), followed by this additional [tutorial for Portainer installation](https://pimylifeup.com/raspberry-pi-portainer/).
 
 Once both Docker and Portainer are installed, you can access the Portainer web interface from your computer by navigating to `http://<IPADDRESS>:9000`, where `<IPADDRESS>` should be replaced with the IP address of your Raspberry Pi. If unsure of the IP address, you can use [Angry IP Scanner](https://angryip.org/download/) to find it.
 
@@ -57,7 +57,7 @@ Upon accessing the web interface, you should see a **local** environment listed,
 
 To install UniFi Controller via Portainer, we'll set up and deploy a container. We'll leverage the convenience of Portainer's stack feature for better container management. For this demonstration, I'll be utilizing a pre-configured setup available at [jacobalberty/unifi-docker](https://github.com/jacobalberty/unifi-docker).
 
-Begin by navigating to the **Stacks** option within the **local** environment in Portainer. Click on **Add stack** to initiate the process. Provide a name for the stack, such as `unifi-controller`, and keep the **Build method** set as **Web editor**. Then, paste the following configuration into the **Web editor** field:
+Begin by opening the Portainer web interface and navigate to the **Stacks** option within the **local** environment. Click on **Add stack** to initiate the process. Provide a name for the stack, such as `unifi-controller`, and keep the **Build method** set as **Web editor**. Then, paste the following configuration into the **Web editor** field:
 
 ```yaml
 version: "3.8"
