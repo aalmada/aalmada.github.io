@@ -6,7 +6,7 @@ title: "Building Custom Iterators with 'yield' in C#"
 date: 2023-09-14
 img_path: /assets/img/posts/20230914
 image: Yield.png
-tags: [development, .net, csharp]
+tags: [development, .net, csharp, yield]
 category: development
 redirect_from: /Building-custom-iterators-with-yield-in-csharp.html
 ---
@@ -363,13 +363,32 @@ This concept finds extensive application in game development, [particularly with
 
 In Unity, a coroutine is essentially a method that returns `IEnumerator`. The Unity engine, in turn, invokes the corresponding `MoveNext()` method to resume execution just before each frame rendering. The utilization of `yield` simplifies code development and maintenance, eliminating the need to implement intricate state machines.
 
+Here's an example of a coroutine extracted from Unity's documentation:
+
+```csharp
+IEnumerator Fade()
+{
+    var color = renderer.material.color;
+    for (var alpha = 1.0f; alpha >= 0.0f; alpha -= 0.1f)
+    {
+        color.a = alpha;
+        renderer.material.color = color;
+        yield return new WaitForSeconds(0.1f);
+    }
+}
+```
+
+This coroutine smoothly decreases the alpha value of a material color by `0.1` every `0.1` seconds. It begins at `1.0` and ends at `0.0`. Importantly, this process is unaffected by the framerate, ensuring consistent execution across various frames and rendering speeds.
+
 ## Behavior Trees
 
 [Behavior trees find practical applications in game development and robotics](<https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)>), enabling the specification of agent or robot behavior in a modular and reusable manner. While initially designed for these domains, the concept can be extended to synchronously manage code execution in various computer science fields.
 
-A behavior tree essentially comprises multiple coroutines arranged in a tree structure. Branch modules, represented as coroutines, coordinate the execution of their child modules. These branch modules are responsible for appropriately invoking the `MoveNext()` method of their children modules. In contrast, leaf modules perform specific, often application-customized, simple tasks. The hierarchical composition of multiple modules as a tree allows for the creation of complex tasks through their combination.
+A behavior tree essentially comprises multiple nodes arranged in a tree structure. A node can exist in one of three states: `Running`, `Succeded`, or `Failed`. Consequently, a node is required to return an `IEnumerable<BehaviorStatus>`, with `BehaviorStatus` being a type that can represent these three states. A node must return either `Succeded` or `Failed` before its `MoveNext()` returns `false`.
 
-Crucially, a behavior tree module can exist in one of three states: `running`, `successful`, or `failed`. Consequently, a module is required to return an `IEnumerable<BehaviorStatus>`, with `BehaviorStatus` being a type that can represent these three states. This design choice ensures that when a parent module calls the `MoveNext()` method of one of its children, it can ascertain whether the child is still in progress, has completed successfully, or has encountered a failure.
+A node with multiple children is known as a **composite node**, with one child is known as a **decorator node**, and a node with no children is known as a **leaf node**. Nodes with children are responsible for appropriately invoking the `MoveNext()` method of their children modules. In contrast, leaf modules perform specific, often application-customized, simple tasks. The hierarchical composition of multiple modules as a tree allows for the creation of complex tasks through their combination.
+
+NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with IEnumerable<T> and Yield"](https://aalmada.github.io/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
 
 ## Conclusions
 
