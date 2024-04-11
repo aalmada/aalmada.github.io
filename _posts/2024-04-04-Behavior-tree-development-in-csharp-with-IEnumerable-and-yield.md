@@ -97,22 +97,30 @@ These nodes can also handle more intricate behaviors. For instance, the followin
 static IEnumerable<BehaviorStatus> WriteLineRange(int start, int count)
 {
     ArgumentOutOfRangeException.ThrowIfNegative(count);
+    return GetEnumerable(start, count);
 
-    var end = start + count;
-    for(var value = start; value < end; value++)
+    static IEnumerable<BehaviorStatus> GetEnumerable(int start, int count)
     {
-        Console.WriteLine(value);
+        var end = start + count;
+        for(var value = start; value < end; value++)
+        {
+            Console.WriteLine(value);
 
-        if(value < end - 1)
-            yield return BehaviorStatus.Running;
+            if(value < end - 1)
+                yield return BehaviorStatus.Running;
+        }
+        yield return BehaviorStatus.Succeeded;
     }
-    yield return BehaviorStatus.Succeeded;
 }
 ```
 
+> This method uses an internal method to prevent lazy evaluation of parameter validation. This ensures that parameter validation occurs during tree definition rather than during the first node step. For more details, refer to [my other article](https://aalmada.github.io/posts/Building-custom-iterators-with-yield-in-csharp/#lazy-evaluation) explaining this.
+
+> The examples provided here use parameter validation methods introduced in .NET 8. For older versions, appropriate equivalent code must be used.
+
 The node validates the parameters and then initiates a `for` loop, yielding `Running` with each iteration, pausing until the next behavioral step. Upon reaching the upper limit of `value`, it yields `Succeeded`.
 
-> These two nodes provide valuable insights into the behavior of a tree. [Feel free to experiment with the provided code in SharpLab](https://sharplab.io/#gist:593a3c8d2d698ea29424b6f2b0bf8c6e). Modify the tree definition and observe the resulting output.
+> These two nodes provide valuable insights into the behavior of a tree. [Feel free to experiment with the provided code in SharpLab](https://sharplab.io/#gist:a1edba42d27df7524b9f13c5e9fdfd34). Modify the tree definition and observe the resulting output.
 
 Some leaf nodes may receive input data, while others can initiate various types of side effects:
 
@@ -141,24 +149,30 @@ The `Invert` node reverses the termination status of the child node:
 static IEnumerable<BehaviorStatus> Invert(IEnumerable<BehaviorStatus> child)
 {
     ArgumentNullException.ThrowIfNull(child);
+    return GetEnumerable(child);
 
-    foreach(var status in child)
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus> child)
     {
-        switch(status)
+        foreach(var status in child)
         {
-            case BehaviorStatus.Running:
-                yield return BehaviorStatus.Running;
-                break;
-            case BehaviorStatus.Succeeded:
-                yield return BehaviorStatus.Failed;
-                break;
-            case BehaviorStatus.Failed:
-                yield return BehaviorStatus.Succeeded;
-                break;
+            switch(status)
+            {
+                case BehaviorStatus.Running:
+                    yield return BehaviorStatus.Running;
+                    break;
+                case BehaviorStatus.Succeeded:
+                    yield return BehaviorStatus.Failed;
+                    break;
+                case BehaviorStatus.Failed:
+                    yield return BehaviorStatus.Succeeded;
+                    break;
+            }
         }
     }
 }
 ```
+
+This node validates the parameters and then employs a `for` loop to track the number of repetitions. Within this loop, it iterates over the child's behavior using a `foreach` loop to acquire its status. It reacts to each status yielded by the child as follows:
 
 This node uses a `foreach` loop to iterate over the child's behavior and acquire its status. It responds to each status yielded by the child as follows:
 
@@ -174,34 +188,36 @@ static IEnumerable<BehaviorStatus> Repeat(IEnumerable<BehaviorStatus> child, int
 {
     ArgumentNullException.ThrowIfNull(child);
     ArgumentOutOfRangeException.ThrowIfNegative(count);
+    return GetEnumerable(child, count);
 
-    for(var counter = 0; counter < count; counter++)
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus> child, int count)
     {
-        foreach(var status in child)
+        for(var counter = 0; counter < count; counter++)
         {
-            switch(status)
+            foreach(var status in child)
             {
-                case BehaviorStatus.Running:
-                    yield return BehaviorStatus.Running;
-                    break;
+                switch(status)
+                {
+                    case BehaviorStatus.Running:
+                        yield return BehaviorStatus.Running;
+                        break;
 
-                case BehaviorStatus.Succeeded:
-                    goto childSucceeded;
+                    case BehaviorStatus.Succeeded:
+                        goto childSucceeded;
 
-                case BehaviorStatus.Failed:
-                    yield return BehaviorStatus.Failed;
-                    break;
+                    case BehaviorStatus.Failed:
+                        yield return BehaviorStatus.Failed;
+                        break;
+                }
             }
+            childSucceeded:
+            if(counter < count - 1)
+                yield return BehaviorStatus.Running;
         }
-childSucceeded:
-        if(counter < count - 1)
-            yield return BehaviorStatus.Running;
+        yield return BehaviorStatus.Succeeded;
     }
-    yield return BehaviorStatus.Succeeded;
 }
 ```
-
-This node validates the parameters and then employs a `for` loop to track the number of repetitions. Within this loop, it iterates over the child's behavior using a `foreach` loop to acquire its status. It reacts to each status yielded by the child as follows:
 
 - If the child yields `Running`, this node yields the same, ensuring the child's behavior continues to be executed and repeated.
 - If the child yields `Succeeded`, this node exits the `foreach` loop and, if it's not the last repetition, yields `Running`, pausing before the next repetition. When another iteration of the `for` loop occurs, the `foreach` loop calls `GetEnumerator()` again, creating a new enumerator instance to repeat the behavior.
@@ -217,27 +233,31 @@ The `RepeatUntilFail` node continuously repeats the behavior of the child until 
 static IEnumerable<BehaviorStatus> RepeatUntilFail(IEnumerable<BehaviorStatus> child)
 {
     ArgumentNullException.ThrowIfNull(child);
+    return GetEnumerable(child);
 
-    while(true)
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus> child)
     {
-        foreach(var status in child)
+        while(true)
         {
-            switch(status)
+            foreach(var status in child)
             {
-                case BehaviorStatus.Running:
-                    yield return BehaviorStatus.Running;
-                    break;
+                switch(status)
+                {
+                    case BehaviorStatus.Running:
+                        yield return BehaviorStatus.Running;
+                        break;
 
-                case BehaviorStatus.Succeeded:
-                    goto childSucceeded;
+                    case BehaviorStatus.Succeeded:
+                        goto childSucceeded;
 
-                case BehaviorStatus.Failed:
-                    yield return BehaviorStatus.Succeeded;
-                    break;
+                    case BehaviorStatus.Failed:
+                        yield return BehaviorStatus.Succeeded;
+                        break;
+                }
             }
+            childSucceeded:
+            yield return BehaviorStatus.Running;
         }
-childSucceeded:
-        yield return BehaviorStatus.Running;
     }
 }
 ```
@@ -259,31 +279,35 @@ The `Sequence` node executes the behavior of its child nodes sequentially until 
 static IEnumerable<BehaviorStatus> Sequence(IEnumerable<BehaviorStatus>[] children)
 {
     ArgumentNullException.ThrowIfNull(children);
+    return GetEnumerable(children);
 
-    for(var index = 0; index < children.Length; index++)
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus>[] children)
     {
-        var child = children[index];
-        foreach(var status in child)
+        for(var index = 0; index < children.Length; index++)
         {
-            switch(status)
+            var child = children[index];
+            foreach(var status in child)
             {
-                case BehaviorStatus.Running:
-                    yield return BehaviorStatus.Running;
-                    break;
+                switch(status)
+                {
+                    case BehaviorStatus.Running:
+                        yield return BehaviorStatus.Running;
+                        break;
 
-                case BehaviorStatus.Succeeded:
-                    goto childSucceeded;
+                    case BehaviorStatus.Succeeded:
+                        goto childSucceeded;
 
-                case BehaviorStatus.Failed:
-                    yield return BehaviorStatus.Failed;
-                    break;
+                    case BehaviorStatus.Failed:
+                        yield return BehaviorStatus.Failed;
+                        break;
+                }
             }
+            childSucceeded:
+            if(index < children.Length - 1)
+                yield return BehaviorStatus.Running;
         }
-childSucceeded:
-        if(index < children.Length - 1)
-            yield return BehaviorStatus.Running;
+        yield return BehaviorStatus.Succeeded;
     }
-    yield return BehaviorStatus.Succeeded;
 }
 ```
 
@@ -303,31 +327,35 @@ The `Select` node executes the behavior of its child nodes sequentially until on
 static IEnumerable<BehaviorStatus> Select(IEnumerable<BehaviorStatus>[] children)
 {
     ArgumentNullException.ThrowIfNull(children);
+    return GetEnumerable(children);
 
-    for(var index = 0; index < children.Length; index++)
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus>[] children)
     {
-        var child = children[index];
-        foreach(var status in child)
+        for(var index = 0; index < children.Length; index++)
         {
-            switch(status)
+            var child = children[index];
+            foreach(var status in child)
             {
-                case BehaviorStatus.Running:
-                    yield return BehaviorStatus.Running;
-                    break;
+                switch(status)
+                {
+                    case BehaviorStatus.Running:
+                        yield return BehaviorStatus.Running;
+                        break;
 
-                case BehaviorStatus.Succeeded:
-                    yield return BehaviorStatus.Succeeded;
-                    break;
+                    case BehaviorStatus.Succeeded:
+                        yield return BehaviorStatus.Succeeded;
+                        break;
 
-                case BehaviorStatus.Failed:
-                    goto childFailed;
+                    case BehaviorStatus.Failed:
+                        goto childFailed;
+                }
             }
+            childFailed:
+            if(index < children.Length - 1)
+                yield return BehaviorStatus.Running;
         }
-childFailed:
-        if(index < children.Length - 1)
-            yield return BehaviorStatus.Running;
+        yield return BehaviorStatus.Failed;
     }
-    yield return BehaviorStatus.Failed;
 }
 ```
 
@@ -341,36 +369,41 @@ The `ParallelAny` node interleaves the execution of the children's behavior step
 static IEnumerable<BehaviorStatus> ParallelAny(IEnumerable<BehaviorStatus>[] children)
 {
     ArgumentNullException.ThrowIfNull(children);
+    return GetEnumerable(children);
 
-    var enumerators = new IEnumerator<BehaviorStatus>[children.Length];
-    for (var index = 0; index < enumerators.Length && index < children.Length; index++)
-        enumerators[index] = children[index].GetEnumerator();
-
-    try
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus>[] children)
     {
-        while(true)
+
+        var enumerators = new IEnumerator<BehaviorStatus>[children.Length];
+        for (var index = 0; index < enumerators.Length && index < children.Length; index++)
+            enumerators[index] = children[index].GetEnumerator();
+
+        try
+        {
+            while(true)
+            {
+                foreach(var enumerator in enumerators)
+                {
+                    enumerator.MoveNext();
+                    switch(enumerator.Current)
+                    {
+                        case BehaviorStatus.Succeeded:
+                            yield return BehaviorStatus.Succeeded;
+                            break;
+
+                        case BehaviorStatus.Failed:
+                            yield return BehaviorStatus.Failed;
+                            break;
+                    }
+                }
+                yield return BehaviorStatus.Running;
+            }
+        }
+        finally
         {
             foreach(var enumerator in enumerators)
-            {
-                enumerator.MoveNext();
-                switch(enumerator.Current)
-                {
-                    case BehaviorStatus.Succeeded:
-                        yield return BehaviorStatus.Succeeded;
-                        break;
-
-                    case BehaviorStatus.Failed:
-                        yield return BehaviorStatus.Failed;
-                        break;
-                }
-            }
-            yield return BehaviorStatus.Running;
+                enumerator.Dispose();
         }
-    }
-    finally
-    {
-        foreach(var enumerator in enumerators)
-            enumerator.Dispose();
     }
 }
 ```
@@ -395,44 +428,48 @@ class BehaviorEnumerator
 static IEnumerable<BehaviorStatus> ParallelAll(IEnumerable<BehaviorStatus>[] children)
 {
     ArgumentNullException.ThrowIfNull(children);
+    return GetEnumerable(children);
 
-    var enumerators = new BehaviorEnumerator[children.Length];
-    for (var index = 0; index < enumerators.Length && index < children.Length; index++)
-        enumerators[index] = new BehaviorEnumerator { Instance = children[index].GetEnumerator() };
-
-    try
+    static IEnumerable<BehaviorStatus> GetEnumerable(IEnumerable<BehaviorStatus>[] children)
     {
-        var succeededCounter = 0;
-        while(true)
+        var enumerators = new BehaviorEnumerator[children.Length];
+        for (var index = 0; index < enumerators.Length && index < children.Length; index++)
+            enumerators[index] = new BehaviorEnumerator { Instance = children[index].GetEnumerator() };
+
+        try
         {
-            foreach(var enumerator in enumerators)
+            var succeededCounter = 0;
+            while(true)
             {
-                if(!enumerator.Succeeded)
+                foreach(var enumerator in enumerators)
                 {
-                    enumerator.Instance.MoveNext();
-                    switch(enumerator.Instance.Current)
+                    if(!enumerator.Succeeded)
                     {
-                        case BehaviorStatus.Succeeded:
-                            enumerator.Succeeded = true;
-                            succeededCounter++;
-                            if(succeededCounter == children.Length)
-                            {
-                                yield return BehaviorStatus.Succeeded;
-                            }
-                            break;
-                        case BehaviorStatus.Failed:
-                            yield return BehaviorStatus.Failed;
-                            break;
+                        enumerator.Instance.MoveNext();
+                        switch(enumerator.Instance.Current)
+                        {
+                            case BehaviorStatus.Succeeded:
+                                enumerator.Succeeded = true;
+                                succeededCounter++;
+                                if(succeededCounter == children.Length)
+                                {
+                                    yield return BehaviorStatus.Succeeded;
+                                }
+                                break;
+                            case BehaviorStatus.Failed:
+                                yield return BehaviorStatus.Failed;
+                                break;
+                        }
                     }
                 }
+                yield return BehaviorStatus.Running;
             }
-            yield return BehaviorStatus.Running;
         }
-    }
-    finally
-    {
-        foreach(var enumerator in enumerators)
-            enumerator.Instance.Dispose();
+        finally
+        {
+            foreach(var enumerator in enumerators)
+                enumerator.Instance.Dispose();
+        }
     }
 }
 ```
@@ -462,7 +499,7 @@ var root = Sequence(new []
 });
 ```
 
-The tree is lazily evaluated, meaning it's executed only when the status of the tree root is pulled. In [the example provided in SharpLab](https://sharplab.io/#gist:593a3c8d2d698ea29424b6f2b0bf8c6e), the following approach is employed:
+The tree is lazily evaluated, meaning it's executed only when the status of the tree root is pulled. In [the example provided in SharpLab](https://sharplab.io/#gist:a1edba42d27df7524b9f13c5e9fdfd34), the following approach is employed:
 
 ```csharp
 foreach(var status in root)
@@ -510,4 +547,4 @@ In Unity, the rendering engine also performs a step between each behavioral step
 
 The combination of reusable composite and decorator nodes, orchestrating the logic, alongside input and output leaf nodes, facilitates the construction of intricate behaviors with minimal coupling. Employing `IEnumerable<T>` and the `yield` keyword in C# proves useful for implementing behavior trees, enabling modular and streamlined traversal of coroutines. This approach enhances decoupling, flexibility, and reusability by allowing the creation of behavior tree nodes that yield sequences of statuses.
 
-By leveraging these capabilities, developers can craft robust behavior trees tailored for diverse applications, thereby improving software efficiency, maintainability, and adaptability. Feel free to experiment with [the provided example in SharpLab](https://sharplab.io/#gist:593a3c8d2d698ea29424b6f2b0bf8c6e). Experiment with altering the tree definition and observe the resulting output.
+By leveraging these capabilities, developers can craft robust behavior trees tailored for diverse applications, thereby improving software efficiency, maintainability, and adaptability. Feel free to experiment with [the provided example in SharpLab](https://sharplab.io/#gist:a1edba42d27df7524b9f13c5e9fdfd34). Experiment with altering the tree definition and observe the resulting output.
