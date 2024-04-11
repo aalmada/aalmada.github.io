@@ -15,7 +15,7 @@ redirect_from: /Building-custom-iterators-with-yield-in-csharp.html
 
 On the other hand, an enumerable functions as a factory for enumerators. Each time the `GetEnumerator()` method is called, it produces a new instance of the enumerator.
 
-These methods can be utilized explicitly or implicitly, particularly through the use of a `foreach` loop.
+These methods can be used explicitly or implicitly, particularly through the use of a `foreach` loop.
 
 ## yield return
 
@@ -31,12 +31,12 @@ IEnumerable<int> GetValues()
 
 This method creates a sequence that yields 1, followed by 2, and then concludes. The execution of this method can be understood as follows:
 
-- Execute code until encountering a `yield return` statement or reaching the end of the method.
-- If a `yield return` statement is encountered, the method returns the provided value; otherwise, execution terminates.
-- The next time the method is called, it resumes execution immediately after the previously executed `yield return`.
-- Repeat from step 1.
+1. Start from the beggining of the method.
+2. Execute until encountering a `yield return` statement or reaching the end of the method. If a `yield return` statement is encountered, the method yields the provided value; otherwise, stream terminates.
+3. The next time the stream is pulled from, the method resumes execution immediately after the previously executed `yield return`.
+4. Go to step 2.
 
-In reality, the method is executed only once, returning an instance of an enumerable where the `MoveNext()` method and `Current` property of its enumerator are used to retrieve values.
+In reality, the method is executed only once, returning an instance of an enumerable where the `MoveNext()` method and `Current` property of its enumerator are used to yield the values.
 
 Behind the scenes, the compiler generates the necessary code to implement the required state machine. Utilizing tools like SharpLab, [we can see that the method effectively returns an instance of a class](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEoDchhAZtDAIZgAWAFAG6tQUAlgBcYAWyEA7CgHEYwgGqsANgFcYAZy4BKbYQoGqxAJxcR47fQJliAZgA8gycIB8s+UrWadhAN77DamIqAHYKYitDI2CMMKwrAF8gA===) like the following (simplified for clarity):
 
@@ -106,7 +106,7 @@ sealed class GetValues
 }
 ```
 
-The crucial aspect to understand is how `MoveNext()` operates. It executes based on the current value of the state. In cases where the state is `0` or `1`, it sets the `Current` value, transitions to the next state, and returns `true`. Once state `2` is reached, it transitions to the default state and always returns `false`, indicating that no more values are available.
+The crucial aspect to understand is how `MoveNext()` operates. It performs based on the current value of the state. In cases where the state is `0` or `1`, it sets the `Current` value, transitions to the next state, and returns `true`. Once state `2` is reached, it transitions to the default state and always returns `false`, indicating that no more values are available.
 
 > The `async` and `await` keywords can be explained similarly but return instances of `Task<T>` or `ValueTask<T>` instead of enumerables or enumerators.
 
@@ -121,7 +121,7 @@ static IEnumerable<int> Range(int start, int count)
 }
 ```
 
-This method repeatedly calls `yield return` with different values until the end value is reached, terminating the loop and the method. [You can experiment with it in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBua6gM2hgEMwACwAUAN35QmASwwwAtjLxMASvzwBzGCNpomtMgEpD1JmZa0AnCNkLDnKg1pILAZgA80vBgB8q9Vo23kwAzhiSGHpeGEyQ+BgmVADepuYSUjB4ACZMALyh4VAxANSxEPEO5ky8UuKSTBIANjgweQUR7A38za3uTJlZnU0txcWJVVWstCwA7F09DgC+1EA).
+This method repeatedly calls `yield return` with different values until the end value is reached, terminating the loop and the method. [You can experiment with it and see the generated code in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBua6gM2hgEMwACwAUAN35QmASwwwAtjLxMASvzwBzGCNpomtMgEpD1JmZa0AnCNkLDnKg1pILAZgA80vBgB8q9Vo23kwAzhiSGHpeGEyQ+BgmVADepuYSUjB4ACZMALyh4VAxANSxEPEO5ky8UuKSTBIANjgweQUR7A38za3uTJlZnU0txcWJVVWstCwA7F09DgC+1EA).
 
 Additionally, asynchronous operations can be integrated with `yield`. For instance, `RangeAsync()`:
 
@@ -137,9 +137,9 @@ static async IAsyncEnumerable<int> RangeAsync(int start, int count, int millisec
 }
 ```
 
-In this asynchronous scenario, `async` and `await` are used to pause execution, allowing other parts of the code to proceed during the delay. [You can experiment with it in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBuB51gVk6oYBOJgDNoMAIZgAFgAoAbhKhMAlhhgBbVXiYAlCXgDmMAIIBnAJ54ws2mia0y9x2QCUr6ky8tag2Ws1XfgZaJBYADiYASXMrMABRPBwNGCgJYAAbGAAeFTwMAD49A2NY6398pjMMJQx7PIwmSHw67UaNFQyMlTMYSDwAEzMAERgMiQsPKgBvT29FZRhBpgBeKpqoRoBqJogW/m9RaCYFJSZFDJwYVfXa9nOJS+vspiWB+4urra2pw9mqQ6HIjCIhIAB0o3GFlkHS6PT6EEGIzGEyCc0BPloLAA7A8ngdvABfajEqhAA).
+In this asynchronous scenario, we employ `async` and `await` to implement the `MoveNextAsync()` call without locking, permitting other code segments to execute during the delay. [You can experiment with it in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBuB51gVk6oYBOJgDNoMAIZgAFgAoAbhKhMAlhhgBbVXiYAlCXgDmMAIIBnAJ54ws2mia0y9x2QCUr6ky8tag2Ws1XfgZaJBYADiYASXMrMABRPBwNGCgJYAAbGAAeFTwMAD49A2NY6398pjMMJQx7PIwmSHw67UaNFQyMlTMYSDwAEzMAERgMiQsPKgBvT29FZRhBpgBeKpqoRoBqJogW/m9RaCYFJSZFDJwYVfXa9nOJS+vspiWB+4urra2pw9mqQ6HIjCIhIAB0o3GFlkHS6PT6EEGIzGEyCc0BPloLAA7A8ngdvABfajEqhAA).
 
-You can also apply yield to process other enumerables, as demonstrated by `Select()`:
+You can also apply `yield` to process other enumerables, as demonstrated by this implementation of `Select()`:
 
 ```csharp
 static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
@@ -149,9 +149,9 @@ static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source
 }
 ```
 
-This method projects all items from the source using the provided selector function. [You can experiment with it in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBua6gNwEMomAZwg4oYGEwC8TAEq88AcxgAKWmia0yASk5UAZtBi8wAC2V8BASwwwAtk0t4mAZRgAbGGAzLho8eus7KQA+Bxt7AComEi0taiYElloATmVA2x0uGlokJIBmAB5HDFC5RRVioQx+DAC8DCZIfAw4qgBveMSLJhg8ABMpKpqmAGpGkXrdRKYDAXN+Jj43HAlpQWqoDHZF3mWJAp7+7aWVkZHW6enWWhYAdh293QBfLNZc1kKAFRkYQRw3EoudyeDAFT7OERiGDqb6/f4lZQfMEQvwwUK+KHqIgAVmRkP8TFhfwB6OBXmgrQ6VGmsyMpnmVnCDicGPEF0uCWudyEZIw0DS4UyVBeVGoQA).
+This method uses a `foreach` to retrieve the values provided by the source and yields every value transformed by the `selector`. [You can experiment with it in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBua6gNwEMomAZwg4oYGEwC8TAEq88AcxgAKWmia0yASk5UAZtBi8wAC2V8BASwwwAtk0t4mAZRgAbGGAzLho8eus7KQA+Bxt7AComEi0taiYElloATmVA2x0uGlokJIBmAB5HDFC5RRVioQx+DAC8DCZIfAw4qgBveMSLJhg8ABMpKpqmAGpGkXrdRKYDAXN+Jj43HAlpQWqoDHZF3mWJAp7+7aWVkZHW6enWWhYAdh293QBfLNZc1kKAFRkYQRw3EoudyeDAFT7OERiGDqb6/f4lZQfMEQvwwUK+KHqIgAVmRkP8TFhfwB6OBXmgrQ6VGmsyMpnmVnCDicGPEF0uCWudyEZIw0DS4UyVBeVGoQA). Every pull from this stream, pulls a single value from the source stream.
 
-Lastly, `Where()` can be implemented as follows:
+Also, `Where()` can be implemented as follows:
 
 ```csharp
 static IEnumerable<T> Where<T>(IEnumerable<T> source, Func<T, bool> predicate)
@@ -164,9 +164,9 @@ static IEnumerable<T> Where<T>(IEnumerable<T> source, Func<T, bool> predicate)
 }
 ```
 
-This method returns items from the source for which the predicate function evaluates to true. [You can experiment with it in SharpLab]().
+This method uses a `foreach` to retrieve the values provided by the source and only yields the values for which the `predicate` returned `true`. [You can experiment with it in SharpLab](). This time, every pull from the this stream, pulls multiple values from the source stream, until one value is returned of there are no more values.
 
-> These methods actually have a more complex implementation in LINQ because of multiple optimizations. Check my other article "[LINQ Internals: Speed Optimizations](https://aalmada.github.io/LINQ-internals-speed-optimizations.html)" where I explain the optimizations used.
+> These are basic implementation that help better understand `yield`. The implementation of these methods in LINQ are actually more complex because of multiple possible optimizations. Check my other article "[LINQ Internals: Speed Optimizations](https://aalmada.github.io/LINQ-internals-speed-optimizations.html)" where I explain the optimizations used.
 
 ## yield break
 
@@ -181,7 +181,7 @@ static IEnumerable<T> Empty<T>()
 
 This method returns an empty stream, and it does so by breaking immediately. As a result, the first call to `MoveNext()` will return `false`, indicating that no values are available. [You can experiment with it in SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEUCuA7AHwAEAmABgFgAoUgRmqLIAIjaUBua6gM2hgEMwACwAUAN35QmASwwwAtjLxMAovIAOGAJ4AeaXgwA+EQEoT1JpZa0AnCNkKTnKg1pJrAZh0AVQ6o3aPsbmVADeFlastEzAsPwA1s4AvtRAA===).
 
-Additionally, here's an alternative implementation of the `Range()` method that utilizes `yield break`:
+Additionally, as an example, here's an alternative implementation of the `Range()` method that uses `yield break`:
 
 ```csharp
 static IEnumerable<int> Range(int start, int count)
@@ -206,17 +206,25 @@ This implementation employs an infinite loop with a `yield break` statement to t
 
 In C#, a method employing the `yield` keyword can return either one of the enumerable interfaces (`IEnumerable`, `IEnumerable<T>`, or `IAsyncEnumerable<T>`) or one of the enumerator interfaces (`IEnumerator`, `IEnumerator<T>`, or `IAsyncEnumerator<T>`).
 
-Enumerables act as factories for enumerators, providing a `GetEnumerator()` or `GetAsyncEnumerator()` method that produces a new enumerator instance. This design allows enumerables to be iterated multiple times, generating a new enumerator for each iteration.
+Enumerables act as factories for enumerators, providing a `GetEnumerator()` or `GetAsyncEnumerator()` method that produces a new enumerator instance. This design allows enumerables to be iterated multiple times, generating a new enumerator for each iteration. Enumerator implement the actual pull stream behavior.
 
 The `foreach` loop is applicable only to enumerables, so it is advisable to return an enumerable interface in most cases, ensuring versatility across scenarios. However, when dealing with specific scenarios where a single iteration is guaranteed, returning an enumerator interface is permissible. In such cases, the `foreach` loop is not applicable, and you must explicitly invoke the enumerator methods and properties.
 
-[When returning `IEnumerator`](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEB0AwhADaMxgAuAlhAHYDOA3IUIA3AIZQKMbgFcAtjCii20CgF4KAcRhsAaqMbSYvABQBKQQQDuACw4tjUuQqXQaAWQjCYAORgI2ZqaEFCFUxACcDjLyispQ9NJQsNxs5kJExEgUAJIAotHOcZraegZGZoQA3sGh1MRUAOwUxBahYfUYTVgWAL5AA):
+Here's an example of [when returning `IEnumerator`](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEB0AwhADaMxgAuAlhAHYDOA3IUIA3AIZQKMbgFcAtjCii20CgF4KAcRhsAaqMbSYvABQBKQQQDuACw4tjUuQqXQaAWQjCYAORgI2ZqaEFCFUxACcDjLyispQ9NJQsNxs5kJExEgUAJIAotHOcZraegZGZoQA3sGh1MRUAOwUxBahYfUYTVgWAL5AA):
 
 ```csharp
 var enumerator = GetValues();
-while(enumerator.MoveNext())
+try
 {
-    Console.WriteLine(enumerator.Current);
+    while(enumerator.MoveNext())
+    {
+        Console.WriteLine(enumerator.Current);
+    }
+}
+finally
+{
+    if (enumerator is IDisposable disposable)
+        disposable.Dispose();
 }
 
 static IEnumerator GetValues()
@@ -226,7 +234,9 @@ static IEnumerator GetValues()
 }
 ```
 
-[When returning `IEnumerator<T>`](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEoDchZOAFAG4CGUFMAdgK4C2MKGwAu0CgF4KAcRgiAamwA2vGAGcmASk2EA3oQqGKAdwAWASyUwmPAUNHQAdAFkILGADkYCEVp0EjQKpiAE4bPkFhMShHAGFeKFhuEU16AgBfBiJiJAoASQBRCPtogB5zZIA+GTlFFXUtPQMjamIqAHYKYjTA1o6KLDT0oA==):
+Just invoke `MoveNext()` within a while loop and retrieve the value returned by `Current`. It's usually advisable to verify if the enumerator is disposable and dispose it after the iteration is complete. The `finally` block ensures this happens even if the `while` block throws an exception.
+
+Here's an example of [when returning `IEnumerator<T>`](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEoDchZOAFAG4CGUFMAdgK4C2MKGwAu0CgF4KAcRgiAamwA2vGAGcmASk2EA3oQqGKAdwAWASyUwmPAUNHQAdAFkILGADkYCEVp0EjQKpiAE4bPkFhMShHAGFeKFhuEU16AgBfBiJiJAoASQBRCPtogB5zZIA+GTlFFXUtPQMjamIqAHYKYjTA1o6KLDT0oA==):
 
 ```csharp
 using(var enumerator = GetValues())
@@ -244,7 +254,9 @@ static IEnumerator<int> GetValues()
 }
 ```
 
-[When returning `IAsyncEnumerator<T>`](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEoDcZl1ArPQYQG4CGUFMAdgFcAtjCicALtAoBeCgHEY4gGqcANgJgBnABQBKVhgCcVHNv7DRE6ADoAwhD4AzAJYBzAbACCAd07Px2o5qmjC6uoQA3oQUMRTeABbOqjDaRryCImKSUNYAshDsMAByMAjinpoAnnxgenYOLu5evv6BwaHhBLHdVMSGZhmW2XYesHzi+oQAvoRkABwUAJIV1WAAooNZ0AA8zuMAfPKKKupaepHRsdTEVADsFMSs3WkYSNYAIjCqnJXaxLr1JxuDwwHx+AJBVQhSZdK7EG4Ye5YVhTIA=):
+`IEnumerator<T>` inherits from `IDisposable`, ensuring the enumerator is always disposable. A `using` block can be used to guarantee the dispose of the enumerator.
+
+Here's an example of [when returning `IAsyncEnumerator<T>`](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIRjgAQbEoDcZl1ArPQYQG4CGUFMAdgFcAtjCicALtAoBeCgHEY4gGqcANgJgBnABQBKVhgCcVHNv7DRE6ADoAwhD4AzAJYBzAbACCAd07Px2o5qmjC6uoQA3oQUMRTeABbOqjDaRryCImKSUNYAshDsMAByMAjinpoAnnxgenYOLu5evv6BwaHhBLHdVMSGZhmW2XYesHzi+oQAvoRkABwUAJIV1WAAooNZ0AA8zuMAfPKKKupaepHRsdTEVADsFMSs3WkYSNYAIjCqnJXaxLr1JxuDwwHx+AJBVQhSZdK7EG4Ye5YVhTIA=):
 
 ```csharp
 var enumerator = GetValues();
@@ -264,11 +276,11 @@ async IAsyncEnumerator<int> GetValues()
 }
 ```
 
-These examples illustrate the usage of `IEnumerator`, `IEnumerator<T>`, and `IAsyncEnumerator<T>`, emphasizing the appropriate scenarios for each.
+Both `MoveNextAsync()` and `DisposeAsync()` are asynchronous methods. The `await` keyword should be used as demonstrated in the example.
 
 ## Lazy Evaluation
 
-As mentioned earlier, when a method utilizes the `yield` keyword, it generates an enumerable instance. The code within the method is executed only when the `MoveNext()` method of the enumerator is invoked, a concept known as "lazy evaluation."
+As mentioned earlier, when a method uses the `yield` keyword, it generates an enumerable instance. The code within the method is executed only when the `MoveNext()` method of the enumerator is invoked, a concept known as "lazy evaluation."
 
 Understanding this behavior is crucial when dealing with parameter validation. Let's consider the following code:
 
@@ -378,7 +390,7 @@ IEnumerator Fade()
 }
 ```
 
-This coroutine smoothly decreases the alpha value of a material color by `0.1` every `0.1` seconds. It begins at `1.0` and ends at `0.0`. Importantly, this process is unaffected by the framerate, ensuring consistent execution across various frames and rendering speeds.
+This coroutine smoothly decreases the alpha value of a material color by `0.1` every `0.1` seconds. It begins at `1.0` and ends at `0.0`. Importantly, as this coroutine uses a timer, it's unaffected by the framerate, ensuring consistent execution across various frames and rendering speeds.
 
 ## Behavior Trees
 
@@ -388,7 +400,7 @@ A behavior tree essentially comprises multiple nodes arranged in a tree structur
 
 A node with multiple children is known as a **composite node**, with one child is known as a **decorator node**, and a node with no children is known as a **leaf node**. Nodes with children are responsible for appropriately invoking the `MoveNext()` method of their children modules. In contrast, leaf modules perform specific, often application-customized, simple tasks. The hierarchical composition of multiple modules as a tree allows for the creation of complex tasks through their combination.
 
-NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with IEnumerable<T> and Yield"](https://aalmada.github.io/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
+> NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with IEnumerable<T> and Yield"](https://aalmada.github.io/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
 
 ## Conclusions
 
