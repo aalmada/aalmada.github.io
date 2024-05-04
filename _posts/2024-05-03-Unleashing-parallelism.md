@@ -282,7 +282,7 @@ AMD Ryzen 9 7940HS w/ Radeon 780M Graphics, 1 CPU, 16 logical and 8 physical cor
 OutlierMode=DontRemove  MemoryRandomization=True
 ```
 
-The benchmarks were conducted for both `int` and `float` types, using spans containing 111,111 elements.
+The benchmarks were conducted for both `int` and `float` types, using spans containing 111,111 elements. This a large enough to make multi-threading usefull and it's an odd number so that all code paths are executed.
 
 Additionally, benchmarks were performed under various SIMD availability scenarios: Scalar (SIMD unavailable), 128-bit SIMD, 256-bit SIMD, and 512-bit SIMD.
 
