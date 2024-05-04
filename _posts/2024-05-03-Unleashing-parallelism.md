@@ -198,6 +198,24 @@ Once more, there may be remaining elements that don't align with a complete `Vec
 
 The benchmarks below conclusively demonstrate the significantly improved efficiency of this code.
 
+## Tensors
+
+As evident from the complexity of the code, implementing and maintaining such operations for each function can be burdensome. Thankfully, there are libraries available that streamline this process by utilizing value-type delegates.
+
+[System.Numerics.Tensors](https://www.nuget.org/packages/System.Numerics.Tensors) is a NuGet library developed and maintained by the .NET team. It incorporates many of the operations discussed above that can be performed on spans. For example, addition operations can be invoked as follows:
+
+```csharp
+TensorPrimitives.Add<int>(sourceInt32, otherInt32, resultInt32);
+```
+
+[NetFabric.Numerics.Tensors](https://netfabric.github.io/NetFabric.Numerics.Tensors/articles/intro.html), an alternative developed by me, arose from the initial limitations of System.Numerics.Tensors regarding native scalar types. While `System.Numerics.Tensors` is set to support these types in future releases, `NetFabric.Numerics.Tensors` currently offers broader support and facilitates the development of custom operations.
+
+Similarly, it supports addition operations, which can be called as follows:
+
+```csharp
+TensorOperations.Add<int>(sourceInt32!, otherInt32!, resultInt32!);
+```
+
 ## Multi-core CPUs
 
 Most modern CPUs provide multiple cores. The code as implemented previoulsy will make use of only one of the cores. The operation that we are implementing is highly parallelizable as there are no element dependencies. The spans can be sliced and each slice processed by a different core.
@@ -215,7 +233,7 @@ static void Parallel_For<T>(T[] left, T[] right, T[] destination)
 In this scenario, the issue arises from the fact that a lambda expression is passed as a parameter and applied to each element. As a result, SIMD cannot be used. An alternative approach involves applying the lambda expression to slices of the spans, requiring a different strategy.
 
 ```csharp
-static void Parallel_Invoke_SIMD<T>(ReadOnlyMemory<T> left, ReadOnlyMemory<T> right, Memory<T> destination)
+static void Parallel_Invoke_System_Numerics_Tensors<T>(ReadOnlyMemory<T> left, ReadOnlyMemory<T> right, Memory<T> destination)
     where T : struct, IAdditionOperators<T, T, T>
 {
     const int minChunkCount = 4;
@@ -226,7 +244,7 @@ static void Parallel_Invoke_SIMD<T>(ReadOnlyMemory<T> left, ReadOnlyMemory<T> ri
     if (coreCount >= minChunkCount && left.Length > minChunkCount * minChunkSize)
         ParallelApply(left, right, destination, coreCount);
     else
-        For_SIMD(left.Span, right.Span, destination.Span);
+        TensorPrimitives.Add(left.Span, right.Span, destination.Span);
 
     static void ParallelApply(ReadOnlyMemory<T> left, ReadOnlyMemory<T> right, Memory<T> destination, int coreCount)
     {
@@ -244,7 +262,7 @@ static void Parallel_Invoke_SIMD<T>(ReadOnlyMemory<T> left, ReadOnlyMemory<T> ri
             var leftSlice = left.Slice(start, length);
             var rightSlice = right.Slice(start, length);
             var destinationSlice = destination.Slice(start, length);
-            actions[index] = () => For_SIMD(leftSlice.Span, rightSlice.Span, destinationSlice.Span);
+            actions[index] = () => TensorPrimitives.Add(leftSlice.Span, rightSlice.Span, destinationSlice.Span);
 
             start += length;
         }
@@ -257,11 +275,13 @@ Multi-threading can significantly boost performance when processing large datase
 
 Please note that the method parameters are now of type `Memory<T>` instead of `Span<T>`. This change is due to the fact that `Span<T>` is a `ref struct`, meaning it is a value type that can only exist on the stack. It cannot be boxed. The creation of closures for the actions requires the use of reference types, which `Memory<T>` provides.
 
-The internal method `ParallelApply()` orchestrates the threading logic. It's invoked only if the CPU core count equals or exceeds the minimum thread count and if the span length contains sufficient data to fill the minimum number of threads with the minimum number of elements. Otherwise, the single-threaded `For_SIMD()` method is used.
+The internal method `ParallelApply()` orchestrates the threading logic. It's invoked only if the CPU core count equals or exceeds the minimum thread count and if the span length contains sufficient data to fill the minimum number of threads with the minimum number of elements. Otherwise, the single-threaded `TensorPrimitives.Add()` method provided by `System.Numerics.Tensors` is used.
 
-Internally, `ParallelApply()` leverages `Parallel.Invoke()` to execute actions concurrently. It generates a maximum number of actions equal to the CPU core count, slicing the spans so that each action handles a distinct portion. However, it may generate fewer actions than cores if there isn't enough data to warrant additional threads. Each action then calls the `For_SIMD()` method on its assigned slice.
+Internally, `ParallelApply()` leverages `Parallel.Invoke()` to execute actions concurrently. It generates a maximum number of actions equal to the CPU core count, slicing the spans so that each action handles a distinct portion. However, it may generate fewer actions than cores if there isn't enough data to warrant additional threads. Each action then calls the `TensorPrimitives.Add()` method on its assigned slice.
 
 Our latest implementation fully leverages modern CPU parallelization techniques. This integration optimizes performance by employing SIMD operations, threading, and efficient data processing strategies. This approach accelerates processing speed and resource use, making it ideal for handling demanding computational tasks.
+
+> Alternatively, you can use the `TensorOperations.Add()` method from the `NetFabric.Numerics.Tensors` library. I am actively enhancing this library to seamlessly integrate multi-threading support, simplifying the utilization of multi-threading for any span operation.
 
 ## Benchmarks
 
@@ -362,6 +382,6 @@ The benchmarks demonstrate an improvement at each stage of the implementation. W
 
 The complexity can be reduced by using libraries like [System.Numerics.Tensors](https://www.nuget.org/packages/System.Numerics.Tensors) or [NetFabric.Numerics.Tensors](https://www.nuget.org/packages/NetFabric.Numerics.Tensors), which make use of value-type delegates so that code similar to that shown in this article can be reused.
 
-Despite the CPU's multiple cores, the performance gains from multi-threading appear limited.
+Despite the CPU large number of cores used, the performance gains from multi-threading appear limited and I do not yet understand why.
 
 Feedback and suggestions for improving the article's content are appreciated.
