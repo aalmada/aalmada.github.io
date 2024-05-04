@@ -202,13 +202,13 @@ The benchmarks below conclusively demonstrate the significantly improved efficie
 
 As evident from the complexity of the code, implementing and maintaining such operations for each function can be burdensome. Thankfully, there are libraries available that streamline this process by utilizing value-type delegates.
 
-[System.Numerics.Tensors](https://www.nuget.org/packages/System.Numerics.Tensors) is a NuGet library developed and maintained by the .NET team. It incorporates many of the operations discussed above that can be performed on spans. For example, addition operations can be invoked as follows:
+[System.Numerics.Tensors](https://www.nuget.org/packages/System.Numerics.Tensors) is a NuGet package developed and maintained by the .NET team. It implements many span operations using the patterns discussed above. For example, addition operations can be invoked as follows:
 
 ```csharp
 TensorPrimitives.Add<int>(sourceInt32, otherInt32, resultInt32);
 ```
 
-[NetFabric.Numerics.Tensors](https://netfabric.github.io/NetFabric.Numerics.Tensors/articles/intro.html), an alternative developed by me, arose from the initial limitations of System.Numerics.Tensors regarding native scalar types. While `System.Numerics.Tensors` is set to support these types in future releases, `NetFabric.Numerics.Tensors` currently offers broader support and facilitates the development of custom operations.
+[NetFabric.Numerics.Tensors](https://netfabric.github.io/NetFabric.Numerics.Tensors/articles/intro.html), an alternative developed by me, arose from the initial limitations of `System.Numerics.Tensors` regarding native scalar types. While it is set to support these types in future releases, `NetFabric.Numerics.Tensors` currently offers broader support and facilitates the development of custom operations.
 
 Similarly, it supports addition operations, which can be called as follows:
 
