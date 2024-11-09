@@ -11,7 +11,7 @@ category: development
 redirect_from: /How-to-use-Span-and-Memory.html
 ---
 
-> NOTE: I highly suggest to also check how to use [System.Threading.Channels](https://devblogs.microsoft.com/dotnet/an-introduction-to-system-threading-channels/). It’s a feature introduced after this article was published and that allows a better implementation of the patterns shown in the examples of this article.
+> NOTE: I highly suggest to also check how to use [System.IO.Pipelines in .NET](https://learn.microsoft.com/en-us/dotnet/standard/io/pipelines). It’s a feature introduced after this article was published and that allows a better implementation of the patterns shown in the examples of this article.
 
 `Span<T>` and `Memory<T>` are new features in .NET Core 2.1 that allow strongly-typed management of contiguous memory, independently of how it was allocated. These allow easier to maintain code and greatly improves the performance of applications by reducing the number of required memory allocations and copies.
 
