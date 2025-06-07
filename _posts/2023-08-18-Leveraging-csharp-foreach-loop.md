@@ -63,7 +63,7 @@ class MyCollection
 }
 ```
 
-> The enumerator should always be a struct (a value-type) for improved performance! Check my other article "[Performance of value-type vs reference-type enumerators in C#](https://www.linkedin.com/pulse/performance-value-type-vs-reference-type-enumerators-ant%C3%A3o-almada?lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3BACD%2BUgenSQC%2FUZMFSw%2BoCQ%3D%3D)" to understand why.
+> The enumerator should always be a struct (a value-type) for improved performance! Check my other article "[Performance of value-type vs reference-type enumerators in C#](https://aalmada.github.io/posts/Value-type-vs-reference-type-enumerables/)" to understand why.
 
 The compiler converts the C# code into [Intermediate Language (IL)](https://en.wikipedia.org/wiki/Common_Intermediate_Language). There is no `foreach` instruction in IL. [Using SharpLab, you can see that in this case the `foreach` is converted to something equivalent to the following](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA+ABATABgLABQ2AjIYQG4CGUABAM4QCuUYMNAvDQHYwDuNAWQCeAYQgAbcTDAAXAJYQuACh68A2gF0aAbxwAaGsQNYDAZgMoAvgEoA3IQBm0GJTAALJVVpyZMALY0clz0TCww1oQ0UTQYxACcSj7+dmREWIKiElKyClyE2pHRsJQAJoriQoFcMpohzKz2BNE0hVEYphliktLyionVtQz14a3NHAB8NDJucnQAdENhHHVhjc2j7TQAolyMfjBQlDLQNADiMDI7ewdH0EoRTWNR7JOq27v7h8dQStOzKY8ohsOnQZFBGLJ3tcvtBRgVAWNimUuBUqjUtIsGqNmkEZFUSjAEGsni0Ec1NldPrcfsIutlesEYB8bsApA8STpsSTMWxOEzoZRWTAFqEsWSSUECQhlnBiMSnpYuUDxW0OriaCJmLBqqSOc0XitWGpJYSNPKxkqYh1gBAJIIIOQYAA5Qkye6W/WTADUXpN0oAPIbhQAZJkAc2m5sVBGjhCAA===):
 
