@@ -9,6 +9,7 @@ image: EstacaoOriente.jpeg
 tags: [development, .net, csharp, generics, simd, math, intrinsics, performance]
 category: development
 redirect_from: /A-generic-tensor-library-for-dotnet.html
+meta_description: "Discover a reusable, high-performance generic tensor library for .NET, leveraging SIMD and span operations for efficient mathematical computations."
 ---
 
 > EDIT: Revised the content to align with the changes introduced in [version 2](https://www.nuget.org/packages/NetFabric.Numerics.Tensors) of `NetFabric.Numerics.Tensors`.
@@ -372,7 +373,7 @@ public static void Add<T>(ReadOnlySpan<MyVector2<T>> left, ReadOnlySpan<MyVector
 
 I conducted benchmarks for various operations on the following system:
 
-```
+``` text
 BenchmarkDotNet v0.13.12, Windows 11 (10.0.22631.3007/23H2/2023Update/SunValley3)
 AMD Ryzen 9 7940HS w/ Radeon 780M Graphics, 1 CPU, 16 logical and 8 physical cores
 .NET SDK 8.0.101
@@ -397,7 +398,7 @@ Every benchmark encompassed four distinct jobs:
 - `Vector256` - utilizing 256-bit SIMD support
 - `Vector512` - utilizing 512-bit SIMD support
 
-The full benchmarking source code can be found [here](https://github.com/NetFabric/NetFabric.Numerics.Tensors/tree/main/src/NetFabric.Numerics.Tensors.Benchmarks).
+You can find the full benchmarking source code in [the NetFabric.Numerics.Tensors.Benchmarks GitHub repository](https://github.com/NetFabric/NetFabric.Numerics.Tensors/tree/main/src/NetFabric.Numerics.Tensors.Benchmarks).
 
 ### Add
 

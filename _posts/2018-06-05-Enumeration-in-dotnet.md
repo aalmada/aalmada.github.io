@@ -9,6 +9,7 @@ image: Paintball.jpeg
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet.html
+meta_description: "A deep dive into enumeration in .NET, covering IEnumerable, IEnumerator, best practices, performance pitfalls, lazy evaluation, and how to write efficient and maintainable collection code."
 ---
 
 All .NET developers know and use [`IEnumerable`](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) but when reviewing code I’ve found that many fall into the same pitfalls, resulting in applications with easily avoidable performance issues.
@@ -21,9 +22,9 @@ All .NET developers know and use [`IEnumerable`](https://docs.microsoft.com/en-u
 
 Enumeration in .NET is based on two very simple interfaces: `IEnumerable` and `IEnumerator`. There is a non-generic and a generic version for each but lets now focus only on their roles.
 
-> `IEnumerable` is simply a factory of `IEnumerators` — Its only method `GetEnumerator()`, returns a new instance of an object that implements `IEnumerator`.
+> `IEnumerable` is simply a factory of `IEnumerators` — its only method, `GetEnumerator()`, returns a new instance of an object that implements `IEnumerator`.
 
-> `IEnumerator` performs the enumeration — The method `MoveNext()` advances the enumeration to the next position and the `Current` property returns the value for that position. The `Reset()` method is provided for COM interoperability and it may not be supported by the collection.
+> `IEnumerator` performs the enumeration — the method `MoveNext()` advances the enumeration to the next position and the `Current` property returns the value for that position. The `Reset()` method is provided for COM interoperability and may not be supported by all collections.
 
 Given these interfaces, these are some important points to highlight:
 

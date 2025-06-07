@@ -9,6 +9,7 @@ image: Stormy-sunset.jpeg
 tags: [development, .net, csharp, reflection]
 category: development
 redirect_from: /Handling-enumerables-using-reflection.html
+meta_description: "Understand how to work with enumerables using .NET reflection, including runtime type inspection, foreach requirements, and practical tips for dynamic code scenarios."
 ---
 
 .NET Reflection is a dynamic mechanism that allows developers to inspect and interact with the metadata and behaviour of types, objects, and assemblies at runtime. This enables tasks like discovering types, accessing their properties and methods, and creating instances without having explicit compile-time knowledge. Reflection is a powerful tool for scenarios where you need to work with code in a flexible and adaptive manner.

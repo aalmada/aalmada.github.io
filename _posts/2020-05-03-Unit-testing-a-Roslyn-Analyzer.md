@@ -9,6 +9,7 @@ image: PracaComercio.jpg
 tags: [development, .net, csharp, roslyn, analyzer, unit testing]
 category: development
 redirect_from: /Unit-testing-a-Roslyn-Analyzer.html
+meta_description: "A practical guide to unit testing Roslyn analyzers in .NET. Learn how to structure test data, use IDE tools, avoid common pitfalls, and write maintainable tests for code analyzers and code fixers."
 ---
 
 I’ve been writing here many stories about enumeration in .NET. I know it’s hard to remember everything, specially when developing large projects with several other developers. I decided to develop [NetFabric.Hyperlinq.Analyzer](https://github.com/NetFabric/NetFabric.Hyperlinq.Analyzer) that peer reviews the code while it’s typed. I actually use it myself to develop [NetFabric.Hyperlinq](https://github.com/NetFabric/NetFabric.Hyperlinq).
@@ -70,7 +71,7 @@ Notice that it applies the analyzer and the code fixer to source code strings. I
 
 An workaround is to have another project and copy/paste the source between files. I find this to be too cumbersome.
 
-# Adding the test sources to the unit tests project
+## Adding the test sources to the unit tests project
 
 I came up with this idea while developing another project that I spun-off from the analyzer. The [NetFabric.CodeAnalysis](https://github.com/NetFabric/NetFabric.CodeAnalysis) repository is used to generate two NuGet packages:
 
@@ -85,7 +86,7 @@ For the case of the analyzer, I added a folder TestData to my unit testing proje
 
 Once the files are added, they become part of the project and are compiled just like any other source file. One thing you’ll have to worry about now is naming conflicts. To avoid this, I use namespaces with the base name equal to the diagnostic identifier, which should be unique by definition.
 
-# Using the source files for unit testing
+## Using the source files for unit testing
 
 The classes `DiagnosticVerifier` and `CodeFixVerifier` used to validate the diagnostics are prepared to receive source strings. We now need to change the testing code to use the files.
 
@@ -145,7 +146,7 @@ Notice also the use of `File.ReadAllText(path)` so that the file is loaded and i
 
 Having simple tests that report only one diagnostic makes it easier to debug. There won’t be multiple threads running at the same time.
 
-# Relative paths
+## Relative paths
 
 It’s important that the build and tests can be executed anywhere the repository is cloned into. Including any continuous-integration agent.
 
@@ -161,7 +162,7 @@ I added the following to the unit tests `.csproj` file:
 
 This copies all the `.cs` files under the `TestData` folder, maintaining the folder structure and still compiling during build. This allows the use of relative paths for the test source code files.
 
-# Excluding files
+## Excluding files
 
 I found two reasons to have source files excluded from the build:
 
@@ -188,7 +189,7 @@ This guarantees that the `.Fix.cs` files are not compiled but still copied on bu
 
 Please note that after this, when a new file is added, Visual Studio will override these settings for this new file. You’ll have to delete what’s added to the `.csproj` file.
 
-# Sharing code
+## Sharing code
 
 The test verifiers create an internal project where the source strings are added as documents:
 
@@ -256,7 +257,7 @@ public class RefEnumerationVariableAnalyzerTests : CodeFixVerifier
 }
 ```
 
-# Conclusion
+## Conclusion
 
 It’s possible to take advantage of the IDE tools to develop the source code used to test an analyzer.
 

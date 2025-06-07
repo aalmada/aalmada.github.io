@@ -9,6 +9,7 @@ image: Alcantara.jpg
 tags: [development, .net, csharp, simd, intrinsics, unit testing, benchmarking]
 category: development
 redirect_from: /Unit-testing-and-benchmarking-SIMD-in-dotnet.html
+meta_description: "A guide to unit testing and benchmarking SIMD in .NET, covering hardware support, test strategies, and performance measurement for vectorized code."
 ---
 
 Single Instruction, Multiple Data (SIMD) is a technique used in computer architecture that allows for parallel processing on multiple data elements simultaneously. I've touched on the advantages of SIMD and its implementation in .NET in a [previous article](https://aalmada.github.io/posts/SIMD-in-dotnet/).
@@ -17,7 +18,7 @@ The performance of SIMD depends on the hardware that the application is running 
 
 However, this doesn't mean that these tests have to be carried out on separate physical systems. These features can be disabled via software by modifying environment variables. This article mainly focuses on identifying the variables that need to be modified and how to do so during local unit testing, continuous integration pipeline testing, and performance testing.
 
-# Environment Variables
+## Environment Variables
 
 .NET provides the ability to disable hardware features using the environment variables listed below:
 
@@ -48,11 +49,11 @@ Keep in mind that these variables only provide the option to disable features. I
 
 Keep in mind that `Vector<T>` will consistently utilize the maximum bit count available, while the availability of `Vector128<T>`, `Vector256<T>`, and `Vector512<T>` depends on the supported bit count and may be enabled or disabled accordingly.
 
-# Unit Testing
+## Unit Testing
 
 There are various methods to execute unit tests in .NET. In this section, I will discuss the ones that I have used and successfully configured to handle multiple scenarios.
 
-## Utilizing a `.runsettings` File to Configure Unit Tests
+### Utilizing a `.runsettings` File to Configure Unit Tests
 
 A `.runsettings` file can be employed to control how unit tests are run. This allows for [the adjustment of various settings](https://learn.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file), including environment variables.
 
@@ -117,7 +118,7 @@ I append a suffix `_` to the file names just to make it easier to locate them in
 
 In the following sections, I will explain how to utilize these files in various development environments.
 
-## Visual Studio
+### Visual Studio
 
 Visual Studio has the capability to automatically detect a `.runsettings` file and utilize it when executing unit tests. However, in instances where multiple `.runsettings` files are present, manual selection of the desired file is required.
 
@@ -125,7 +126,7 @@ To do this in the IDE, navigate to `Test > Configure Run Settings > Select Solut
 
 You can now execute the unit tests using the settings from the selected file.
 
-## Command Line
+### Command Line
 
 You can run the unit tests from the command line by using the `dotnet test` command. This comes in handy when working with Visual Studio Code or when configuring continuous integration pipelines.
 
@@ -141,7 +142,7 @@ The `dotnet test` command can also accommodates the use of `.runsettings` files 
 dotnet test -s:_Vector128.runsettings
 ```
 
-# Performance Testing
+## Performance Testing
 
 For .NET performance testing, I consistently utilize [BenchmarkDotNet](https://benchmarkdotnet.org/). It's a tool that not only provides precise results but is also user-friendly.
 
@@ -261,7 +262,7 @@ public class SumBenchmarks
 
 Outputs the following:
 
-```
+``` text
 BenchmarkDotNet v0.13.12, Windows 11 (10.0.22631.3007/23H2/2023Update/SunValley3)
 AMD Ryzen 9 7940HS w/ Radeon 780M Graphics, 1 CPU, 16 logical and 8 physical cores
 .NET SDK 8.0.101

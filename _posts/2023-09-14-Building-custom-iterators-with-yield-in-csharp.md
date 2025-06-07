@@ -9,6 +9,7 @@ image: Yield.png
 tags: [development, .net, csharp, yield]
 category: development
 redirect_from: /Building-custom-iterators-with-yield-in-csharp.html
+meta_description: "Learn how to build custom iterators in C# using the 'yield' keyword, including state machine implementation, enumerator patterns, and practical use cases for foreach."
 ---
 
 [As detailed in a previous article](https://aalmada.github.io/IEnumerable-and-pals.html), an enumerator serves as a representation of a pull stream. To obtain the next item, clients must invoke the `MoveNext()` method. If it returns`true`, it indicates a successful retrieval, and the value can be accessed through the `Current` property. The enumerator is typically implemented as a state machine, encompassing information about the current position within the stream and the current value.
@@ -308,7 +309,7 @@ foreach(var item in range)
 
 The output is:
 
-```
+``` text
 start
 entering loop
 System.ArgumentException: count must not be negative
@@ -342,7 +343,7 @@ In this updated code, the portion of the method that is lazily evaluated has bee
 
 The output for the previous test code is now:
 
-```
+``` text
 start
 System.ArgumentException: count must not be negative
    at Program.<<Main>$>g__Range|0_0(Int32 start, Int32 count)+MoveNext()
@@ -400,7 +401,7 @@ A behavior tree essentially comprises multiple nodes arranged in a tree structur
 
 A node with multiple children is known as a **composite node**, with one child is known as a **decorator node**, and a node with no children is known as a **leaf node**. Nodes with children are responsible for appropriately invoking the `MoveNext()` method of their children modules. In contrast, leaf modules perform specific, often application-customized, simple tasks. The hierarchical composition of multiple modules as a tree allows for the creation of complex tasks through their combination.
 
-> NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with IEnumerable<T> and Yield"](https://aalmada.github.io/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
+> NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with `IEnumerable<T>` and `Yield`"](https://aalmada.github.io/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
 
 ## Conclusions
 

@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20240404
 image: Obidos.jpg
 tags: [development, .net, csharp, yield]
 category: development
+meta_description: "A practical guide to building behavior trees in C# using IEnumerable<T> and yield, with examples for game AI and robotics."
 ---
 
 Coroutines are commonly defined as [functions capable of pausing and resuming execution](https://en.wikipedia.org/wiki/Coroutine). Managing these requires employing state machines, easily implemented through the use of the `yield` keyword. However, a challenge arises when composing multiple reusable coroutines, a problem addressed by the concept of behavior trees.

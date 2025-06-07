@@ -9,6 +9,7 @@ image: Casa-do-Alentejo.jpg
 tags: [development, .net, csharp, performance]
 category: development
 redirect_from: /Leveraging-csharp-foreach-loop.html
+meta_description: "Learn how C#'s foreach loop works under the hood, including compiler-generated code, performance tips, and best practices for custom collections. Improve your understanding of efficient data processing in .NET."
 ---
 
 In the dynamic landscape of modern software development, efficient data processing lies at the core of creating high-performance applications. As developers, we constantly strive to balance readability, maintainability, and speed when writing code. In the realm of C#, a programming language known for its versatility and robustness, the `foreach` loop emerges as a powerful tool for seamlessly navigating collections.
@@ -395,7 +396,7 @@ It uses the value type enumerator. It will only use the reference-type enumerato
 
 > All collections provided by .NET provide a value-type enumerator. You should do the same if you implement your own collection.
 
-## IEnumerable<T>
+## `IEnumerable<T>` and `IEnumerator<T>`
 
 `IEnumerable<T>` and `IEnumerator<T>` extend the pair of interfaces `IEnumerable` and `IEnumerator` to specify the type of item returned by the `Current` property.
 
@@ -558,7 +559,7 @@ while (enumerator.MoveNext())
 
 The advantage is that without the `try`/`finally` blocks the JIT compiler may be able to perform more optimizations resulting in better performance.
 
-## Arrays and Span<T>
+## Arrays and `Span<T>`
 
 Arrays and `Span<T>` are types of collections where the data is stored in a contiguous portion of memory. These are exceptions on how `foreach` deals with them. Instead of using an enumerator, it uses the indexer which performs much better.
 
@@ -582,7 +583,7 @@ Both `Span<T>` and `ReadOnlySpan<T>` support passing items by reference. Don't f
 
 > [I've implemented a Roslyn Analyzer](https://github.com/NetFabric/NetFabric.Hyperlinq.Analyzer) that includes a rule that warns you when ref and ref readonly can be used. Install it to get this and several many other rules related to the used of foreach.
 
-# Conclusions
+## Conclusions
 
 `foreach` has a very simple and clear syntax. We saw here that the C# compiler adapts the generated code to the type of collection.
 

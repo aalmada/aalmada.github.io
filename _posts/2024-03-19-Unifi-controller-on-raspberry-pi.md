@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20240319
 image: Pears.jpg
 tags: [network, ubiquiti, unifi, docker, portainer, raspberry pi]
 category: network
+meta_description: "Step-by-step guide to deploying UniFi Controller on Raspberry Pi using Portainer, including setup, migration, and best practices for home networks."
 ---
 
 For years, my home network has relied on [Ubiquiti UniFi](https://www.ui.com/), delivering seamless connectivity across every corner of the house. Its robust suite of features provides exceptional network management tools, ensuring a secure environment with regular software updates. A standout capability is its ability to segregate IoT and guest devices into isolated SSIDs and networks, bolstering overall network security and organization.
@@ -86,7 +87,7 @@ Once the configuration is set, click **Deploy the stack**. The deployment proces
 
 Once completed, the controller web interface will be available at `https://<IPADDRESS>:8443`, where `<IPADDRESS>` should be replaced with the IP address of your Raspberry Pi. There you can reconfigure the controller using a backup of an preexisting controller. Otherwise; login or create and account and configure the controller from scratch.
 
-Once you configure the controller, don't forget to assign a static address to the Raspberry Pi to avoid it changing address under the new configuration. To do this, go to the **Client Devices**, press on the line containing the Raspberry Pi info, press the cog wheel **Settings** button and check the **Fix IP Address** option. 
+Once you configure the controller, don't forget to assign a static address to the Raspberry Pi to avoid it changing address under the new configuration. To do this, go to the **Client Devices**, press on the line containing the Raspberry Pi info, press the cog wheel **Settings** button and check the **Fix IP Address** option.
 
 ## Installing Glances
 
@@ -109,7 +110,7 @@ services:
       - 7300:61208
 
     environment:
-      - TZ=${TZ} 
+      - TZ=${TZ}
       - GLANCES_OPT=-w # run as a web server
 
     pid: host
@@ -117,7 +118,7 @@ services:
     restart: unless-stopped
 
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro 
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 ```
 
 Click on the **Add environment variable** button. Set the **name** to `TZ` and input your local time-zone identifier as the **value**. You can find the appropriate values in the **TZ identifier** column of the Wikipedia page titled [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).

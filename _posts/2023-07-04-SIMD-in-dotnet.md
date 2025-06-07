@@ -9,6 +9,7 @@ image: Margarida.jpg
 tags: [development, .net, csharp, performance, math, simd, intrinsics]
 category: development
 redirect_from: /SIMD-in-dotnet.html
+meta_description: "Learn how to use SIMD in .NET for high-performance data processing, with practical examples, vectorization, and custom library tips."
 ---
 
 ## What is SIMD?
@@ -267,7 +268,7 @@ Lets now benchmark it against the basic implementation of `Sum(IEnumerable<T>)` 
 
 The benchmark compares the following scenarios:
 
-- A List<float> with 10 and 10,000 items,
+- A `List<float>` with 10 and 10,000 items,
 - .NET 7 and .NET 8,
 - With no SIMD support (Scalar), only Vector128 support (Vector128) and with Vector256 support (Vector256).
 

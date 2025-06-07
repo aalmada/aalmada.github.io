@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20240422
 image: WASD.jpg
 tags: [network, security, ubiquiti, unifi, vlan]
 category: network
+meta_description: "Learn how to maximize network security by leveraging multiple VLANs with UniFi hardware, including setup, best practices, and guest network management."
 ---
 
 Many household utility devices today rely on internet access to function fully. From washing machines and vacuum robots to air filters, fridges, and air conditioners, these appliances often need a direct link to a server via both the device itself and its associated app.

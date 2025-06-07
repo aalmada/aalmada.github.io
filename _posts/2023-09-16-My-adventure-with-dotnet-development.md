@@ -9,6 +9,7 @@ image: Depth-camera-AR.png
 tags: [.net, opinion]
 category: development
 redirect_from: /My-adventure-with-dotnet-development.html
+meta_description: "A personal journey through .NET development, sharing experiences, insights, and the evolution of the .NET ecosystem from version 1.0 to today."
 ---
 
 I've been immersed in the .NET world since version 1.0, and it's been an incredible journey. Throughout the years, .NET has consistently been my primary development tool of choice. In this article, I'll delve into my experiences as a developer within the .NET ecosystem and offer insights into its current status and adoption trends.

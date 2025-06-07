@@ -9,6 +9,7 @@ image: Ballpit.jpg
 tags: [development, .net, csharp, opinion]
 category: development
 redirect_from: /Why-I-always-use-var-in-csharp.html
+meta_description: "Explore the benefits of using 'var' in C#, including type inference, easier refactoring, performance considerations, and improved code readability. Learn why 'var' is a valuable tool for modern C# development."
 ---
 
 The `var` keyword was introduced in C# 3.0 back in 2007 and remains a topic of debate within development teams. Personally, I advocate for its use, and here's why the arguments against it don't sway me.
@@ -45,9 +46,9 @@ In Integrated Development Environments (IDEs) like Visual Studio and Rider, vari
 
 This rationale also holds true for [fluent code](https://www.red-gate.com/simple-talk/dotnet/net-framework/fluent-code-in-c/) styles. Consider LINQ usage, where it's unusual to encounter each method result assigned to a variable with an explicitly declared type. Instead, data effortlessly flows from one method to another, enabling the code to be read like a coherent English sentence.
 
-The same guiding principle extends to [lambda expressions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). I frequently find the use of short parameter names like `i`. Even worse, some opt for the use of `_`, introducing potential confusion with a [discard](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards) placeholder while they are not discarding the parameter. 
+The same guiding principle extends to [lambda expressions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). I frequently find the use of short parameter names like `i`. Even worse, some opt for the use of `_`, introducing potential confusion with a [discard](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards) placeholder while they are not discarding the parameter.
 
-Personally, I consistently opt for more descriptive names such as `item`, `person`, or `account`, aligning with the parameter's actual purpose. 
+Personally, I consistently opt for more descriptive names such as `item`, `person`, or `account`, aligning with the parameter's actual purpose.
 
 For those favoring explicit types, strongly-typed delegates serve as an alternative, I don't remember seeing anyone using this approach since lambdas were introduced.
 

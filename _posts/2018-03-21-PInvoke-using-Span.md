@@ -9,6 +9,7 @@ image: Observing.jpg
 tags: [development, .net, csharp, span]
 category: development
 redirect_from: /PInvoke-using-Span.html
+meta_description: "Discover how to use Span<T> for efficient and safe P/Invoke calls in .NET. This article explores memory allocation strategies, interop with native code, and performance considerations when using Span<T> in platform invocation scenarios."
 ---
 
 Through out the many years I’ve been using .NET, I’ve had to use many functionalities that were not yet available in .NET (computer vision, 3D rendering, physics, augmented-reality, and many more). One of the great features of .NET is that it supports calls to native code. This is called [Platform Invocation Service, or P/Invoke](https://en.wikipedia.org/wiki/Platform_Invocation_Services). This article is about my investigation on how `Span<T>` can be used for P/Invoke calls.
@@ -49,7 +50,7 @@ namespace SpanSample
 
 This P/Invoke implementation has multiple details that are beyond the scope of this article but the most important thing here is that managed code can call the static method by using `Native.Sum(buffer, size)`.
 
-## Before Span<T> Era
+## Before `Span<T>` Era
 
 NET has three different ways to allocate contiguous memory:
 

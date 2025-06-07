@@ -56,7 +56,7 @@ It then uses a `while` loop with `enumerator.MoveNext()` as condition. Inside of
 
 You can also see in [SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEBLANgHwAEAmARgFgAoQgBgAJDSA6AGWwDsBHAbiqoDcAhlDoBnCAFcoYGHQC8dAKLsJAWxhRBwXDCYAlQewDmMABQ00dUjQCUvSgDNoMQWAAWpoSOwYYquhxiktIwNlR0EQykAJymPn52QA) the IL generated:
 
-```
+``` text
 IL_0000: ldc.i4.0
 IL_0001: ldc.i4.s 10
 IL_0003: call class [System.Runtime]System.Collections.Generic.IEnumerable`1<int32> [System.Linq]System.Linq.Enumerable::Range(int32, int32)
@@ -121,7 +121,7 @@ The code is very similar to the case of reference-type enumerator but notice tha
 
 You can also see in [SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEBLANgHwAEAmARgFgAoQgBgAJDSA6AGWwDsBHAbiqoDcAhlDoBnCAFcoYGHQC8dAKLsJAWxhRBwXDCYAlQewDmMABQ00dUjQCUvSgDNoMQWAAWpoSOwYYquhxiktIwNlR0EQykAJymPn52QA) the IL generated:
 
-```
+``` text
 IL_0000: newobj instance void class [System.Collections]System.Collections.Generic.List`1<int32>::.ctor()
 IL_0005: callvirt instance valuetype [System.Collections]System.Collections.Generic.List`1/Enumerator<!0> class [System.Collections]System.Collections.Generic.List`1<int32>::GetEnumerator()
 IL_000a: stloc.0
@@ -205,10 +205,10 @@ It compares the performance of iterating a `List<int>` with 100 and 10.000 items
 I used a configuration to test on .NET 6, .NET 7, and .NET 8 RC1 (all “modern” NET versions).
 
 ![x64 benchmarks](Benchmarks-x64.png)
-<small>x64 benchmarks</small>
+*x64 benchmarks*
 
 ![arm64 benchmarks](Benchmarks-arm64.png)
-<small>arm64 benchmarks</small>
+*arm64 benchmarks*
 
 Notice that the difference ranges from 300% and 700% on x64 and a steady 450% on Arm64. Value-type enumerators always performing better than reference-type enumerators.
 

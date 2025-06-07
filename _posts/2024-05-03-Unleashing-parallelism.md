@@ -9,6 +9,7 @@ image: InfanteSanto.jpg
 tags:
   [development, .net, csharp, performance, span, simd, parallel, benchmarking]
 category: development
+meta_description: "Learn how to maximize data processing performance in C# using span, SIMD, and multi-threading. This guide covers efficient span operations, bounds checking elimination, vectorization, and parallelization techniques with practical code examples and benchmarks."
 ---
 
 Modern CPUs offer three types of parallel processing. This article outlines several steps for leveraging all three to process large data sets as efficiently as possible.
@@ -285,11 +286,11 @@ Our latest implementation fully leverages modern CPU parallelization techniques.
 
 ## Benchmarks
 
-By leveraging [BenchmarkDotNet](https://benchmarkdotnet.org/), we precisely quantify the performance enhancements achieved at each implementation stage. You can access the benchmarks [here](https://github.com/aalmada/ParallelSimd) to review the complete code and execute them on your own system to validate the results.
+By leveraging [BenchmarkDotNet](https://benchmarkdotnet.org/), we precisely quantify the performance enhancements achieved at each implementation stage. You can access the benchmarks in the [ParallelSimd GitHub repository](https://github.com/aalmada/ParallelSimd) to review the complete code and execute them on your own system to validate the results.
 
 Below are the benchmark results obtained on the following system configuration:
 
-```
+``` text
 BenchmarkDotNet v0.13.12, Windows 11 (10.0.22631.3447/23H2/2023Update/SunValley3)
 AMD Ryzen 9 7940HS w/ Radeon 780M Graphics, 1 CPU, 16 logical and 8 physical cores
 .NET SDK 9.0.100-preview.3.24204.13

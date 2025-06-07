@@ -9,9 +9,8 @@ image: IEnumerable.png
 tags: [development, .net, csharp, linq, performance]
 category: development
 redirect_from: /IEnumerable-and-pals.html
+meta_description: "Explore the core .NET collection interfaces, including IEnumerable, IEnumerator, and their generic and async variants. Learn their features, differences, and best practices for choosing and implementing collections in C#."
 ---
-
-## Introduction
 
 A collection is a fundamental concept that refers to a grouping or container for a set of related objects or values. These objects could be of any data type, such as integers, strings, custom objects, or even other collections. Collections provide a structured and organized way to store, manipulate, and manage multiple items together, making it easier to work with and process data in various scenarios. Each collection type has its own features and developers should use the one most appropriate in the given context.
 
@@ -443,7 +442,7 @@ The namespace `System.Collections.Immutable` also contains the declaration of co
 ## Which interfaces to use?
 
 ![interface hierarchy](IEnumerable.png)
-<small>The layered hierarchy of collection interfaces. Immutable interfaces in green and mutable interfaces in red.</small>
+*The layered hierarchy of collection interfaces. Immutable interfaces in green and mutable interfaces in red.*
 
 The interface that should be used depends on the scenario.
 
@@ -451,7 +450,7 @@ If you're implementing a method that returns a collection, you should return the
 
 If you're implementing a method that takes a collection as parameter, you should use the interface that has the minimum required features for the given method. For example, if the method does not mutate the collection, use an immutable interface.
 
-If you're implementing a new collection type, you should derive it from as many interfaces as possible given the features it provides. This way, your new collection can be passed as a parameter to as many as possible existing methods. For example, to be used by LINQ, it only has to implement IEnumerable<T> but other libraries may require random access or mutation of the collection.
+If you're implementing a new collection type, you should derive it from as many interfaces as possible given the features it provides. This way, your new collection can be passed as a parameter to as many as possible existing methods. For example, to be used by LINQ, it only has to implement `IEnumerable<T>` but other libraries may require random access or mutation of the collection.
 
 > If a collection implements `ICollection<T>` or `IList<T>`, it may perform better in some LINQ operations.
 

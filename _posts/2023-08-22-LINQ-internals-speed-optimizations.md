@@ -9,6 +9,7 @@ image: Pine-processionary.jpg
 tags: [development, .net, csharp, linq, performance]
 category: development
 redirect_from: /LINQ-internals-speed-optimizations.html
+meta_description: "Explore the technical details and speed optimizations inside LINQ, including how its core is engineered for performance and the trade-offs involved."
 ---
 
 Behind the elegant facade of LINQ lies a meticulously engineered core designed for more than just simplicity. This article delves into the technical intricacies of LINQ, focusing on the "speed optimizations" that enhance its execution efficiency. These optimizations also have many shortcomings.
@@ -39,7 +40,7 @@ var query =
 
 The `Enumerable` class is a static class residing within the `System.Linq` namespace, encompassing a multitude of static methods, including `Select()` and `Where()`, which are employed in this query.
 
-> The `Enumerable` class is quite extensive, comprising hundreds of methods. It is a prime candidate for the use of the `partial` keyword, allowing the class to be organized across multiple files. You can explore its source code [here](https://github.com/dotnet/dotnet/tree/main/src/runtime/src/libraries/System.Linq/src/System/Linq).
+> The `Enumerable` class is quite extensive, comprising hundreds of methods. It is a prime candidate for the use of the `partial` keyword, allowing the class to be organized across multiple files. You can explore its source code in the [System.Linq Enumerable class on GitHub](https://github.com/dotnet/dotnet/tree/main/src/runtime/src/libraries/System.Linq/src/System/Linq).
 
 It's important to note that all methods within the `Enumerable` class are actually declared as extension methods for `IEnumerable<T>`. Consequently, the query can be rewritten in a more intuitive form:
 

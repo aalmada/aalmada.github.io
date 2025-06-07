@@ -9,6 +9,7 @@ image: Cluster.jpeg
 tags: [development, web3, react, react-query]
 category: development
 redirect_from: /Using-React-Query-to-query-smart-contracts-1.html
+meta_description: "Learn how to use React Query to efficiently query smart contracts in web3 applications, with TypeChain integration and best practices for caching and reactivity."
 ---
 
 > React Query is often described as the missing data-fetching library for React, but in more technical terms, it makes fetching, caching, synchronizing and updating server state in your React applications a breeze.
@@ -38,16 +39,16 @@ import { MyToken } from "../../typechain-types";
 const fetchMaxSupply = (contract: MyToken) => contract.MAX_SUPPLY();
 
 const useMaxSupply = (contract: MyToken | undefined) => {
-	const { data, ...result } = useQuery(
-		[`my-token-max-supply`, contract?.address],
-		() => fetchMaxSupply(contract!),
-		{
-			enabled: !!contract,
-			cacheTime: Infinity,
-		}
-	);
+  const { data, ...result } = useQuery(
+    [`my-token-max-supply`, contract?.address],
+    () => fetchMaxSupply(contract!),
+    {
+      enabled: !!contract,
+      cacheTime: Infinity,
+    }
+  );
 
-	return { maxSupply: data, ...result };
+  return { maxSupply: data, ...result };
 };
 
 export default useMaxSupply;

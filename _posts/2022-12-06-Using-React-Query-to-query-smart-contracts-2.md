@@ -9,6 +9,7 @@ image: TrainTracks.jpeg
 tags: [development, web3, react, react-query]
 category: development
 redirect_from: /Using-React-Query-to-query-smart-contracts-2.html
+meta_description: "Enhance your web3 apps by making React Query hooks reactive to smart contract events, with TypeChain and advanced cache management techniques."
 ---
 
 In my [previous post](Using-React-Query-to-query-smart-contracts-1.md) I explained how `useQuery` can be used to retrieve the value from an immutable method. Now let’s go up a notch and see how to use on methods where the returned value may change over time.
@@ -26,16 +27,16 @@ import { Pausable } from "../../typechain-types";
 const fetchPaused = (contract: Pausable) => contract.paused();
 
 const usePaused = (contract: Pausable | undefined) => {
-	const { data, ...result } = useQuery(
-		[`pausable-paused`, contract?.address],
-		() => fetchPaused(contract!),
-		{
-			enabled: !!contract,
-			initialData: true,
-		}
-	);
+  const { data, ...result } = useQuery(
+    [`pausable-paused`, contract?.address],
+    () => fetchPaused(contract!),
+    {
+      enabled: !!contract,
+      initialData: true,
+    }
+  );
 
-	return { paused: data, ...result };
+  return { paused: data, ...result };
 };
 
 export default usePaused;
@@ -113,54 +114,54 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Pausable } from "../../typechain-types";
 import { TypedListener } from "../../typechain-types/common";
 import {
-	PausedEvent,
-	UnpausedEvent,
+  PausedEvent,
+  UnpausedEvent,
 } from "../../typechain-types/@openzeppelin/contracts/security/Pausable";
 
 const fetchPaused = (contract: Pausable) => contract!.paused();
 
 const usePaused = (contract: Pausable | undefined) => {
-	const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-	const queryKey = useMemo(
-		() => [`pausable-paused`, contract?.address],
-		[contract]
-	);
+  const queryKey = useMemo(
+    () => [`pausable-paused`, contract?.address],
+    [contract]
+  );
 
-	const { data, ...result } = useQuery(
-		queryKey,
-		() => fetchPaused(contract!),
-		{
-			enabled: !!contract,
-			initialData: true,
-		}
-	);
+  const { data, ...result } = useQuery(
+    queryKey,
+    () => fetchPaused(contract!),
+    {
+      enabled: !!contract,
+      initialData: true,
+    }
+  );
 
-	useEffect(() => {
-		const onPaused: TypedListener<PausedEvent> = (_sender: string) =>
-			onPausedChange(true);
+  useEffect(() => {
+    const onPaused: TypedListener<PausedEvent> = (_sender: string) =>
+      onPausedChange(true);
 
-		const onUnpaused: TypedListener<UnpausedEvent> = (_sender: string) =>
-			onPausedChange(false);
+    const onUnpaused: TypedListener<UnpausedEvent> = (_sender: string) =>
+      onPausedChange(false);
 
-		const onPausedChange = (paused: boolean) => {
-			queryClient.cancelQueries(queryKey);
-			queryClient.setQueryData<boolean>(queryKey, _previous => paused);
-			queryClient.invalidateQueries(queryKey);
-		};
+    const onPausedChange = (paused: boolean) => {
+      queryClient.cancelQueries(queryKey);
+      queryClient.setQueryData<boolean>(queryKey, _previous => paused);
+      queryClient.invalidateQueries(queryKey);
+    };
 
-		if (contract) {
-			contract
-				.on(contract.filters.Paused(), onPaused)
-				.on(contract.filters.Unpaused(), onUnpaused);
+    if (contract) {
+      contract
+        .on(contract.filters.Paused(), onPaused)
+        .on(contract.filters.Unpaused(), onUnpaused);
 
-			return () => {
-				contract
-					.removeListener(contract.filters.Paused(), onPaused)
-					.removeListener(contract.filters.Unpaused(), onUnpaused);
-			};
-		}
-	}, [contract, queryClient, queryKey]);
+      return () => {
+        contract
+          .removeListener(contract.filters.Paused(), onPaused)
+          .removeListener(contract.filters.Unpaused(), onUnpaused);
+      };
+    }
+  }, [contract, queryClient, queryKey]);
 
 	return { paused: data, queryKey, ...result };
 };

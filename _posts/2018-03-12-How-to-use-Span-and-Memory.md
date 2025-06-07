@@ -9,6 +9,7 @@ image: Baños.jpg
 tags: [development, .net, csharp, span]
 category: development
 redirect_from: /How-to-use-Span-and-Memory.html
+meta_description: "Learn how to use Span<T> and Memory<T> in .NET for efficient, type-safe memory management. This article covers usage scenarios, stack and heap allocation, ref structs, performance benchmarks, and best practices for high-performance applications."
 ---
 
 > NOTE: I highly suggest to also check how to use [System.IO.Pipelines in .NET](https://learn.microsoft.com/en-us/dotnet/standard/io/pipelines). It’s a feature introduced after this article was published and that allows a better implementation of the patterns shown in the examples of this article.
@@ -229,9 +230,9 @@ The property `Current` now return `Foo` instead of a reference, which means ther
 
 ## Performance
 
-How do these examples perform? [BenchmarkDotNet]() makes it very simple to compare the performance of all these scenarios.
+How do these examples perform? [BenchmarkDotNet](https://benchmarkdotnet.org/) makes it very simple to compare the performance of all these scenarios.
 
-The code for these benchmarks can be found at https://github.com/aalmada/SpanSample/blob/master/SpanSample/EnumerationBenchmarks.cs
+The code for these benchmarks can be found at [EnumerationBenchmarks.cs on GitHub](https://github.com/aalmada/SpanSample/blob/master/SpanSample/EnumerationBenchmarks.cs)
 
 ![benchmarks](Benchmarks.png)
 

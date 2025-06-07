@@ -8,6 +8,7 @@ img_path: /assets/img/posts/20240320
 image: CaisDoSodre.jpg
 tags: [network, dns, docker, portainer, raspberry pi, pi-hole, unbound]
 category: network
+meta_description: "How to deploy a recursive DNS server with Pi-hole and Unbound on Raspberry Pi using Portainer, improving privacy and security for your home network."
 ---
 
 [Pi-hole](https://pi-hole.net/) is well known for its ad-blocking capabilities but it actually provides an additional layer of control over DNS requests within your home network. It can be installed on a device within your home network and function as a DNS server.
@@ -73,7 +74,7 @@ After deployment, access the web interface at `http://<IPADDRESS>:<PORT>`, repla
 
 In the Pi-hole web interface, navigate to the **Settings** option in the left menu and then proceed to the **DNS** tab. Here, you'll find Pi-hole utilizing the custom upstream DNS server 127.0.0.1#5335, where Unbound is hosted. Additionally, notice that the **Use DNSSEC** checkbox is selected.
 
-The **Conditional forwarding** settings can be configured on the same webpage or as Portainer environment variables. Refer to the list of supported variables and values [here](https://github.com/chriscrowe/docker-pihole-unbound/tree/main/one-container#pi-hole-environment-variables).
+The **Conditional forwarding** settings can be configured on the same webpage or as Portainer environment variables. Refer to the [list of supported Pi-hole environment variables and values](https://github.com/chriscrowe/docker-pihole-unbound/tree/main/one-container#pi-hole-environment-variables).
 
 To utilize Pi-hole solely as a recursive DNS server, access the **Adlist** section from the left menu and deactivate the default adlist. Conversely, if you intend to utilize it as an ad-blocker, keep the default adlist enabled. You also have the option to include additional lists as desired.
 

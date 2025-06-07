@@ -9,6 +9,7 @@ image: BelaVista.jpg
 tags: [development, .net, csharp, benchmarking]
 category: development
 redirect_from: /Measuring-dotnet-performance.html
+meta_description: "Learn how to measure and optimize .NET performance using BenchmarkDotNet, with practical examples and tips for real-world applications."
 ---
 
 As a software engineer, I regard performance as a crucial metric for assessing the quality of my code. In my [previous article](https://aalmada.github.io/posts/Performance-optimizations/), I emphasized how performance impacts user behavior, costs, and the environment. Let's break it down:
@@ -127,7 +128,7 @@ BenchmarkDotNet automatically filters out outlier results and notifies you if th
 
 Additionally, it provides information on the versions of BenchmarkDotNet and .NET used, along with hardware system characteristics:
 
-```
+``` text
 BenchmarkDotNet v0.13.8, macOS Sonoma 14.4 (23E214) [Darwin 23.4.0]
 Apple M1, 1 CPU, 8 logical and 8 physical cores
 .NET SDK 8.0.201

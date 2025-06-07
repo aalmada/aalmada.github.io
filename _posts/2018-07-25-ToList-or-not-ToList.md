@@ -9,6 +9,7 @@ image: Plaza.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /ToList-or-not-ToList.html
+meta_description: "Analyze the impact of using ToList() and ToArray() in LINQ queries in .NET. Learn about lazy evaluation, memory allocation, performance benchmarks, and when to use these methods for optimal results."
 ---
 
 ## Introduction
@@ -38,7 +39,7 @@ foreach(var number in sequence)
 
 In this case, the `foreach` will pull the values directly from the `Enumerable.Range()` and output it to the console.
 
-## Arrays and List<T>
+## Arrays and `List<T>`
 
 Arrays and `List<T>` are data structures that allow random access. They provide an indexer than finds the item just by calculating the offset from the beginning of the allocated memory. They allow sequential access by also providing a `GetEnumerator()` method.
 
@@ -83,7 +84,7 @@ foreach(var number in sequence)
     Console.WriteLine(number);
 ```
 
-> NOTE: The Where(\_ => true) is here just for benchmarking purposes. It converts the Enumerable.Range() into an IEnumerable<T> while returning the same number of items. It represents the output of most regular LINQ queries.
+> NOTE: The `Where(\_ => true)` is here just for benchmarking purposes. It converts the `Enumerable.Range()` into an `IEnumerable<T>` while returning the same number of items. It represents the output of most regular LINQ queries.
 
 Now these operations have to allocate memory one or more times and copy all the items by using an equivalent to the first `foreach` loop.
 

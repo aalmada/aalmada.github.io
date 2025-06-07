@@ -9,6 +9,7 @@ image: Sculpture-by-Liechennay.jpg
 tags: [development, .net, csharp, math, generics]
 category: development
 redirect_from: /Generic-math-in-dotnet.html
+meta_description: "Explore generic math in .NET and C#, including new interfaces, operator overloading, and best practices for custom numeric types."
 ---
 
 ## Before .NET 7
@@ -92,4 +93,4 @@ It's recommended to transition away from `System.Math` or `System.MathF` and use
 
 For those developing custom numeric types, implementing the interfaces provided in `System.Numerics` is important to ensure compatibility with third-party methods.
 
-> As a side note, I've been actively working on an open-source library that uses .NET generic math to implement primitives across various coordinate systems, including rectangular 2D and 3D, polar, spherical, and geodetic. These implementations are designed as immutable value types, using generics to prevent unit mismatch execution errors. Feel free to explore it at https://netfabric.github.io/NetFabric.Numerics/
+> As a side note, I've been actively working on an open-source library that uses .NET generic math to implement primitives across various coordinate systems, including rectangular 2D and 3D, polar, spherical, and geodetic. These implementations are designed as immutable value types, using generics to prevent unit mismatch execution errors. Feel free to explore it at [https://netfabric.github.io/NetFabric.Numerics/](https://netfabric.github.io/NetFabric.Numerics/)

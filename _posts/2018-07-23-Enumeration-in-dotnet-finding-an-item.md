@@ -9,6 +9,7 @@ image: Eagle.jpeg
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet-finding-an-item.html
+meta_description: "Learn how to efficiently find items in .NET collections using First(), Single(), and related LINQ methods. This article covers performance considerations, pitfalls, and best practices for searching enumerables."
 ---
 
 ## Finding an item

@@ -9,6 +9,7 @@ image: Giraffe.jpeg
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet-Count.html
+meta_description: "Understand the performance implications of LINQ's Count() method in .NET, including optimizations, pitfalls, and best practices for working with collections and enumerables."
 ---
 
 ## Count()
@@ -86,7 +87,7 @@ namespace EnumerationBenchmarks
 
 The results of the benchmark were the following:
 
-```
+``` text
 BenchmarkDotNet v0.13.12, macOS Sonoma 14.3 (23D56) [Darwin 23.3.0]
 Apple M1, 1 CPU, 8 logical and 8 physical cores
 .NET SDK 8.0.100

@@ -9,6 +9,7 @@ image: Snails.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /Array-iteration-performance-in-csharp.html
+meta_description: "Explore the performance differences between for, foreach, and LINQ when iterating arrays in C#. Learn how compiler optimizations and .NET versions affect iteration speed, and discover best practices for efficient array processing."
 ---
 
 Implementing the sum of the items in an array is very simple. I think most developers would implement it this way:
@@ -220,7 +221,7 @@ There are several performance issues with this code:
 
 All this makes the enumeration of the array much slower.
 
-.NET 8 introduces a new internal method `TryGetSpan()`. This method tries to return a `ReadOnlySpan<T>` from the a given `IEnumerable<T>` so that the indexer can be used instead of the enumerator when traversing the collection. It succeeds for arrays and `List<T>`. It makes use of the method `CollectionsMarshal.AsSpan()` to get the internal array of a `List<T>`. `Sum()` in .NET 8 [uses this method to improve its performance when the source is an array or a List<T>](https://github.com/dotnet/dotnet/blob/dbe0b88eab62164795c981e2f447c068cf9c788e/src/runtime/src/libraries/System.Linq/src/System/Linq/Sum.cs#L28).
+.NET 8 introduces a new internal method `TryGetSpan()`. This method tries to return a `ReadOnlySpan<T>` from the a given `IEnumerable<T>` so that the indexer can be used instead of the enumerator when traversing the collection. It succeeds for arrays and `List<T>`. It makes use of the method `CollectionsMarshal.AsSpan()` to get the internal array of a `List<T>`. `Sum()` in .NET 8 [uses this method to improve its performance when the source is an array or a `List<T>`](https://github.com/dotnet/dotnet/blob/dbe0b88eab62164795c981e2f447c068cf9c788e/src/runtime/src/libraries/System.Linq/src/System/Linq/Sum.cs#L28).
 
 `ReadOnlySpan<T>` references a contiguous chunk of memory. This is the ideal condition to use SIMD to improve performance even more.
 

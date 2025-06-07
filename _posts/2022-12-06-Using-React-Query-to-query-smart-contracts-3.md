@@ -9,6 +9,7 @@ image: Lichen.jpeg
 tags: [development, web3, react, react-query]
 category: development
 redirect_from: /Using-React-Query-to-query-smart-contracts-3.html
+meta_description: "Make your React Query hooks blockchain-aware by handling multiple chain IDs and contract addresses for fully reactive smart contract queries."
 ---
 
 Wallets that support multiple accounts and multiple blockchains, like MetaMask, make it very easy for a user to change active account and active blockchain. A web3 frontend should react immediately to these changes.
@@ -21,13 +22,13 @@ On the previous posts the contract address was added to the `queryKey` so that `
 
 A contract can be deployed on multiple blockchains, like Ethereum, Goerli, Polygon, etc. It can have the same address in each of the blockchains but these would still be different instances. This means that the blockchain identifier must also be part of the `queryKey`.
 
-Each blockchain has a unique identifier. This is commonly called the `chainId`. You can find all the valid values listed at https://chainlist.org/.
+Each blockchain has a unique identifier. This is commonly called the `chainId`. You can find all the valid values listed at [chainlist.org](https://chainlist.org/).
 
 In TypeChain all the contracts derive from ether’s `BaseContract`. This exposes the address property that we’ve been using. The `chainId` can be retrieved using the `getChainId()` method found in the signer property. This is an async method that returns a `Promise<number>`.
 
 React does not support asynchronous methods directly so we need the following source code using an `useEffect` and an `useState`.
 
-```javascript
+``` javascript
 const [chainId, setChainId] = useState<number>();
 
 const queryKey = useMemo(
@@ -48,73 +49,73 @@ The `useEffect` is called every time contract changes. It calls an asynchronous 
 
 Putting it all together looks like this:
 
-```javascript
+``` javascript
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Pausable } from "../../typechain-types";
 import { TypedListener } from "../../typechain-types/common";
 import {
-	PausedEvent,
-	UnpausedEvent,
+  PausedEvent,
+  UnpausedEvent,
 } from "../../typechain-types/contracts/MyToken";
 
 const fetchPaused = (contract: Pausable) => contract.paused();
 
 const usePaused = (contract: Pausable | undefined) => {
-	const [chainId, setChainId] = useState<number>();
+  const [chainId, setChainId] = useState<number>();
 
-	const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-	const queryKey = useMemo(
-		() => [`pausable-paused`, chainId, contract?.address],
-		[chainId, contract]
-	);
+  const queryKey = useMemo(
+    () => [`pausable-paused`, chainId, contract?.address],
+    [chainId, contract]
+  );
 
-	const { data, ...result } = useQuery(
-		queryKey,
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		() => fetchPaused(contract!),
-		{
-			enabled: !!contract,
-			initialData: true,
-		}
-	);
+  const { data, ...result } = useQuery(
+    queryKey,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    () => fetchPaused(contract!),
+    {
+      enabled: !!contract,
+      initialData: true,
+    }
+  );
 
-	useEffect(() => {
-		const updateChainId = async (contract: Pausable | undefined) => {
-			setChainId(await contract?.signer.getChainId());
-		};
+  useEffect(() => {
+    const updateChainId = async (contract: Pausable | undefined) => {
+      setChainId(await contract?.signer.getChainId());
+    };
 
-		updateChainId(contract);
-	}, [contract]);
+    updateChainId(contract);
+  }, [contract]);
 
-	useEffect(() => {
-		const onPaused: TypedListener<PausedEvent> = (_sender: string) =>
-			onPausedChange(true);
+  useEffect(() => {
+    const onPaused: TypedListener<PausedEvent> = (_sender: string) =>
+      onPausedChange(true);
 
-		const onUnpaused: TypedListener<UnpausedEvent> = (_sender: string) =>
-			onPausedChange(false);
+    const onUnpaused: TypedListener<UnpausedEvent> = (_sender: string) =>
+      onPausedChange(false);
 
-		const onPausedChange = (paused: boolean) => {
-			queryClient.cancelQueries(queryKey);
-			queryClient.setQueryData<boolean>(queryKey, _previous => paused);
-			queryClient.invalidateQueries(queryKey);
-		};
+    const onPausedChange = (paused: boolean) => {
+      queryClient.cancelQueries(queryKey);
+      queryClient.setQueryData<boolean>(queryKey, _previous => paused);
+      queryClient.invalidateQueries(queryKey);
+    };
 
-		if (contract) {
-			contract
-				.on(contract.filters.Paused(), onPaused)
-				.on(contract.filters.Unpaused(), onUnpaused);
+    if (contract) {
+      contract
+        .on(contract.filters.Paused(), onPaused)
+        .on(contract.filters.Unpaused(), onUnpaused);
 
-			return () => {
-				contract
-					.removeListener(contract.filters.Paused(), onPaused)
-					.removeListener(contract.filters.Unpaused(), onUnpaused);
-			};
-		}
-	}, [contract, queryClient, queryKey]);
+      return () => {
+        contract
+          .removeListener(contract.filters.Paused(), onPaused)
+          .removeListener(contract.filters.Unpaused(), onUnpaused);
+      };
+    }
+  }, [contract, queryClient, queryKey]);
 
-	return { paused: data, queryKey, ...result };
+  return { paused: data, queryKey, ...result };
 };
 
 export default usePaused;
