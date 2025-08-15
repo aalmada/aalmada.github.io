@@ -307,9 +307,10 @@ You can open your WSL-hosted .NET project in Visual Studio Code using either of 
 
 1. Once connected, go to File > Open Folder and choose your project directory inside WSL
 
-In both cases, Visual Studio Code runs as if it is inside your Linux environment. When you open a new terminal in Visual Studio Code, it will automatically start in your WSL project folder
+In both cases, Visual Studio Code runs as if it is inside your Linux environment. When you open a new terminal in Visual Studio Code, it will automatically start in your WSL project folder.
 
-To confirm that Visual Studio Code is connected to WSL, check the left side of the footer. It should display the name of your active Linux distribution
+> To confirm that Visual Studio Code is connected to WSL, check the left side of the footer. It should display the name of your active Linux distribution.
+
 ---
 
 ## Installing Docker in WSL (Without Docker Desktop)
