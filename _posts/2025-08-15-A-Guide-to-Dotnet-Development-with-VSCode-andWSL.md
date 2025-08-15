@@ -275,37 +275,41 @@ If you need to remove a previously installed SDK version, refer to the official 
 
 ## Opening WSL Projects in VS Code
 
-There are two easy ways to open your WSL-hosted .NET project in Visual Studio Code:
+You can open your WSL-hosted .NET project in Visual Studio Code using either of the following methods.
 
-### Option 1: From the Windows Terminal
+### Option 1: Using Windows Terminal
 
-1. Launch your Linux distribution.
-2. Navigate to your project folder:
+1. Launch your Linux distribution from the terminal
+
+1. Navigate to your project folder using the command
 
    ```bash
    cd ~/projects/my-dotnet-app
    ```
 
-3. Type:
+1. Enter the command:
 
    ```bash
    code .
    ```
 
-4. VS Code will prompt you to install the WSL extension if it’s not already installed.
+4. If the WSL extension is not installed, Visual Studio Code will prompt you to install it
 
-### Option 2: From VS Code in Windows
+### Option 2: Using Visual Studio Code on Windows
 
-1. Open VS Code.
-2. Install the WSL extension (if not already installed).
-3. Click the green corner icon in the bottom-left.
-4. Select “Connect to WSL.”
-5. VS Code now runs inside your Linux environment. Use **File > Open Folder** to open your project directory.
+1. Open Visual Studio Code
 
-In both cases, VS Code behaves as if it’s running inside your Linux distribution. When you open a new terminal in VS Code, it automatically opens in the project folder within WSL.
+1. Install the WSL extension if it is not already installed
 
-You can confirm VS Code is connected to WSL by checking the green corner in the bottom-left—it should display the name of your Linux distribution.
+1. Click the WSL indicator on the left side of the Visual Studio Code footer
 
+1. Select "Connect to WSL"
+
+1. Once connected, go to File > Open Folder and choose your project directory inside WSL
+
+In both cases, Visual Studio Code runs as if it is inside your Linux environment. When you open a new terminal in Visual Studio Code, it will automatically start in your WSL project folder
+
+To confirm that Visual Studio Code is connected to WSL, check the left side of the footer. It should display the name of your active Linux distribution
 ---
 
 ## Installing Docker in WSL (Without Docker Desktop)
@@ -322,14 +326,17 @@ Instead of relying on Docker Desktop, you can install Docker directly inside you
 
 ### Step 1: Install Docker in WSL
 
-To install Docker inside your WSL distribution (e.g., Ubuntu), follow the official instructions for [installing Docker Engine on Linux](https://docs.docker.com/engine/install/). The guide covers all major distributions and ensures you're using the latest supported packages.
+To set up Docker within your WSL distribution (such as Ubuntu), refer to the official [installing Docker Engine on Linux](https://docs.docker.com/engine/install/). TThis documentation provides step-by-step instructions for all major distributions and ensures you're installing the most up-to-date and supported components.
 
-This will install:
+- Installing Docker through this method includes:
 
-- Docker Engine  
-- Docker CLI  
-- Docker Compose plugin  
-- Buildx support for advanced builds  
+- Docker Engine
+
+- Docker Command Line Interface (CLI)
+
+- Docker Compose plugin
+
+- Buildx for advanced build capabilities
 
 ---
 
