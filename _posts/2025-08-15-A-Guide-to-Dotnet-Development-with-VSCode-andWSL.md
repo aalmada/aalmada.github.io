@@ -215,27 +215,46 @@ Full documentation for the install script is available at
 
 ### Making the `dotnet` Command Available
 
-The install script places the SDK in your home directory (typically `~/.dotnet`), but it does **not** automatically update your system’s `PATH`. To make the `dotnet` command available globally:
+By default, the install script places the .NET SDK in your home directory (`~/.dotnet`). The environment variables it sets are only active for your current terminal session. To make the `dotnet` command available every time you open a terminal, add the appropriate configuration to your shell profile file.
 
-- Add the following line to your shell profile file:
+Linux supports several shells, each with its own profile file:
 
-  - For Bash (`~/.bashrc`):
+- **Bash**: `~/.bashrc`
+- **Zsh**: `~/.zshrc`
+- **Fish**: `~/.config/fish/config.fish`
 
-    ```bash
-    export PATH="$HOME/.dotnet:$PATH"
-    ```
+Add the following lines to your profile (adjust for your shell):
 
-  - For Zsh (`~/.zshrc`):
+```bash
+# .NET SDK and global tools setup
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+```
 
-    ```bash
-    export PATH="$HOME/.dotnet:$PATH"
-    ```
+### Example: Using Nano to Update Your Bash Profile
 
-- Reload your shell configuration:
+To add the .NET SDK path to your Bash profile using `nano`:
+
+1. Open your Bash profile in nano:
 
   ```bash
-  source ~/.bashrc   # or ~/.zshrc depending on your shell
+  nano ~/.bashrc
   ```
+
+2. Add the lines at the end of the file:
+
+3. Save and exit nano:
+  - Press `Ctrl+O` to write changes.
+  - Press `Enter` to confirm.
+  - Press `Ctrl+X` to exit.
+
+4. Reload your profile:
+
+  ```bash
+  source ~/.bashrc
+  ```
+
+After updating your profile, reload your shell configuration or restart your terminal to apply the changes.
 
 ### Managing SDK Versions
 
