@@ -37,30 +37,6 @@ However, this doesn't mean passwords are gone for good. The project supports a *
 - **Existing Password Accounts**: Users who signed up with a password can add one or more passkeys to their account for a faster login experience.
 - **Passkey-First Accounts**: Users who started with a passkey can always choose to add a password later, providing an alternative way to log in on devices that might not support WebAuthn yet.
 
-## Visualizing the Flow
-
-To understand the interaction between the user, the browser, and the server, here is how the assertion (login) handshake works in practice:
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Browser
-    participant API as .NET 10 API
-    participant DB as Marten (PostgreSQL)
-
-    User->>Browser: Click "Login with Passkey"
-    Browser->>API: POST /account/assertion/options (Email)
-    API->>DB: Lookup User & Passkeys
-    DB-->>API: User ID & Credential IDs
-    API-->>Browser: Challenge & Options
-    Browser->>User: OS Biometric Prompt (FaceID/TouchID)
-    User-->>Browser: Authorized
-    Browser->>API: POST /account/assertion/result (Signed Challenge)
-    API->>API: Verify Signature (SignInManager)
-    API-->>Browser: 200 OK + JWT Token
-    Browser-->>User: Logged In!
-```
-
 ## The WebAuthn Handshake: Implementation
 
 Implementing this in .NET 10 involves two main flows: **Attestation** (Registration) and **Assertion** (Login).
