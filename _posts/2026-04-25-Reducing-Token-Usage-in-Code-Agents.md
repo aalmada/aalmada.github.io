@@ -91,7 +91,7 @@ It is particularly useful for high-noise commands like:
 
 Operationally, one of RTK's biggest wins is the auto-rewrite hook (`rtk init -g`) that transparently maps shell commands to RTK equivalents. One practical caveat: this works for Bash tool calls; built-in IDE tools like `Read`/`Grep`/`Glob` are not auto-rewritten, so explicit shell/RTK commands are still important there.
 
-In short, RTK reduces tokens by turning verbose human output into compact model-ready signal, without dropping the information needed for correct agent decisions.
+In short, RTK reduces tokens by turning verbose CLI output into compact model-ready signal, without dropping the information needed for correct agent decisions.
 
 ## 2) Graphify
 
