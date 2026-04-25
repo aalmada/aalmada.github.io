@@ -8,7 +8,7 @@ img_path: /assets/img/posts/20240320
 image: CaisDoSodre.jpg
 tags: [network, dns, docker, portainer, raspberry pi, pi-hole, unbound]
 category: network
-meta_description: "How to deploy a recursive DNS server with Pi-hole and Unbound on Raspberry Pi using Portainer, improving privacy and security for your home network."
+meta_description: "Set up recursive DNS on Raspberry Pi with Pi-hole, Unbound, and Portainer to improve privacy, block ads, and provide secure, resilient name resolution at home."
 ---
 
 [Pi-hole](https://pi-hole.net/) is well known for its ad-blocking capabilities but it actually provides an additional layer of control over DNS requests within your home network. It can be installed on a device within your home network and function as a DNS server.

@@ -9,7 +9,7 @@ image: Alcantara.jpg
 tags: [development, .net, csharp, simd, intrinsics, unit testing, benchmarking]
 category: development
 redirect_from: /Unit-testing-and-benchmarking-SIMD-in-dotnet.html
-meta_description: "A guide to unit testing and benchmarking SIMD in .NET, covering hardware support, test strategies, and performance measurement for vectorized code."
+meta_description: "Unit test and benchmark SIMD in .NET across scalar, 128-bit, 256-bit, and 512-bit modes by controlling hardware intrinsics through environment variables."
 ---
 
 Single Instruction, Multiple Data (SIMD) is a technique used in computer architecture that allows for parallel processing on multiple data elements simultaneously. I've touched on the advantages of SIMD and its implementation in .NET in a [previous article](https://aalmada.github.io/posts/SIMD-in-dotnet/).

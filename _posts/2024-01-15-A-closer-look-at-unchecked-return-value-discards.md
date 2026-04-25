@@ -9,7 +9,7 @@ image: Discard.png
 tags: [development, .net, csharp, .editorconfig]
 category: development
 redirect_from: /A-closer-look-at-unchecked-return-value-discards.html
-meta_description: "Examine the risks of unchecked return value discards in C#, defensive coding strategies, and how to enforce best practices using .editorconfig."
+meta_description: "See how unchecked return-value discards in C# hide bugs, then enforce safer behavior with .editorconfig rules, analyzers, and defensive coding patterns."
 ---
 
 One of the significant advantages of strongly-typed languages like C# lies in their ability to catch many errors during compile time, providing a robust defense against bugs reaching the runtime. This not only streamlines the development process but also contributes to a more reliable user experience.

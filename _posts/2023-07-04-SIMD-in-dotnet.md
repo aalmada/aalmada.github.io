@@ -9,7 +9,7 @@ image: Margarida.jpg
 tags: [development, .net, csharp, performance, math, simd, intrinsics]
 category: development
 redirect_from: /SIMD-in-dotnet.html
-meta_description: "Learn how to use SIMD in .NET for high-performance data processing, with practical examples, vectorization, and custom library tips."
+meta_description: "Learn SIMD in .NET with Vector<T> and intrinsics, when vectorization is worth it, and how to structure high-throughput numeric code with maintainable patterns."
 ---
 
 ## What is SIMD?

@@ -9,7 +9,7 @@ image: TrainTracks.jpeg
 tags: [development, web3, react, react-query]
 category: development
 redirect_from: /Using-React-Query-to-query-smart-contracts-2.html
-meta_description: "Enhance your web3 apps by making React Query hooks reactive to smart contract events, with TypeChain and advanced cache management techniques."
+meta_description: "Build reactive React Query hooks for smart contracts by listening to chain events, invalidating cache keys, and keeping reads synchronized with on-chain state."
 ---
 
 In my [previous post](Using-React-Query-to-query-smart-contracts-1.md) I explained how `useQuery` can be used to retrieve the value from an immutable method. Now let’s go up a notch and see how to use on methods where the returned value may change over time.

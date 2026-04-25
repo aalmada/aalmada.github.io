@@ -9,7 +9,7 @@ image: Pine-processionary.jpg
 tags: [development, .net, csharp, linq, performance]
 category: development
 redirect_from: /LINQ-internals-speed-optimizations.html
-meta_description: "Explore the technical details and speed optimizations inside LINQ, including how its core is engineered for performance and the trade-offs involved."
+meta_description: "Understand LINQ internals: iterator fusion, fast paths, and allocation-aware patterns that boost performance, plus the trade-offs behind each optimization."
 ---
 
 Behind the elegant facade of LINQ lies a meticulously engineered core designed for more than just simplicity. This article delves into the technical intricacies of LINQ, focusing on the "speed optimizations" that enhance its execution efficiency. These optimizations also have many shortcomings.

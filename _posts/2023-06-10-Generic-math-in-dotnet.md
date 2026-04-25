@@ -9,7 +9,7 @@ image: Sculpture-by-Liechennay.jpg
 tags: [development, .net, csharp, math, generics]
 category: development
 redirect_from: /Generic-math-in-dotnet.html
-meta_description: "Explore generic math in .NET and C#, including new interfaces, operator overloading, and best practices for custom numeric types."
+meta_description: "Explore generic math in .NET 7 and C# 11, using static abstract members and numeric interfaces to write reusable, type-safe algorithms for custom types."
 ---
 
 ## Before .NET 7

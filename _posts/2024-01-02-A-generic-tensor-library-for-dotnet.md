@@ -9,7 +9,7 @@ image: EstacaoOriente.jpeg
 tags: [development, .net, csharp, generics, simd, math, intrinsics, performance]
 category: development
 redirect_from: /A-generic-tensor-library-for-dotnet.html
-meta_description: "Discover a reusable, high-performance generic tensor library for .NET, leveraging SIMD and span operations for efficient mathematical computations."
+meta_description: "Discover a high-performance generic tensor library for .NET that blends spans, SIMD, and extensible operators to cut boilerplate and speed up numeric workloads."
 ---
 
 > EDIT: Revised the content to align with the changes introduced in [version 2](https://www.nuget.org/packages/NetFabric.Numerics.Tensors) of `NetFabric.Numerics.Tensors`.

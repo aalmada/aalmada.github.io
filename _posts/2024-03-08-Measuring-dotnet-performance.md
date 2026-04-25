@@ -9,7 +9,7 @@ image: BelaVista.jpg
 tags: [development, .net, csharp, benchmarking]
 category: development
 redirect_from: /Measuring-dotnet-performance.html
-meta_description: "Learn how to measure and optimize .NET performance using BenchmarkDotNet, with practical examples and tips for real-world applications."
+meta_description: "Learn to benchmark .NET with BenchmarkDotNet by accounting for JIT effects, warmup, and test design so results stay accurate and useful in production."
 ---
 
 As a software engineer, I regard performance as a crucial metric for assessing the quality of my code. In my [previous article](https://aalmada.github.io/posts/Performance-optimizations/), I emphasized how performance impacts user behavior, costs, and the environment. Let's break it down:

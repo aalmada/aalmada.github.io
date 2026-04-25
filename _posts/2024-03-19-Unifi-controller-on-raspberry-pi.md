@@ -8,7 +8,7 @@ img_path: /assets/img/posts/20240319
 image: Pears.jpg
 tags: [network, ubiquiti, unifi, docker, portainer, raspberry pi]
 category: network
-meta_description: "Step-by-step guide to deploying UniFi Controller on Raspberry Pi using Portainer, including setup, migration, and best practices for home networks."
+meta_description: "Deploy UniFi Controller on Raspberry Pi with Docker and Portainer, covering setup, migration, backups, and maintenance for a stable home network platform."
 ---
 
 For years, my home network has relied on [Ubiquiti UniFi](https://www.ui.com/), delivering seamless connectivity across every corner of the house. Its robust suite of features provides exceptional network management tools, ensuring a secure environment with regular software updates. A standout capability is its ability to segregate IoT and guest devices into isolated SSIDs and networks, bolstering overall network security and organization.

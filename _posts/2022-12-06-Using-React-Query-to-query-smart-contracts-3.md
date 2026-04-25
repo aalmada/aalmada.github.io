@@ -9,7 +9,7 @@ image: Lichen.jpeg
 tags: [development, web3, react, react-query]
 category: development
 redirect_from: /Using-React-Query-to-query-smart-contracts-3.html
-meta_description: "Make your React Query hooks blockchain-aware by handling multiple chain IDs and contract addresses for fully reactive smart contract queries."
+meta_description: "Make React Query web3 hooks chain-aware by adding chain IDs and contract addresses to cache keys, keeping data accurate as users switch networks and accounts."
 ---
 
 Wallets that support multiple accounts and multiple blockchains, like MetaMask, make it very easy for a user to change active account and active blockchain. A web3 frontend should react immediately to these changes.
