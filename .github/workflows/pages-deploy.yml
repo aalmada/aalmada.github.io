@@ -71,3 +71,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify IndexNow
+        run: |
+          key="12CBE91247D2EFC07041EF985D5C0E87"
+          site="https://aalmada.github.io"
+          key_location="${site}/${key}.txt"
+
+          # Notify IndexNow about the homepage and sitemap after each deployment.
+          curl -fsS "https://api.indexnow.org/indexnow?url=${site}/&key=${key}&keyLocation=${key_location}"
+          curl -fsS "https://api.indexnow.org/indexnow?url=${site}/sitemap.xml&key=${key}&keyLocation=${key_location}"
