@@ -50,6 +50,18 @@ jobs:
         env:
           JEKYLL_ENV: "production"
 
+      - name: Add IndexNow key file
+        run: |
+          key="${{ secrets.INDEXNOW_KEY }}"
+
+          if [ -z "$key" ]; then
+            echo "INDEXNOW_KEY secret is not set; skipping IndexNow key file generation."
+            exit 0
+          fi
+
+          site_dir="_site${{ steps.pages.outputs.base_path }}"
+          printf '%s\n' "$key" > "${site_dir}/${key}.txt"
+
       # - name: Test site
       #   run: |
       #     bundle exec htmlproofer _site \
@@ -74,7 +86,13 @@ jobs:
 
       - name: Notify IndexNow
         run: |
-          key="12CBE91247D2EFC07041EF985D5C0E87"
+          key="${{ secrets.INDEXNOW_KEY }}"
+
+          if [ -z "$key" ]; then
+            echo "INDEXNOW_KEY secret is not set; skipping IndexNow notification."
+            exit 0
+          fi
+
           site="https://aalmada.github.io"
           key_location="${site}/${key}.txt"
 
