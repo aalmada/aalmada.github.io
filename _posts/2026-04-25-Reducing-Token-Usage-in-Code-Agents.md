@@ -73,8 +73,6 @@ Beyond built-in platform features, open-source tools can reduce token usage furt
 
 [RTK-AI](https://www.rtk-ai.app/) is a high-performance CLI proxy focused on one thing: filtering command output before it enters model context.
 
-RTK reports typical savings in the **60-90%** range, with a sample 30-minute coding session showing an overall reduction close to **80%**.
-
 Why this matters? Standard shell commands are often human-friendly but token-heavy, and code agents still need that output in context to make decisions. RTK rewrites or wraps those commands and returns a compact, decision-oriented version.
 
 RTK's approach combines four strategies:
