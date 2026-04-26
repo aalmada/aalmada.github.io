@@ -91,7 +91,7 @@ This creates a feedback loop where analyzers guide agents, and agents help maint
 
 ## 4. Testing as the Behavioral Contract
 
-n the context of agents, testing becomes even more important than in traditional development. Tests are the most reliable and deterministic way to validate behavior. They also provide a clear signal to agents about whether a feature is complete.
+In the context of agents, testing becomes even more important than in traditional development. Tests are the most reliable and deterministic way to validate behavior. They also provide a clear signal to agents about whether a feature is complete.
 
 Your instructions should explicitly tell agents to run the full test suite before finishing any feature. This is the testing equivalent of running dotnet format. It defines what “done” means in a way that is unambiguous and machine enforceable.
 
@@ -206,7 +206,7 @@ The deterministic tools in this chain stabilize the non-deterministic behavior o
 
 Most of these practices, including conventions, analyzers, tests, Aspire, and hooks, are applied in my open-source project BookStore.
 
-You can explore the implementation here: https://aalmada.github.io/BookStore/
+You can explore the implementation here: [https://aalmada.github.io/BookStore/](https://aalmada.github.io/BookStore/)
 
 It serves as a concrete example of how a .NET solution can be structured to support both human development and agent driven automation.
 
