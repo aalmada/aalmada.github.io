@@ -13,7 +13,7 @@ meta_description: "How deterministic .NET tools like analyzers, tests, Aspire, a
 
 # .NET/C# Development in the Code Agents Era
 
-Code agents are changing how we build software. Not by producing isolated snippets or filling in boilerplate, but by participating directly in the development workflow. They read entire solutions, propose changes, refactor code, and interact with distributed systems. To work effectively with them, our codebases must be structured in a way that both humans and agents can understand and evolve.
+Code agents are changing how we build software. No longer by simply producing isolated snippets or filling in boilerplate, but by participating directly in the development workflow. They read entire solutions, propose changes, refactor code, and interact with distributed systems. To work effectively with them, our codebases must be structured in a way that both humans and agents can understand and evolve.
 
 Code agents introduce a new layer of automation, but automation alone does not guarantee quality. What actually guarantees quality are the tools and constraints that already exist in the .NET and C# ecosystem. These tools were originally designed to help human developers write consistent and maintainable code. In the code agents era, they become essential. Conventions, analyzers, tests, and orchestration frameworks give agents the structure they need to operate safely. While instruction files, skills, agents, and hooks define how automation behaves, the .NET toolchain defines what high quality code looks like.
 
@@ -46,7 +46,8 @@ Enabling [warnings as errors](https://learn.microsoft.com/en-us/dotnet/csharp/la
 
 To enable it, add the following to your `.csproj` or to `Directory.Build.props`:
 
-```xml<PropertyGroup>
+```xml
+<PropertyGroup>
   <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 </PropertyGroup>
 ```
@@ -90,16 +91,17 @@ This creates a feedback loop where analyzers guide agents, and agents help maint
 
 ## 4. Testing as the Behavioral Contract
 
-In the context of agents, testing becomes even more important than in traditional development. Tests are the most reliable and deterministic way to validate behavior. They also provide a clear signal to agents about whether a feature is complete.
+n the context of agents, testing becomes even more important than in traditional development. Tests are the most reliable and deterministic way to validate behavior. They also provide a clear signal to agents about whether a feature is complete.
 
-Your instructions should explicitly tell agents to run the full test suite before finishing any feature. This is the testing equivalent of running `dotnet format`. It defines what “done” means in a way that is unambiguous and machine enforceable.
+Your instructions should explicitly tell agents to run the full test suite before finishing any feature. This is the testing equivalent of running dotnet format. It defines what “done” means in a way that is unambiguous and machine enforceable.
 
-Modern models are capable of interpreting test failures intelligently. When a test fails, the agent can often infer the reason by looking at the surrounding code, the intent of the change, and the consistency of the behavior across the solution. In practice, failures usually fall into one of two categories:
+When a test fails, there are only three possible reasons:
 
-- **The test is outdated**. The test no longer reflects the intended behavior of the system because the feature evolved but the test was not updated.  
-- **The behavior has intentionally changed and the test must be updated**. The implementation is correct according to the new requirements, and the test needs to be aligned with the new behavior.
+- The implementation is wrong
+- The test is outdated
+- The behavior intentionally changed
 
-These two situations look similar, but the cause is different. Agents can often distinguish between them by analyzing the intent of the change and the structure of the code. This makes tests a powerful feedback loop. They guide agents toward correct behavior and prevent regressions. Because test execution is deterministic, the same failure will always produce the same signal, which stabilizes the workflow.
+Agents infer which case applies by analyzing surrounding code, naming patterns, domain rules, and the consistency of behavior across the solution. This makes tests a powerful feedback loop. They guide agents toward correct behavior and prevent regressions. Because test execution is deterministic, the same failure always produces the same signal, which stabilizes the workflow.
 
 - Unit tests describe domain rules.  
 - Integration tests describe how components interact.  
