@@ -153,7 +153,6 @@ Smaller, cleaner, better-targeted context usually means:
 - fewer irrelevant edits
 - more stable multi-step runs
 - better performance under model limits
-- lower operating costs
 
 Together, these approaches are complementary, not competing. Graphify and LSP overlap in code navigation, but they solve different layers of the problem: LSP is best for compiler-precise symbol operations inside a language, while Graphify is best for cross-artifact and cross-file conceptual navigation (code, docs, design rationale, and broader project structure). RTK reduces noisy command output, Caveman compresses linguistic overhead, LSP sharpens symbol-level lookup, and Graphify provides long-range structural memory.
 
