@@ -11,8 +11,6 @@ category: ai
 meta_description: "A practical guide to the four foundational building blocks of modern code agent harnesses: instructions, skills, agents, and hooks. Learn how to encode knowledge, enforce rules, and create safe, repeatable automation."
 ---
 
-# The Architecture of Code Agents: Instructions, Skills, Agents, Hooks
-
 Most of us began our generative AI journey the same way:
 
 - Write a prompt, get a code snippet, paste it into the project, adjust until it works.
