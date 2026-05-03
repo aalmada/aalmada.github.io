@@ -67,16 +67,13 @@ You can install a single skill from a bundle repository and persist the selectio
 
 ```bash
 # Install one skill from a bundle
-apm install vercel-labs/agent-skills --skill deploy-to-vercel
-
-# Install multiple skills
-apm install vercel-labs/agent-skills --skill deploy-to-vercel --skill preview
+apm install vercel-labs/agent-skills/skills/deploy-to-vercel
 
 # Install all skills in the bundle
 apm install vercel-labs/agent-skills
 ```
 
-The `--skill` selection is written to `apm.yml` and recorded in the lockfile, so the exact subset is reproducible on every machine and in CI. This is equivalent to what `npx skills add` does, with the addition of a manifest and lockfile.
+The selection is written to `apm.yml` and recorded in the lockfile, so the exact subset is reproducible on every machine and in CI. This is equivalent to what `npx skills add` does, with the addition of a manifest and lockfile.
 
 ### Installing from Marketplaces
 
