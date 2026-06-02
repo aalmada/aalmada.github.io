@@ -100,7 +100,7 @@ If you read the [token usage post](/posts/Reducing-Token-Usage-in-Code-Agents/),
 - **Tool isolation.** A read-only planner *cannot* accidentally modify files. Fewer tools in context means less noise for the model.
 - **Encode knowledge once.** Domain expertise lives in the agent definition, loaded automatically — you don't re-send it on every message.
 
-One cost tradeoff to keep in mind: splitting work across multiple agents means more total LLM interactions than a monolithic session — each agent starts its own conversation with the model. The tradeoff is usually worth it — fresh context per agent produces higher-quality output with fewer hallucinations, and parallelization cuts wall-clock time — but it's a conscious cost decision. Multi-agent architectures trade token efficiency per-request for better results overall.
+One cost tradeoff to keep in mind: splitting work across multiple agents means more total LLM interactions than a monolithic session — each agent starts its own conversation with the model. The tradeoff is usually worth it — fresh context per agent produces higher-quality output with fewer hallucinations, and parallelization cuts wall-clock time — but it's a conscious cost decision. Multi-agent architectures trade token efficiency per-request for better results overall. The overhead can also be offset by applying the [token-saving tools and context engineering techniques](/posts/Reducing-Token-Usage-in-Code-Agents/) covered in the first post of this series — RTK-AI, Graphify, Caveman, and LSP keep each agent's context lean, which directly reduces the cost per interaction.
 
 ## The three runtimes
 
@@ -447,8 +447,6 @@ In VS Code, enabling `github.copilot.chat.organizationCustomAgents.enabled` make
 | Agent loads but produces poor output | Too many tools in context | Restrict `tools:` to only what the agent actually needs |
 
 ## Advanced: parallel subagents and adversarial review
-
-> This section covers an advanced pattern. If you're just getting started with custom agents, you can skip this and come back later.
 
 VS Code can run subagents in parallel. The most compelling use case is **adversarial review**: dispatching multiple independent critics that approach the code fresh, without being anchored by each other's findings.
 
