@@ -104,7 +104,7 @@ One cost tradeoff to keep in mind: splitting work across multiple agents means m
 
 ## The three runtimes
 
-GitHub Copilot supports custom agents across three surfaces: **VS Code**, the **Copilot CLI**, and **Cloud**. They share the `.agent.md` file format and accept agent files from `.github/agents/` or `~/.copilot/agents/`. VS Code also recognizes `.md` files in `.claude/agents/` following the [Claude sub-agents format](https://code.claude.com/docs/en/sub-agents), making it possible to share agent definitions with Claude Code.
+GitHub Copilot supports custom agents across three surfaces: [**VS Code**](https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-chat-in-your-ide), the [**Copilot CLI**](https://docs.github.com/copilot/how-tos/copilot-cli), and [**Cloud**](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent). They share the `.agent.md` file format and accept agent files from `.github/agents/` or `~/.copilot/agents/`. VS Code also recognizes `.md` files in `.claude/agents/` following the [Claude sub-agents format](https://code.claude.com/docs/en/sub-agents), making it possible to share agent definitions with Claude Code.
 
 But beyond file format, the runtimes diverge significantly in how they coordinate multiple agents.
 
@@ -170,7 +170,12 @@ The tradeoffs:
 - **Asynchronous.** Progress appears in VS Code's Chat view or on GitHub.com.
 - **Custom agent support.** You can select a custom agent when starting a cloud session, giving the remote agent your specialized instructions — but multi-agent coordination (subagents, squads) is not available.
 
-You can start a cloud session from VS Code (New Chat → Cloud), by handing off a local session (`/delegate`), or by assigning an issue/PR to the Copilot cloud agent on GitHub.com. VS Code also supports third-party cloud agents — the **Claude coding agent** and **Codex coding agent** — integrated into the same session management UI.
+You can start a cloud session through several entry points:
+
+- VS Code: New Chat → Cloud, or the Agents window.
+- MCP clients: any IDE or agentic tool that supports MCP via the GitHub MCP server ([Use Cloud Agent with MCP](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/use-cloud-agent-with-mcp)).
+- CLI handoff: a local session using the [`/delegate` command](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/delegate-tasks-to-cca).
+- GitHub.com repository UI: the Agents tab or assign an issue/PR to the Copilot cloud agent.
 
 The handoff pattern is powerful: use a local Plan agent to interactively clarify requirements, then hand off to a cloud agent for autonomous implementation. The cloud agent receives the entire conversation history as context.
 
