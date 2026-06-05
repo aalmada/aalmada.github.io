@@ -172,10 +172,10 @@ The tradeoffs:
 
 You can start a cloud session through several entry points:
 
-- VS Code: New Chat → Cloud, or the Agents window.
-- MCP clients: any IDE or agentic tool that supports MCP via the GitHub MCP server ([Use Cloud Agent with MCP](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/use-cloud-agent-with-mcp)).
-- CLI handoff: a local session using the [`/delegate` command](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/delegate-tasks-to-cca).
-- GitHub.com repository UI: the Agents tab or assign an issue/PR to the Copilot cloud agent.
+- **VS Code**: New Chat → Cloud, or the Agents window.
+- **MCP clients**: any IDE or agentic tool that supports MCP via the GitHub MCP server ([Use Cloud Agent with MCP](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/use-cloud-agent-with-mcp)).
+- **CLI handoff**: a local session using the [`/delegate` command](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/delegate-tasks-to-cca).
+- **GitHub.com repository UI**: the Agents tab or assign an issue/PR to the Copilot cloud agent.
 
 The handoff pattern is powerful: use a local Plan agent to interactively clarify requirements, then hand off to a cloud agent for autonomous implementation. The cloud agent receives the entire conversation history as context.
 
@@ -522,7 +522,7 @@ The workflow:
 
 ### Rubber Duck in the CLI
 
-The CLI takes a different approach. Rather than requiring explicit adversarial agents, it includes a built-in **Rubber Duck** agent that acts as a constructive critic automatically. On non-trivial tasks, the CLI silently consults the Rubber Duck before finalizing its response — challenging assumptions and flagging potential issues without any configuration on your part.
+The CLI takes a different approach. Rather than requiring explicit adversarial agents, it includes a built-in [**Rubber Duck**](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/rubber-duck) agent that acts as a constructive critic automatically. On non-trivial tasks, the CLI silently consults the Rubber Duck before finalizing its response — challenging assumptions and flagging potential issues without any configuration on your part.
 
 ## Conclusion
 
