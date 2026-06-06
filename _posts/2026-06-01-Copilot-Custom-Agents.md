@@ -11,19 +11,6 @@ category: ai
 meta_description: "Learn how to build custom GitHub Copilot agents for VS Code, CLI, and Cloud, including orchestration, handoffs, subagents, and skills for multi-agent workflows."
 ---
 
-## Where this fits in the series
-
-This is the fifth post in a series on working with code agents:
-
-1. [Reducing Token Usage in Code Agents](/posts/Reducing-Token-Usage-in-Code-Agents/) — why context grows, how tokens work, and strategies to keep sessions efficient.
-2. [.NET/C# Development in the Code Agents Era](/posts/Dotnet-Development-in-the-Code-Agent-Era/) — deterministic tools (analyzers, tests, formatters) that stabilize agent output.
-3. [The Architecture of Code Agents: Instructions, Skills, Agents, Hooks](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/) — the four foundational building blocks of modern code agent harnesses.
-4. [APM: Package Management for AI Agent Configuration](/posts/APM-Package-Management-for-AI-Agent-Configuration/) — versioning and distributing agent configuration like npm packages.
-
-Post #3 introduced *what* agents are and where they sit in the architecture. This post covers *how to build and coordinate them* across all three GitHub Copilot platforms — VS Code, CLI, and Cloud. If you haven't read post #3, you'll want the conceptual foundation it provides before diving into the implementation details here.
-
----
-
 ## The problem: one agent doing everything
 
 Picture a typical Copilot session. You ask it to add a feature. The agent searches your codebase, reads files, makes edits, runs tests, hits an error, backtracks, searches again. Forty turns in, the conversation is bloated with abandoned paths, irrelevant code snippets, and stale context.
