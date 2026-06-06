@@ -175,6 +175,9 @@ compress_html:
   ignore:
     envs: [development]
 
+plugins:
+  - jekyll-redirect-from
+
 exclude:
   - "*.gem"
   - "*.gemspec"
