@@ -44,7 +44,7 @@ And importantly, LSP is not tied to any single vendor.
 It is an open protocol.
 Any agent harness can support it, and some already do.
 
-A few runtimes already expose LSP semantics directly to the model, such as [Claude Code](https://docs.bswen.com/blog/2026-03-23-claude-code-lsp-configuration/) and the [Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/add-lsp-servers). Others will follow. Many editors host LSP for their UI but do not expose it to their agents, which is why most agents still operate on text instead of structure.
+A few runtimes already expose LSP semantics directly to the model, such as Claude Code and the Copilot CLI. If you want to set this up yourself, see the [Claude Code documentation](https://docs.bswen.com/blog/2026-03-23-claude-code-lsp-configuration/) and the [GitHub Copilot CLI documentation](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/add-lsp-servers). Many editors and IDEs, including VS Code, host LSP for their UI but do not expose it to their agents, which is why most agents still operate on text instead of structure.
 
 ### LSP Tool Surface
 
