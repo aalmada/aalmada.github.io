@@ -5,7 +5,7 @@ show_date: true
 title: "Enumeration in .NET - Count()"
 date: 2018-06-09
 img_path: /assets/img/posts/20180609
-image: Giraffe.jpeg
+image: /assets/img/posts/20180609/Giraffe.jpeg
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet-Count.html

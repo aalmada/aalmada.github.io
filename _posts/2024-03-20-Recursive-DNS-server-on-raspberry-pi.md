@@ -5,7 +5,7 @@ show_date: true
 title: "Deploying a recursive DNS server on Raspberry Pi with Portainer"
 date: 2024-03-20
 img_path: /assets/img/posts/20240320
-image: CaisDoSodre.jpg
+image: /assets/img/posts/20240320/CaisDoSodre.jpg
 tags: [network, dns, docker, portainer, raspberry pi, pi-hole, unbound]
 category: network
 meta_description: "Set up recursive DNS on Raspberry Pi with Pi-hole, Unbound, and Portainer to improve privacy, block ads, and provide secure, resilient name resolution at home."

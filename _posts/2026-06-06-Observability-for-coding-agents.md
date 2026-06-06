@@ -5,7 +5,7 @@ show_date: true
 title: "Observability for Coding Agents: From Black Boxes to Measurable Systems"
 date: 2026-06-06
 img_path: /assets/img/posts/20260606
-image: Montejunto.jpg
+image: /assets/img/posts/20260606/Montejunto.jpg
 tags: [development, ai, agents, lsp, architecture]
 category: ai
 redirect_from: /Observability-for-Coding-Agents.html
@@ -58,11 +58,11 @@ Another observability surface sits right in front of you: context usage. Both VS
 
 In the CLI, the `/context` command gives you a structured breakdown of how much of the model’s context window is being consumed. It shows the size of the prompt prefix, the tool outputs, the cached tokens, and the remaining available space. It’s a simple command, but it tells you exactly when the agent is approaching the limits of the model and when you’re about to pay for a large prompt reconstruction.
 
-![Screenshot of the CLI context view showing prompt usage, cached tokens, and remaining context capacity](CLI%20-%20Context.png){: width="720" }
+![Screenshot of the CLI context view showing prompt usage, cached tokens, and remaining context capacity](CLI%20-%20Context.png)
 
 VS Code exposes the same information more ambiently. Next to the chat input box, a small circular indicator fills as the context window fills. Most people ignore it, but once you know what it represents, it becomes a real-time cost meter. Click it to open a detailed breakdown: how much context comes from your workspace, the conversation, tool outputs, and cache. It is a live visualization of the prompt the model is about to receive.
 
-![Screenshot of the VS Code context breakdown showing conversation, workspace, tool output, and cache contributions](VS%20Code%20-%20Context.png){: width="720" }
+![Screenshot of the VS Code context breakdown showing conversation, workspace, tool output, and cache contributions](VS%20Code%20-%20Context.png)
 
 And when the conversation starts getting too large, both VS Code and the CLI can compact automatically so the session can continue within the model's limits. The Compact Conversation button in VS Code and the CLI's `/compact` command give you that same compaction mechanism on demand, letting you trigger it explicitly before the context window is full. That makes compaction not just a convenience feature, but an observable control for latency, cache reuse, and cost.
 

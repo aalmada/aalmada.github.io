@@ -5,7 +5,7 @@ show_date: true
 title: "Coding Chronicles: My Adventure with .NET Development"
 date: 2023-09-16
 img_path: /assets/img/posts/20230916
-image: Depth-camera-AR.png
+image: /assets/img/posts/20230916/Depth-camera-AR.png
 tags: [.net, opinion]
 category: development
 redirect_from: /My-adventure-with-dotnet-development.html

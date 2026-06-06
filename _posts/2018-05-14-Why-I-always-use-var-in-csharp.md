@@ -5,7 +5,7 @@ show_date: true
 title: "Why I always use ‘var’ in C#"
 date: 2018-05-14
 img_path: /assets/img/posts/20180514
-image: Ballpit.jpg
+image: /assets/img/posts/20180514/Ballpit.jpg
 tags: [development, .net, csharp, opinion]
 category: development
 redirect_from: /Why-I-always-use-var-in-csharp.html

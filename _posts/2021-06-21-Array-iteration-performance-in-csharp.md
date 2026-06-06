@@ -5,7 +5,7 @@ show_date: true
 title: "Array iteration performance in C#"
 date: 2021-06-21
 img_path: /assets/img/posts/20210621
-image: Snails.jpg
+image: /assets/img/posts/20210621/Snails.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /Array-iteration-performance-in-csharp.html

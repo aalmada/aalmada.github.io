@@ -5,7 +5,7 @@ show_date: true
 title: "Enumeration in .NET"
 date: 2018-06-05
 img_path: /assets/img/posts/20180605
-image: Paintball.jpeg
+image: /assets/img/posts/20180605/Paintball.jpeg
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet.html

@@ -5,7 +5,7 @@ show_date: true
 title: "ImmutableArray&lt;T&gt; iteration performance in C#"
 date: 2023-07-30
 img_path: /assets/img/posts/20230730
-image: Surf.jpg
+image: /assets/img/posts/20230730/Surf.jpg
 tags: [development, .net, csharp, performance, benchmarks]
 category: development
 redirect_from: /ImmutableArray-enumeration-performance.html

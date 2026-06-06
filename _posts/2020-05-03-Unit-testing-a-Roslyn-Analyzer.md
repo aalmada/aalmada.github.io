@@ -5,7 +5,7 @@ show_date: true
 title: "Unit testing a Roslyn Analyzer"
 date: 2020-05-03
 img_path: /assets/img/posts/20200503
-image: PracaComercio.jpg
+image: /assets/img/posts/20200503/PracaComercio.jpg
 tags: [development, .net, csharp, roslyn, analyzer, unit testing]
 category: development
 redirect_from: /Unit-testing-a-Roslyn-Analyzer.html

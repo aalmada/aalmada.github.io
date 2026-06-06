@@ -5,7 +5,7 @@ show_date: true
 title: "Unleashing Parallelism: A Guide to Efficient Span Processing with SIMD and Threading in C#"
 date: 2024-05-03
 img_path: /assets/img/posts/20240503
-image: InfanteSanto.jpg
+image: /assets/img/posts/20240503/InfanteSanto.jpg
 tags:
   [development, .net, csharp, performance, span, simd, parallel, benchmarking]
 category: development

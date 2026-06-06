@@ -5,7 +5,7 @@ show_date: true
 title: "A 12 % improvement, easily obtained, is never considered marginal -- Donald Knuth"
 date: 2023-07-19
 img_path: /assets/img/posts/20230719
-image: Hummingbird-hawk-moth.jpg
+image: /assets/img/posts/20230719/Hummingbird-hawk-moth.jpg
 tags: [performance, opinion]
 category: development
 redirect_from: /Performance-optimizations.html
