@@ -70,20 +70,6 @@ Context usage is the connective tissue between token optimization and observabil
 
 Once you start watching context usage, you stop guessing. You see the system as it is, not as you assume it is.
 
-### A Quick Before/After Example
-
-Here is a common pattern I see in practice:
-
-- Before observability: large prompt prefixes, hidden retries, and unpredictable costs.
-- After observability: smaller prefixes, better cache reuse, and fewer model turns.
-
-Illustrative numbers from that pattern:
-
-- Before: 62k-token prefix, low cache reuse, 4 model turns, and several fallback tool calls.
-- After: 18k-token prefix, high cache reuse, 2 model turns, and no fallback-to-grep detour.
-
-The exact numbers vary by project, but the direction is repeatable: visibility exposes waste, and exposed waste is fixable.
-
 ## /troubleshoot in VS Code: Observability as Conversation
 
 But the most powerful observability surface is not a panel. It is a command you run inside VS Code chat.
