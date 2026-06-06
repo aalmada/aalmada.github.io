@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  {%- assign target_url = page.redirect.to -%}
+  {%- assign target_rel = target_url | replace: site.url, '' | replace: site.baseurl, '' -%}
+  {%- assign target_post = site.posts | where: 'url', target_rel | first -%}
+
+  {%- assign meta_title = target_post.title | default: page.title | default: 'Redirecting' -%}
+  {%- assign meta_desc = target_post.meta_description | default: target_post.description | default: site.description -%}
+
+  {%- assign raw_image = nil -%}
+  {%- if target_post and target_post.image -%}
+    {%- if target_post.image.path -%}
+      {%- assign raw_image = target_post.image.path -%}
+    {%- else -%}
+      {%- assign raw_image = target_post.image -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- assign meta_image = raw_image | default: site.social_preview_image -%}
+  {%- if meta_image and meta_image != '' -%}
+    {%- unless meta_image contains '://' -%}
+    {%- assign meta_image = site.url | append: site.baseurl | append: meta_image -%}
+    {%- endunless -%}
+  {%- endif -%}
+
+  <head>
+    <meta charset="utf-8">
+    <title>{{ meta_title | escape }}</title>
+    <link rel="canonical" href="{{ target_url }}">
+    <meta http-equiv="refresh" content="0; url={{ target_url }}">
+    <meta name="robots" content="noindex">
+
+    <meta property="og:title" content="{{ meta_title | escape }}">
+    <meta property="og:url" content="{{ target_url }}">
+    <meta property="og:type" content="article">
+    {%- if meta_desc and meta_desc != '' -%}
+    <meta property="og:description" content="{{ meta_desc | strip_html | strip_newlines | escape }}">
+    {%- endif -%}
+    {%- if meta_image and meta_image != '' -%}
+    <meta property="og:image" content="{{ meta_image }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ meta_image }}">
+    {%- endif -%}
+    <meta name="twitter:title" content="{{ meta_title | escape }}">
+    {%- if meta_desc and meta_desc != '' -%}
+    <meta name="twitter:description" content="{{ meta_desc | strip_html | strip_newlines | escape }}">
+    {%- endif -%}
+  </head>
+  <body>
+    <h1>Redirecting...</h1>
+    <p><a href="{{ target_url }}">Click here if you are not redirected.</a></p>
+    <script>location = {{ target_url | jsonify }};</script>
+  </body>
+</html>
