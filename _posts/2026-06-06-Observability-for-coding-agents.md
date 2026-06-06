@@ -9,7 +9,10 @@ image:
   path: /assets/img/posts/20260606/Montejunto.jpg
 tags: [development, ai, agents, lsp, architecture]
 category: ai
-redirect_from: /Observability-for-Coding-Agents.html
+redirect_from:
+  - /Observability-for-Coding-Agents.html
+  - /posts/Observability-for-Coding-Agents/
+  - /posts/Observability-for-Coding-Agents
 meta_description: "Practical observability for coding agents in VS Code and CLI, with traces, context metrics, and OpenTelemetry patterns to cut cost and improve reliability."
 ---
 
