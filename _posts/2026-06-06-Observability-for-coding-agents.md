@@ -33,23 +33,23 @@ VS Code has quietly become one of the richest observability environments for cod
 
 The Chat Debug View is the closest thing to watching the agent think in slow motion. It gives you a chronological, expandable trace of the entire run. You can open each node and see the prompts, the tool payloads, the intermediate reasoning, the token counts, and the execution times. It’s a timeline of cognition, and once you see it, you immediately understand *why* the agent made the choices it did.
 
-![Screenshot of VS Code Chat Debug View showing an expandable run timeline with prompts, tool calls, token counts, and durations](Chat%20Debug%20View.png){: width="720" }
+![Screenshot of VS Code Chat Debug View showing an expandable run timeline with prompts, tool calls, token counts, and durations](/assets/img/posts/20260606/Chat%20Debug%20View.png){: width="720" }
 
 Agent Debug Logs go deeper. They show session-level details: model turns, tool calls, input/output tokens, cached tokens, errors, and timestamps. It is a high-level telemetry snapshot that tells you whether the run was efficient, wasteful, or unexpectedly expensive. From there, you can branch into three specialized views that make observability multi-angle.
 
-![Screenshot of Agent Debug Logs with session-level telemetry including turns, tool calls, tokens, cache usage, and timestamps](Agent%20Debug%20Logs.png){: width="720" }
+![Screenshot of Agent Debug Logs with session-level telemetry including turns, tool calls, tokens, cache usage, and timestamps](/assets/img/posts/20260606/Agent%20Debug%20Logs.png){: width="720" }
 
 The first is View Logs, which exposes the raw event stream: every tool call, every hook, every model invocation, every patch applied to your workspace. It’s the structured, searchable version of the Chat Debug View.
 
-![Screenshot of View Logs showing raw structured events for model calls, hooks, tools, and applied patches](Agent%20Debug%20Logs%20-%20View%20Logs.png){: width="720" }
+![Screenshot of View Logs showing raw structured events for model calls, hooks, tools, and applied patches](/assets/img/posts/20260606/Agent%20Debug%20Logs%20-%20View%20Logs.png){: width="720" }
 
 The second is the Agent Flow Chart, which turns the session into a visual map of decisions, branches, and tool invocations. Instead of scrolling through logs, you see the agent’s reasoning as a graph. It’s the most intuitive way to understand the path the agent took — and the paths it didn’t.
 
-![Screenshot of Agent Flow Chart visualizing decision branches and tool invocation paths across a run](Agent%20Debug%20Logs%20-%20Agent%20Flow%20Chart.png){: width="720" }
+![Screenshot of Agent Flow Chart visualizing decision branches and tool invocation paths across a run](/assets/img/posts/20260606/Agent%20Debug%20Logs%20-%20Agent%20Flow%20Chart.png){: width="720" }
 
 The third is the Cache Explorer, which is quietly one of the most important views for anyone paying for tokens. It shows how much of the prompt prefix was reused, how many tokens were saved, and what delta actually went over the wire. When you see a 99.7% cache hit on a 65k‑token prefix, you understand why caching is the difference between a $0.30 request and a $0.003 request. It’s the first time you can see caching as a concrete, measurable mechanism rather than a vague promise.
 
-![Screenshot of Cache Explorer showing prompt prefix reuse, cache-hit rate, and effective token delta sent to the model](Agent%20Debug%20Logs%20-%20Cache%20Explorer.png){: width="720" }
+![Screenshot of Cache Explorer showing prompt prefix reuse, cache-hit rate, and effective token delta sent to the model](/assets/img/posts/20260606/Agent%20Debug%20Logs%20-%20Cache%20Explorer.png){: width="720" }
 
 Together, these views give you a complete picture of the run: the timeline, the structure, and the cost profile.
 
@@ -59,11 +59,11 @@ Another observability surface sits right in front of you: context usage. Both VS
 
 In the CLI, the `/context` command gives you a structured breakdown of how much of the model’s context window is being consumed. It shows the size of the prompt prefix, the tool outputs, the cached tokens, and the remaining available space. It’s a simple command, but it tells you exactly when the agent is approaching the limits of the model and when you’re about to pay for a large prompt reconstruction.
 
-![Screenshot of the CLI context view showing prompt usage, cached tokens, and remaining context capacity](CLI%20-%20Context.png)
+![Screenshot of the CLI context view showing prompt usage, cached tokens, and remaining context capacity](/assets/img/posts/20260606/CLI%20-%20Context.png)
 
 VS Code exposes the same information more ambiently. Next to the chat input box, a small circular indicator fills as the context window fills. Most people ignore it, but once you know what it represents, it becomes a real-time cost meter. Click it to open a detailed breakdown: how much context comes from your workspace, the conversation, tool outputs, and cache. It is a live visualization of the prompt the model is about to receive.
 
-![Screenshot of the VS Code context breakdown showing conversation, workspace, tool output, and cache contributions](VS%20Code%20-%20Context.png)
+![Screenshot of the VS Code context breakdown showing conversation, workspace, tool output, and cache contributions](/assets/img/posts/20260606/VS%20Code%20-%20Context.png)
 
 And when the conversation starts getting too large, both VS Code and the CLI can compact automatically so the session can continue within the model's limits. The Compact Conversation button in VS Code and the CLI's `/compact` command give you that same compaction mechanism on demand, letting you trigger it explicitly before the context window is full. That makes compaction not just a convenience feature, but an observable control for latency, cache reuse, and cost.
 
