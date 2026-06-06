@@ -5,7 +5,8 @@ show_date: true
 title: "The Battle of Loops: foreach vs. ForEach in C#"
 date: 2023-10-03
 img_path: /assets/img/posts/20231003
-image: ForEach.png
+image:
+  path: /assets/img/posts/20231003/ForEach.png
 tags: [.net, csharp, performance, simd, intrinsics]
 category: development
 redirect_from: /The-battle-of-loops.html

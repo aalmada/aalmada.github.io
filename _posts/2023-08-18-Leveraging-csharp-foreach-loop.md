@@ -5,7 +5,8 @@ show_date: true
 title: "Efficient Data Processing: Leveraging C#'s foreach Loop"
 date: 2023-08-18
 img_path: /assets/img/posts/20230818
-image: Casa-do-Alentejo.jpg
+image:
+  path: /assets/img/posts/20230818/Casa-do-Alentejo.jpg
 tags: [development, .net, csharp, performance]
 category: development
 redirect_from: /Leveraging-csharp-foreach-loop.html

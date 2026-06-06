@@ -5,7 +5,8 @@ show_date: true
 title: "Unit testing and benchmarking SIMD in .NET"
 date: 2024-02-20
 img_path: /assets/img/posts/20240220
-image: Alcantara.jpg
+image:
+  path: /assets/img/posts/20240220/Alcantara.jpg
 tags: [development, .net, csharp, simd, intrinsics, unit testing, benchmarking]
 category: development
 redirect_from: /Unit-testing-and-benchmarking-SIMD-in-dotnet.html

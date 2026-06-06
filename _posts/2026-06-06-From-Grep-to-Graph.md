@@ -5,7 +5,8 @@ show_date: true
 title: "From Grep to Graph: Why Coding Agents Need LSP and GitNexus to Understand Your Codebase"
 date: 2026-06-06
 img_path: /assets/img/posts/20260606
-image: Mosteiro-Alcobaca.jpg
+image:
+  path: /assets/img/posts/20260606/Mosteiro-Alcobaca.jpg
 tags: [development, ai, agents, lsp, architecture]
 category: ai
 redirect_from: /From-Grep-to-Graph.html

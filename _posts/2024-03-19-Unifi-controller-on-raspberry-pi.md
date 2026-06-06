@@ -5,7 +5,8 @@ show_date: true
 title: "Deploying UniFi Controller on Raspberry Pi with Portainer"
 date: 2024-03-19
 img_path: /assets/img/posts/20240319
-image: Pears.jpg
+image:
+  path: /assets/img/posts/20240319/Pears.jpg
 tags: [network, ubiquiti, unifi, docker, portainer, raspberry pi]
 category: network
 meta_description: "Deploy UniFi Controller on Raspberry Pi with Docker and Portainer, covering setup, migration, backups, and maintenance for a stable home network platform."

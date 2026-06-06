@@ -5,7 +5,8 @@ show_date: true
 title: "Harnessing WSL for Modern .NET Development with VS Code, Docker, and Aspire"
 date: 2025-08-15
 img_path: /assets/img/posts/20250815
-image: Infinite.jpg
+image:
+  path: /assets/img/posts/20250815/Infinite.jpg
 tags:
   [dotnet, aspire, wsl, vscode, docker, cloud-native, development]
 category: development

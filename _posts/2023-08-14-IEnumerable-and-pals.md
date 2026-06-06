@@ -5,7 +5,8 @@ show_date: true
 title: "Taming .NET Collections: A Safari Through IEnumerable and Pals"
 date: 2023-08-14
 img_path: /assets/img/posts/20230814
-image: IEnumerable.png
+image:
+  path: /assets/img/posts/20230814/IEnumerable.png
 tags: [development, .net, csharp, linq, performance]
 category: development
 redirect_from: /IEnumerable-and-pals.html

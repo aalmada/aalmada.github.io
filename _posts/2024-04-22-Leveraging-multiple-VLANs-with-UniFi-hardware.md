@@ -5,7 +5,8 @@ show_date: true
 title: "Maximizing Network Security: Leveraging Multiple VLANs with UniFi Hardware"
 date: 2024-04-22
 img_path: /assets/img/posts/20240422
-image: WASD.jpg
+image:
+  path: /assets/img/posts/20240422/WASD.jpg
 tags: [network, security, ubiquiti, unifi, vlan]
 category: network
 meta_description: "Learn how to maximize network security by leveraging multiple VLANs with UniFi hardware, including setup, best practices, and guest network management."

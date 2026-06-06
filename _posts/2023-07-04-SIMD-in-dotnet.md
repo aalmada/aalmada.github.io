@@ -5,7 +5,8 @@ show_date: true
 title: "Single Instruction, Multiple Data (SIMD) in .NET"
 date: 2023-07-04
 img_path: /assets/img/posts/20230704
-image: Margarida.jpg
+image:
+  path: /assets/img/posts/20230704/Margarida.jpg
 tags: [development, .net, csharp, performance, math, simd, intrinsics]
 category: development
 redirect_from: /SIMD-in-dotnet.html

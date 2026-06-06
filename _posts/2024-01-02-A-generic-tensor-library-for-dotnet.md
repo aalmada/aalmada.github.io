@@ -5,7 +5,8 @@ show_date: true
 title: "A generic tensor library for .NET"
 date: 2024-01-02
 img_path: /assets/img/posts/20240102
-image: EstacaoOriente.jpeg
+image:
+  path: /assets/img/posts/20240102/EstacaoOriente.jpeg
 tags: [development, .net, csharp, generics, simd, math, intrinsics, performance]
 category: development
 redirect_from: /A-generic-tensor-library-for-dotnet.html

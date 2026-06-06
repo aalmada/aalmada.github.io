@@ -5,7 +5,8 @@ show_date: true
 title: "Implementing Passkeys with .NET 10"
 date: 2026-01-24
 img_path: /assets/img/posts/20260124
-image: door.jpg
+image:
+  path: /assets/img/posts/20260124/door.jpg
 tags: [dotnet, passkeys, webauthn, security, aspnetcore]
 category: security
 meta_description: "A technical guide for .NET developers on integrating native WebAuthn passkey support introduced in .NET 10, including user enumeration and lockout prevention."
