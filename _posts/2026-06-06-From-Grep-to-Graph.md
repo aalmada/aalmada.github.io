@@ -7,7 +7,7 @@ date: 2026-06-06
 img_path: /assets/img/posts/20260606
 image: Mosteiro-Alcobaca.jpg
 tags: [development, ai, agents, lsp, architecture]
-category: development
+category: ai
 redirect_from: /From-Grep-to-Graph.html
 meta_description: "Understand why coding agents need LSP and GitNexus for deterministic semantic insight, better reuse, and lower entropy across present code and repository history."
 ---
@@ -18,7 +18,7 @@ That layer is **semantics**.
 
 And the uncomfortable truth is that most coding agents today do not have it. They operate on search, grep, embeddings, and heuristics. They scan files. They match patterns. They *guess*. They do not see the codebase as a structured system. They see it as text.
 
-This is not a criticism. It is simply the state of the ecosystem. Most agent harnesses today rely on ripgrep under the hood. They can search for strings, but they cannot resolve symbols. They can find references, but they cannot understand types. They can read files, but they cannot see architecture. They can generate diffs, but they cannot reason about invariants.
+This is not a criticism. It is simply the state of the ecosystem. Most agent harnesses today rely on [ripgrep](https://ripgrep.dev/) under the hood. They can search for strings, but they cannot resolve symbols. They can find references, but they cannot understand types. They can read files, but they cannot see architecture. They can generate diffs, but they cannot reason about invariants.
 
 And this is exactly why **LSP** and **GitNexus** matter. They are the first real steps toward giving agents a structured, semantic view of the codebase: not just the text, but the meaning.
 
@@ -38,13 +38,13 @@ This is exactly why **LSP** and **GitNexus** matter. They give agents the abilit
 
 ## LSP: The Present-Time Semantic Engine
 
-LSP, short for Language Server Protocol, has been around for years, but its role in agent systems is only now becoming clear. LSP is not autocomplete. It is not IntelliSense. It is not diagnostics. Those are just the visible symptoms of a deeper capability: a structured, language-aware API that exposes the semantic graph of your codebase.
+LSP, short for [Language Server Protocol](https://learn.microsoft.com/en-us/visualstudio/extensibility/language-server-protocol), has been around for years, but its role in agent systems is only now becoming clear. LSP is not autocomplete. It is not IntelliSense. It is not diagnostics. Those are just the visible symptoms of a deeper capability: a structured, language-aware API that exposes the semantic graph of your codebase.
 
 And importantly, LSP is not tied to any single vendor.
 It is an open protocol.
 Any agent harness can support it, and some already do.
 
-A few runtimes already expose LSP semantics directly to the model, such as Claude Code and the Copilot CLI. Others will follow. Many editors host LSP for their UI but do not expose it to their agents, which is why most agents still operate on text instead of structure.
+A few runtimes already expose LSP semantics directly to the model, such as [Claude Code](https://docs.bswen.com/blog/2026-03-23-claude-code-lsp-configuration/) and the [Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/add-lsp-servers). Others will follow. Many editors host LSP for their UI but do not expose it to their agents, which is why most agents still operate on text instead of structure.
 
 ### LSP Tool Surface
 
@@ -73,7 +73,7 @@ It gives agents stable, reproducible facts: the foundation of reliable reasoning
 
 ## GitNexus: The Semantic Historian (and the Semantic Present)
 
-If LSP gives agents a structured view of the present, GitNexus gives them a structured view of both the present and the past. GitNexus is not a Git wrapper. It is not a code search tool. It is not documentation. It is a semantic indexer that builds a graph of your repository across commits, branches, merges, and refactors, and also indexes the current working tree with the same precision.
+If LSP gives agents a structured view of the present, [GitNexus](https://github.com/abhigyanpatwari/GitNexus) gives them a structured view of both the present and the past. GitNexus is not a Git wrapper. It is not a code search tool. It is not documentation. It is a semantic indexer that builds a graph of your repository across commits, branches, merges, and refactors, and also indexes the current working tree with the same precision.
 
 This means agents can query:
 
@@ -111,7 +111,7 @@ It gives agents stable, reproducible semantic facts about the entire system.
 
 ## A Short Note on GitNexus vs. Graphify
 
-GitNexus and Graphify often get compared because both build graphs, but they operate in different universes. GitNexus understands programming languages. It uses real parsers, real ASTs, real symbol tables. It knows what a class is, what a method is, what a reference is, what a dependency is, and how those concepts evolve across commits.
+GitNexus and [Graphify](https://graphifylabs.ai/) often get compared because both build graphs, but they operate in different universes. GitNexus understands programming languages. It uses real parsers, real ASTs, real symbol tables. It knows what a class is, what a method is, what a reference is, what a dependency is, and how those concepts evolve across commits.
 
 Graphify is different. It is excellent for text, documents, transcripts, videos, anything where meaning must be inferred rather than parsed. It builds conceptual graphs from embeddings, not from language grammars. It is powerful, but it is not a compiler.
 

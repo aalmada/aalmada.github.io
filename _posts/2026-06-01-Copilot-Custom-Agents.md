@@ -7,7 +7,7 @@ date: 2026-06-01
 img_path: /assets/img/posts/20260601
 image: Museum of Etnography - Budapest.jpg
 tags: [development, ai, copilot, agents, productivity]
-category: development
+category: ai
 meta_description: "Learn how to build custom GitHub Copilot agents for VS Code, CLI, and Cloud, including orchestration, handoffs, subagents, and skills for multi-agent workflows."
 ---
 
