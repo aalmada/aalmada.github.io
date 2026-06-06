@@ -5,7 +5,7 @@ show_date: true
 title: "Defensive Coding in C#: A Closer Look at Unchecked Return Value Discards"
 date: 2024-01-15
 img_path: /assets/img/posts/20240115
-image: /assets/img/posts/20240115/Discard.png
+image: Discard.png
 tags: [development, .net, csharp, .editorconfig]
 category: development
 redirect_from: /A-closer-look-at-unchecked-return-value-discards.html

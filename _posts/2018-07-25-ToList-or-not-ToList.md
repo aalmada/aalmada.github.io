@@ -5,7 +5,7 @@ show_date: true
 title: "ToList(), or not ToList(), that is the question"
 date: 2018-07-25
 img_path: /assets/img/posts/20180725
-image: /assets/img/posts/20180725/Plaza.jpg
+image: Plaza.jpg
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /ToList-or-not-ToList.html

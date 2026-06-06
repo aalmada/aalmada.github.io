@@ -5,7 +5,7 @@ show_date: true
 title: "Behavior Tree Development in C# with IEnumerable<T> and Yield"
 date: 2024-04-04
 img_path: /assets/img/posts/20240404
-image: /assets/img/posts/20240404/Obidos.jpg
+image: Obidos.jpg
 tags: [development, .net, csharp, yield]
 category: development
 meta_description: "Build behavior trees in C# with IEnumerable<T> and yield, composing reusable nodes and coroutines for game AI, robotics, and deterministic control flows."

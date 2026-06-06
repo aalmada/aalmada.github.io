@@ -5,7 +5,7 @@ show_date: true
 title: "P/Invoking using Span&lt;T&gt;"
 date: 2018-03-21
 img_path: /assets/img/posts/20180321
-image: /assets/img/posts/20180321/Observing.jpg
+image: Observing.jpg
 tags: [development, .net, csharp, span]
 category: development
 redirect_from: /PInvoke-using-Span.html

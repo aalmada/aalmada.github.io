@@ -5,7 +5,7 @@ show_date: true
 title: "Generic math in .NET"
 date: 2023-06-10
 img_path: /assets/img/posts/20230610
-image: /assets/img/posts/20230610/Sculpture-by-Liechennay.jpg
+image: Sculpture-by-Liechennay.jpg
 tags: [development, .net, csharp, math, generics]
 category: development
 redirect_from: /Generic-math-in-dotnet.html

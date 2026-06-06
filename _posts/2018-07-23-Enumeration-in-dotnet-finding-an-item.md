@@ -5,7 +5,7 @@ show_date: true
 title: "Enumeration in .NET - Finding an item"
 date: 2018-07-23
 img_path: /assets/img/posts/20180723
-image: /assets/img/posts/20180723/Eagle.jpeg
+image: Eagle.jpeg
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet-finding-an-item.html

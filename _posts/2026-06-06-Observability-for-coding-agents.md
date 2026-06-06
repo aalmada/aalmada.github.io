@@ -5,7 +5,7 @@ show_date: true
 title: "Observability for Coding Agents: From Black Boxes to Measurable Systems"
 date: 2026-06-06
 img_path: /assets/img/posts/20260606
-image: /assets/img/posts/20260606/Montejunto.jpg
+image: Montejunto.jpg
 tags: [development, ai, agents, lsp, architecture]
 category: ai
 redirect_from: /Observability-for-Coding-Agents.html
