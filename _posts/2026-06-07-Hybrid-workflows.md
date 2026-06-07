@@ -26,7 +26,7 @@ This is where coding agents are incredibly useful. They help you implement deter
 
 If a workflow has clear inputs, clear outputs, and a well‑defined sequence of steps, the most efficient solution is still **a program**: a script, a binary, or a file‑based app.
 
-Shell scripts, Python scripts, Go binaries, and C# file‑based apps are **fast, cheap, reproducible, and deterministic**. They do not consume tokens. They do not hallucinate. They do not require retries or guardrails. They simply execute.
+Shell scripts, Python scripts, Go binaries, and [C# file‑based apps](https://learn.microsoft.com/en-us/dotnet/core/sdk/file-based-apps) are **fast, cheap, reproducible, and deterministic**. They do not consume tokens. They do not hallucinate. They do not require retries or guardrails. They simply execute.
 
 For .NET developers, the new file‑based C# apps are especially compelling: **instant startup, minimal ceremony, and full access to the .NET ecosystem**. They are often faster than Python and more maintainable than shell scripts.
 
@@ -49,7 +49,7 @@ This is exactly where the **Copilot SDK** fits.
 
 ## The Copilot SDK: Reasoning as a Native Capability
 
-The Copilot SDK is not just a set of thin wrappers around the Copilot CLI. It exposes the same agent runtime that powers Copilot CLI itself: a production‑tested engine capable of **planning, tool invocation, file edits, and structured reasoning**.
+The [Copilot SDK](https://github.com/github/copilot-sdk) is not just a set of thin wrappers around the Copilot CLI. It exposes the same agent runtime that powers Copilot CLI itself: a production‑tested engine capable of **planning, tool invocation, file edits, and structured reasoning**.
 
 Each SDK communicates with the Copilot CLI via **JSON‑RPC**, giving your application a clean, deterministic way to invoke reasoning. Some SDKs bundle the CLI automatically (Node, Python, .NET), while others require manual installation (Go, Java, Rust). The architecture is consistent across languages.
 
@@ -83,7 +83,7 @@ This is the architecture that will dominate the next decade of automation. Not �
 
 ## How Claude's Agent SDK Differs
 
-Claude also supports hybrid workflows, but its Agent SDK takes a very different approach. Instead of exposing a minimal, deterministic‑first interface, it provides a full agent runtime you embed directly into your application.
+Claude also supports hybrid workflows, but its [Agent SDK](https://code.claude.com/docs/en/headless) takes a very different approach. Instead of exposing a minimal, deterministic‑first interface, it provides a full agent runtime you embed directly into your application.
 
 The difference is architectural:
 
@@ -118,7 +118,7 @@ We are entering a world where reasoning becomes a primitive: a system call your 
 - `curl` is deterministic
 - `grep` is deterministic
 - `dotnet run` is deterministic
-- *+Copilot SDK calls** introduce non‑deterministic reasoning
+- **Copilot SDK calls** introduce non‑deterministic reasoning
 
 And your application orchestrates all of them.
 
