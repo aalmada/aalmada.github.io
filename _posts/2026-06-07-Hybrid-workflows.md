@@ -8,7 +8,7 @@ img_path: /assets/img/posts/20260607
 image:
   path: /assets/img/posts/20260607/Split.webp
 tags: [development, ai, agents, copilot, sdk, architecture]
-category: development
+category: ai
 redirect_from:
   - /posts/Hybrid-Workflows/
 meta_description: "Hybrid workflows should be deterministic by default and use reasoning only when needed. Why the Copilot SDK makes that architecture practical and maintainable."
