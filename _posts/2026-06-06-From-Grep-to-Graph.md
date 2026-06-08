@@ -7,7 +7,7 @@ date: 2026-06-06
 img_path: /assets/img/posts/20260606
 image:
   path: /assets/img/posts/20260606/Mosteiro-Alcobaca.jpg
-tags: [development, ai, agents, lsp, architecture]
+tags: [ai, agents, lsp, gitnexus, copilot]
 category: ai
 redirect_from: /From-Grep-to-Graph.html
 meta_description: "Understand why coding agents need LSP and GitNexus for deterministic semantic insight, better reuse, and lower entropy across present code and repository history."

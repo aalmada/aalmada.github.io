@@ -7,7 +7,7 @@ date: 2026-06-07
 img_path: /assets/img/posts/20260607
 image:
   path: /assets/img/posts/20260607/Split.webp
-tags: [development, ai, agents, copilot, sdk, architecture]
+tags: [ai, agents, copilot]
 category: ai
 redirect_from:
   - /posts/Hybrid-Workflows/

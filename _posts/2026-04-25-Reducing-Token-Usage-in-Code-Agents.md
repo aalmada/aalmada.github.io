@@ -7,7 +7,7 @@ date: 2026-04-25
 img_path: /assets/img/posts/20260425
 image:
   path: /assets/img/posts/20260425/Alverca.jpg
-tags: [ai, llm, code agents, context engineering, lsp, productivity, claude code, github copilot]
+tags: [ai, llm, code agents, context engineering, lsp, productivity, claude code, copilot]
 category: ai
 meta_description: "Why token usage explodes in long code-agent sessions and how context engineering with RTK-AI, Graphify, Caveman, and LSP helps reduce cost and stay within model limits."
 ---

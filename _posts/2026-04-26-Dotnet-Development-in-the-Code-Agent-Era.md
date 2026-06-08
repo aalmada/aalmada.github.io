@@ -7,7 +7,7 @@ date: 2026-04-26
 img_path: /assets/img/posts/20260426
 image:
   path: /assets/img/posts/20260426/Robots.jpg
-tags: [ai, llm, code agents, dotnet, csharp, aspire, analyzers, hooks, productivity, github copilot, claude code]
+tags: [ai, llm, code agents, dotnet, csharp, aspire, analyzers, hooks, copilot, claude code]
 category: ai
 meta_description: "How deterministic .NET tools like analyzers, tests, Aspire, and hooks create a stable foundation for high-quality automation in the code agents era."
 ---

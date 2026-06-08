@@ -7,7 +7,7 @@ date: 2026-05-03
 img_path: /assets/img/posts/20260503
 image:
   path: /assets/img/posts/20260503/Candelaria.jpg
-tags: [ai, code agents, apm, package management, instructions, skills, hooks, productivity, github copilot, claude code]
+tags: [ai, agents, apm, package management, instructions, skills, hooks, copilot, claude code]
 category: ai
 meta_description: "APM applies npm-style package management to AI agent configuration, making your team's instructions, skills, agents, and hooks versioned and reproducible."
 ---

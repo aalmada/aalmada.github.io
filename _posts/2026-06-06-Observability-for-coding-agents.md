@@ -7,7 +7,7 @@ date: 2026-06-06
 img_path: /assets/img/posts/20260606
 image:
   path: /assets/img/posts/20260606/Montejunto.jpg
-tags: [development, ai, agents, lsp, architecture]
+tags: [ai, agents, lsp, telemetry, copilot]
 category: ai
 redirect_from:
   - /posts/Observability-for-Coding-Agents/
