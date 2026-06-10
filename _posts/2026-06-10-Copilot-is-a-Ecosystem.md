@@ -40,6 +40,8 @@ Because the CLI is scriptable and independent of the editor, it’s the natural 
 
 And when a workflow needs GitHub‑side reasoning, the CLI can **delegate to the Cloud Copilot** using the [`/delegate`](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/delegate-tasks-to-cca) command — a seamless handoff between Copilots.
 
+And the CLI Copilot is no longer limited to the machine where it’s running. With the new [Remote Control CLI Sessions](https://github.blog/changelog/2026-04-13-remote-control-cli-sessions-on-web-and-mobile-in-public-preview/) feature, you can start a long‑running workflow locally and then control it from GitHub.com or the GitHub Mobile app. The web and mobile interfaces act as remote consoles for the CLI session — you can monitor progress, send follow‑up instructions, and continue the workflow even when you’re away from your laptop. This turns the CLI into a distributed Copilot surface, one that follows you across devices and keeps the workflow alive wherever you are.
+
 If the VS Code Copilot is the interactive one, the CLI Copilot is the **procedural one**, and it’s fully integrated with the editor.
 
 ## The Copilot SDK: the one you embed into apps and automation
