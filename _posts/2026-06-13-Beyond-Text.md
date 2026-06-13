@@ -24,8 +24,7 @@ Below is a detailed map of their tool surfaces — the actual verbs an agent gai
 
 ## GitNexus — Structural and Historical Code Reasoning
 
-[GitNexus](https://gitnexus.homes/) gives agents a deep, structural, and historical understanding of a codebase.  
-It builds its model using Tree‑Sitter, extracting symbols, references, processes, and module boundaries, and then layers commit history and multi‑repo contract analysis on top. Its MCP surface is split into per‑repository tools and group‑level tools, giving agents both a maintainer’s view of a single repo and an architect’s view across many.
+[GitNexus](https://gitnexus.homes/) gives agents a deep, structural, and historical understanding of a codebase. It builds its model using Tree‑Sitter, extracting symbols, references, processes, and module boundaries, and then layers commit history and multi‑repo contract analysis on top. Its MCP surface is split into per‑repository tools and group‑level tools, giving agents both a maintainer’s view of a single repo and an architect’s view across many.
 
 GitNexus MCP tools:
 
@@ -107,12 +106,7 @@ Memobase forms the **application memory layer** of the semantic stack — lightw
 ## MemPalace — Cognitive Memory and Temporal Reasoning
 
 [MemPalace](https://www.mempalace.net/) exposes the richest cognitive memory surface in the MCP ecosystem.  
-It is designed for agents that need identity, continuity, temporal reasoning, and the ability to evolve their own internal knowledge over time.  
-Its toolset spans episodic memory, semantic memory, associations, timelines, metadata, lifecycle operations, and advanced retrieval.
-
-> **Note:** MemPalace ships in two MCP variants.  
-> The *minimal* server exposes only `store`, `recall`, `search`, `forget`, and `stats`.  
-> The version used here — the **full cognitive MCP server** — exposes the complete tool surface below.
+It is designed for agents that need identity, continuity, temporal reasoning, and the ability to evolve their own internal knowledge over time. Its toolset spans episodic memory, semantic memory, associations, timelines, metadata, lifecycle operations, and advanced retrieval.
 
 MemPalace MCP tools:
 
