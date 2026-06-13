@@ -8,12 +8,27 @@ order: 4
 
 ## About Me
 
-Welcome! I'm a passionate technologist and lifelong learner with a love for creative problem-solving and innovation. My journey in technology began in the late '90s, exploring the frontiers of virtual reality, full-body interaction, and augmented reality. My first lines of code were written on a ZX Spectrum 48K, sparking a fascination that led me to earn a Computer Science degree from NOVA University Lisbon.
+I’m **Antão Almada**, a software architect focused on how **AI is reshaping the software development lifecycle**. My work centers on **coding agents**, **deterministic workflows**, and the engineering practices required to make AI a reliable part of real systems — observability, governance, reproducibility, and domain‑knowledge preservation.
 
-Over the years, I've developed expertise in C++ and C#, having used C# since its first public release, which has become my primary language. I am the creator and maintainer of several open-source projects under the [NetFabric](https://github.com/NetFabric) organization on GitHub. My contributions also extend to prominent projects such as [ReactiveUI](https://github.com/reactiveui/ReactiveUI) and [MixedRealityToolkit-Unity](https://github.com/microsoft/MixedRealityToolkit-Unity), where I've enjoyed collaborating with talented developers worldwide.
+I lead architecture initiatives at NTT Data Portugal, helping teams adopt **GenAI‑driven development**, integrate **GitHub Copilot**, and design **agent‑based workflows** that scale across projects. My goal is always the same: bring clarity, determinism, and engineering discipline to a space that often defaults to improvisation.
 
-Currently, I'm working on generative AI (GenAI), exploring the latest advancements and their applications.
+Before focusing on AI, I worked across **.NET backend architecture**, **IoT**, **XR**, and distributed systems. My long journey with .NET — which I wrote about in  
+[My adventure with .NET development](https://antaoalmada.dev/posts/My-adventure-with-dotnet-development/) — still shapes how I think about boundaries, contracts, and domain behavior.
 
-Beyond coding, I value balance in life. I cherish time spent with my family and recharge by riding dirt bikes on pump tracks or exploring mountain bike trails. These adventures fuel my creativity and keep me inspired.
+A major influence early in my career was **Scott Meyers’ Effective C++ series**. Those books taught me that mastering a programming language is not enough — you must understand what the **compiler** does with your code and how the **processor** executes it. That mindset still drives my interest in performance, which I explored in  
+[Performance optimizations](https://antaoalmada.dev/posts/Performance-optimizations/).
 
-Every image featured on this blog is a product of my own creativity, reflecting my passion for both technology and the outdoors.
+I’m also active in **open‑source**, particularly through the [NetFabric](https://github.com/NetFabric) organization. NetFabric is where I explore ideas around modern C#, high‑performance data structures, functional patterns, and domain‑driven abstractions. These projects often influence the patterns I write about here, especially when bridging deterministic code with non‑deterministic AI.
+
+Outside of work, I’ve always had a passion for **bike riding**, especially BMX — the photo on this page is a reminder that I like building things that move fast, whether they’re systems or bikes.
+
+This blog is where I document the engineering side of AI in software development:
+
+- how coding agents behave in real workflows  
+- how to govern and constrain them  
+- how to reduce token usage and improve efficiency  
+- how to preserve domain knowledge during modernization  
+- how to design hybrid workflows that mix code and AI  
+- how to build reproducible, tool‑agnostic engineering practices  
+
+If you’re working on similar problems — AI engineering, modernization, or open‑source tooling — you can find me on LinkedIn or explore my projects on GitHub. I’m always open to good conversations and new ideas.
