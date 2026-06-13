@@ -12,9 +12,9 @@ I’m **Antão Almada**, a software architect focused on how **AI is reshaping t
 
 I lead architecture initiatives at [**NTT Data Portugal**](https://pt.nttdata.com/), helping teams adopt **GenAI‑driven development**, integrate **GitHub Copilot**, and design **agent‑based workflows** that scale across projects. My goal is always the same: bring clarity, determinism, and engineering discipline to a space that often defaults to improvisation.
 
-Before focusing on AI, I worked across **.NET backend architecture**, **IoT**, **XR**, and distributed systems. My long journey with .NET — which I wrote about in the [My adventure with .NET development](https://antaoalmada.dev/posts/My-adventure-with-dotnet-development/) post — still shapes how I think about boundaries, contracts, and domain behavior.
+Before focusing on AI, I worked across **.NET backend architecture**, **IoT**, **XR**, and distributed systems. My long journey with .NET — which I wrote about in the [My adventure with .NET development](/posts/My-adventure-with-dotnet-development/) post — still shapes how I think about boundaries, contracts, and domain behavior.
 
-A major influence early in my career was **Scott Meyers’ _Effective C++_ series**. Those books taught me that mastering a programming language is not enough — you must understand what the **compiler** does with your code and how the **processor** executes it. That mindset still drives my interest in performance, which I explored in the [Performance optimizations](https://antaoalmada.dev/posts/Performance-optimizations/) post.
+A major influence early in my career was **Scott Meyers’ _Effective C++_ series**. Those books taught me that mastering a programming language is not enough — you must understand what the **compiler** does with your code and how the **processor** executes it. That mindset still drives my interest in performance, which I explored in the [Performance optimizations](/posts/Performance-optimizations/) post.
 
 I’m also active in **open‑source**, particularly through the [NetFabric](https://github.com/NetFabric) organization. NetFabric is where I explore ideas around modern C#, high‑performance data structures, functional patterns, and domain‑driven abstractions. These projects often influence the patterns I write about here, especially when bridging deterministic code with non‑deterministic AI.
 
