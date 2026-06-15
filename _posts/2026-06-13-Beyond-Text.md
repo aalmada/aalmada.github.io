@@ -32,22 +32,16 @@ Below is a detailed map of their tool surfaces — the actual verbs an agent gai
 
 GitNexus MCP tools:
 
-- **list_repos** — discover all indexed repositories (paginated)  
-- **query** — hybrid search (BM25 + semantic + RRF)  
-- **context** — 360‑degree symbol view with categorized references and process participation  
-- **impact** — blast‑radius analysis with depth grouping and confidence scoring  
-- **detect_changes** — map git-diff changes to affected processes  
-- **rename** — coordinated multi-file rename using graph + text search  
-- **cypher** — raw Cypher graph queries over the structural + historical graph  
-- **dependency_graph** — inspect module-level dependencies  
-- **call_chain** — traverse caller/callee relationships  
-- **semantic_diff** — structural diff between revisions  
-- **symbol_history** — retrieve the evolution of a symbol across commits  
-- **group_list** — list configured repository groups  
-- **group_sync** — extract contracts and match them across repos/services  
-- **group_contracts** — inspect extracted contracts and cross-repository links  
-- **group_query** — search execution flows across all repos in a group  
-- **group_status** — check staleness and sync status of repos in a group  
+- `list_repos` — list all indexed repositories with metadata  
+- `query` — hybrid semantic + lexical search grouped by execution flow  
+- `context` — retrieve full dependency and reference context for a symbol  
+- `impact` — compute transitive impact (“blast radius”) of a change  
+- `detect_changes` — map git diffs to affected symbols and processes  
+- `rename` — perform coordinated multi-file symbol renaming  
+- `cypher` — execute raw graph queries over the knowledge graph  
+
+> GitNexus exposes exactly seven MCP tools in its server implementation. [1](https://github.com/tsingke/gitnexus/blob/main/gitnexus/README.md)  
+
 
 GitNexus forms the **structural and historical layer** of the semantic stack. Its per‑repo tools give agents a maintainer’s view of how a system is wired and how it has changed, while its group‑level tools give them an architect’s view of how services interact, contract boundaries evolve, and execution flows span multiple repositories.
 
@@ -61,17 +55,22 @@ The result is a semantic model that spans **files, functions, services, protocol
 
 Codebase‑Memory‑MCP MCP tools:
 
-- **search** — semantic retrieval across the repository  
-- **similar** — finds code or text similar to a given snippet  
-- **get_chunk** — retrieves the full content of a stored code/text chunk  
-- **graph_query** — executes Cypher‑like queries over the structural graph  
-- **impact_analysis** — evaluates structural consequences of modifying a node  
-- **temporal_facts** — queries time‑bounded knowledge  
-- **store_memory** — persists agent‑discovered facts or summaries  
-- **retrieve_memory** — retrieves previously stored memory  
-- **index_status** — inspects the state of the code index  
-- **index_rebuild** — triggers a full re‑index  
-- **index_update** — performs incremental updates  
+- `search_code` — search source code with structural awareness  
+- `search_graph` — search graph nodes and relationships  
+- `graph_query` — execute Cypher-like queries over the graph  
+- `trace_call_path` — traverse inbound/outbound call chains  
+- `detect_changes` — map uncommitted changes to impacted graph nodes  
+- `get_architecture` — return high-level architecture overview (layers, entry points, hotspots)  
+- `manage_adr` — create/read/update architecture decision records  
+
+- `search_code_advanced` — advanced filtered code search (optional in some builds)  
+- `search_graph_advanced` — advanced graph filtering queries  
+- `trace_call_path_advanced` — extended tracing with risk labels  
+- `graph_stats` — return statistics about the knowledge graph  
+- `index_status` — return indexing state  
+- `index_update` — incrementally update graph after changes  
+
+> The MCP server exposes ~12–14 tools covering search, graph queries, tracing, and indexing lifecycle. [2](https://github.com/safishamsi/graphify/blob/v8/graphify/mcp_ingest.py)  
 
 Codebase‑Memory‑MCP forms the **semantic substrate** of the stack: search, similarity, structure, time, cross‑service communication, memory, and index lifecycle — all exposed as tools. Tree‑Sitter provides structural grounding, hybrid LSP signals refine accuracy, and cross‑service detection lets agents treat a distributed system as a single, queryable semantic graph.
 
@@ -83,11 +82,13 @@ Codebase‑Memory‑MCP forms the **semantic substrate** of the stack: search, s
 
 Graphify MCP tools:
 
-- **ingest** — imports documents, transcripts, videos, PDFs, or repositories  
-- **build_graph** — constructs or updates the concept graph  
-- **query_graph** — executes Cypher‑like queries over the concept graph  
-- **cluster** — performs community detection to identify themes  
-- **visualize** — generates interactive graph visualizations  
+- `query_graph` — perform semantic search over graph nodes and labels  
+- `get_neighbors` — retrieve adjacent nodes for a given node  
+- `get_community` — retrieve nodes within the same cluster/community  
+- `get_node` — retrieve details for a specific node  
+- `graph_stats` — return summary statistics of the graph  
+
+> These tools are defined in the MCP server (`serve.py`) and exposed via JSON‑RPC. [3](https://github.com/mempalace/mempalace)  
 
 Graphify’s query engine supports a safe subset of Cypher‑like graph queries: pattern matching, multi‑hop traversal, property filtering, shortest‑path queries, and neighborhood exploration. Where GitNexus applies Cypher‑like queries to code structure and history, and Codebase‑Memory‑MCP applies them to services, semantics, and time, Graphify applies them to **concepts, documents, and relationships**.
 
@@ -109,14 +110,11 @@ In practice, this means the agent doesn’t just remember what happened, but mai
 
 Memobase MCP tools:
 
-- **create_memory** — create a new memory entry  
-- **get_memory** — retrieve a memory by ID  
-- **update_memory** — modify an existing memory  
-- **delete_memory** — remove a memory by ID  
-- **search_memories** — semantic search across stored memories  
-- **list_memories** — enumerate memories with filters  
-- **stats** — return memory store statistics  
-- **ping** — health check  
+- `save_memory` — store data in long-term memory  
+- `search_memories` — retrieve relevant memories via semantic search  
+- `get_user_profiles` — retrieve structured user profile information  
+
+> The Memobase MCP server exposes exactly three tools.
 
 Memobase forms the **application memory layer** of the semantic stack — lightweight, open‑source, and focused on durable state rather than cognition. It gives agents a simple, reliable substrate for persisting information across interactions without the overhead of a full semantic or temporal memory system.
 
@@ -146,9 +144,11 @@ Instead of storing isolated entries, Memgraph represents knowledge as connected 
 Through the [Memgraph AI Toolkit](https://github.com/memgraph/ai-toolkit), Memgraph exposes a unified set of tools for querying and analyzing graph data:
 
 #### Query tools
-- **run_query / cypher** — execute arbitrary Cypher queries  
+
+- **run_query** — execute arbitrary Cypher queries  
 
 #### Metadata and schema
+
 - **get_schema / show_schema_info** — inspect labels, relationships, properties  
 - **get_configuration / show_config** — retrieve database configuration  
 - **get_index / show_index_info** — list indexes  
@@ -157,10 +157,12 @@ Through the [Memgraph AI Toolkit](https://github.com/memgraph/ai-toolkit), Memgr
 - **get_triggers / show_triggers** — list database triggers  
 
 #### Graph analytics
+
 - **get_page_rank** — compute PageRank  
 - **get_betweenness_centrality** — compute node centrality  
 
 #### Graph navigation and retrieval
+
 - **get_node_neighborhood** — explore connected nodes  
 - **search_node_vectors** — semantic similarity search over nodes  
 
@@ -172,31 +174,44 @@ Memgraph forms the **project memory layer** of the semantic stack — a persiste
 
 [MemPalace](https://www.mempalace.net/) exposes the richest cognitive memory surface in the MCP ecosystem. It is designed for agents that need identity, continuity, temporal reasoning, and the ability to evolve their own internal knowledge over time. Its toolset spans episodic memory, semantic memory, associations, timelines, metadata, lifecycle operations, and advanced retrieval.
 
-MemPalace MCP tools:
+### MCP Tools (core tool set — ≈19 tools)
 
-### Core memory operations
-- **store** — creates a new memory entry  
-- **get** — retrieves a memory by ID  
-- **update** — modifies an existing memory  
-- **delete** — removes a memory  
-- **list** — enumerates stored memories  
+#### Read / structure
 
-### Retrieval and reasoning
-- **recall** — retrieves memories ranked by relevance and recency  
-- **search** — performs semantic search  
-- **timeline** — reconstructs sequences of events  
-- **associate** — links memories  
+- `mempalace_status` — return high-level overview of the memory palace  
+- `mempalace_list_wings` — list top-level partitions (projects/entities)  
+- `mempalace_list_rooms` — list rooms within a wing  
+- `mempalace_get_taxonomy` — return full hierarchical structure  
+- `mempalace_search` — semantic search over stored memories  
+- `mempalace_check_duplicate` — detect similar existing entries  
+- `mempalace_get_aaak_spec` — retrieve encoding specification  
 
-### Lifecycle and maintenance
-- **forget** — prunes memory  
-- **stats** — returns metadata  
-- **export / import** — data exchange  
+#### Write
 
-### Advanced tools
-- **tag / untag / tags** — manage labels  
-- **similar** — similarity search  
-- **embed** — generate embeddings  
-- **inspect** — inspect memory structure  
+- `mempalace_add_drawer` — store new memory entry  
+- `mempalace_delete_drawer` — remove memory entry  
+- `mempalace_get_drawer` — retrieve a specific memory entry by ID  
+
+#### Knowledge graph
+
+- `kg_query` — query relational knowledge graph  
+- `kg_add` — add relationship triples  
+- `kg_invalidate` — invalidate outdated knowledge  
+- `kg_timeline` — query temporal evolution of facts  
+- `kg_stats` — return statistics about the knowledge graph  
+
+#### Navigation
+
+- `traverse` — traverse connections across the memory graph  
+- `find_tunnels` — find indirect connections between nodes  
+- `graph_stats` — return structural graph statistics  
+
+#### Diary
+
+- `diary_write` — record session-level or reflective memory  
+- `diary_read` — retrieve recorded diary entries  
+
+> The MemPalace MCP server exposes ~19 core tools grouped by cognitive role, with additional tools depending on version and configuration.
 
 MemPalace forms the **cognitive layer** of the semantic stack — the closest thing agents have to long‑term memory, continuity, and experience. Its expanded tool surface allows agents not only to remember, but to organize, evolve, categorize, and reason over their own internal history with far more nuance than simple key‑value storage.
 
