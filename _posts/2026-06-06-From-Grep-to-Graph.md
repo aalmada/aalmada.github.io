@@ -88,16 +88,24 @@ And because GitNexus exposes a standard MCP server, it works across almost every
 
 ### GitNexus MCP Tool Surface
 
-- **blast_radius**: compute the semantic impact of a change
-- **rename_symbol**: perform a true semantic rename across the repo
-- **find_symbol**: locate symbols by name, type, or signature
-- **find_references**: list all references across files and commits
-- **semantic_diff**: compare commits semantically, not textually
-- **list_symbols**: enumerate symbols in a file or module
-- **get_symbol_definition**: return the canonical definition
-- **get_symbol_history**: trace how a symbol evolved over time
-- **dependency_graph**: return dependency relationships
-- **search_graph**: run graph queries over the semantic index
+**Per-repo tools:**
+
+- **list_repos**: discover all indexed repositories with metadata
+- **query**: process-grouped hybrid search (BM25 + semantic + RRF) grouped by execution flow
+- **context**: 360-degree symbol view — categorized refs and process participation
+- **impact**: blast radius analysis with depth grouping and confidence scoring
+- **detect_changes**: git-diff impact — maps changed lines to affected processes and symbols
+- **rename**: multi-file coordinated rename with graph + text search
+- **cypher**: execute raw Cypher graph queries over the knowledge graph
+- **trace**: find the shortest call path between two symbols
+
+**Group tools (multi-repo):**
+
+- **group_list**: list configured repository groups
+- **group_sync**: extract contracts and match across repos/services
+- **group_contracts**: inspect extracted contracts and cross-links
+- **group_query**: search execution flows across all repos in a group
+- **group_status**: check staleness of repos in a group
 
 These tools operate on real parsers, real ASTs, and real commit graphs.
 They are deterministic, fast, and cost-free.
