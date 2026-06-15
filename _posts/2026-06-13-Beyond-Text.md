@@ -28,7 +28,7 @@ Below is a detailed map of their tool surfaces — the actual verbs an agent gai
 
 ## GitNexus — Structural and Historical Code Reasoning
 
-[GitNexus](https://gitnexus.vercel.app) gives agents a deep, structural, and historical understanding of a codebase. It builds its model using Tree‑Sitter, extracting symbols, references, processes, and module boundaries, and then layers commit history and multi‑repo contract analysis on top. Its MCP surface is split into per‑repository tools and group‑level tools, giving agents both a maintainer’s view of a single repo and an architect’s view across many.
+[GitNexus](https://github.com/abhigyanpatwari/GitNexus) gives agents a deep, structural, and historical understanding of a codebase. It builds its model using Tree‑Sitter, extracting symbols, references, processes, and module boundaries, and then layers commit history and multi‑repo contract analysis on top. Its MCP surface is split into per‑repository tools and group‑level tools, giving agents both a maintainer’s view of a single repo and an architect’s view across many.
 
 GitNexus MCP tools:
 
