@@ -88,13 +88,13 @@ Codebase‑Memory‑MCP MCP tools:
 
 > The MCP server exposes exactly 14 tools covering indexing, search, graph queries, tracing, architecture analysis, and ADR management. [2](https://github.com/DeusData/codebase-memory-mcp)  
 
-Codebase‑Memory‑MCP forms the **semantic substrate** of the stack: search, similarity, structure, time, cross‑service communication, memory, and index lifecycle — all exposed as tools. Tree‑Sitter provides structural grounding, Hybrid LSP signals refine accuracy through language-server-grade type resolution, and cross‑service detection lets agents treat a distributed system as a single, queryable semantic graph.
+Codebase‑Memory‑MCP forms the **semantic substrate** of the stack: search, structure, time, cross‑service communication, architecture decisions, runtime traces, and index lifecycle — all exposed as tools. Tree‑Sitter provides structural grounding, hybrid LSP signals refine accuracy through language-server-grade type resolution, and cross‑service detection lets agents treat a distributed system as a single, queryable semantic graph.
 
 ---
 
 ## Graphify — Concept Graphs for Domain Knowledge
 
-[Graphify](https://graphifylabs.ai/) turns any folder of code, documents, transcripts, videos, PDFs, and notes into a queryable knowledge graph that AI coding agents can search instead of grepping through files.
+[Graphify](https://graphifylabs.ai/) builds a queryable knowledge graph from a codebase and associated content, then exposes that graph — together with a pull‑request analysis surface — as MCP tools. Its tool set splits into two halves: graph traversal and querying (`query_graph`, `get_node`, `get_neighbors`, `shortest_path`) and PR analysis (`list_prs`, `get_pr_impact`, `triage_prs`).
 
 Graphify MCP tools:
 
@@ -108,9 +108,9 @@ Graphify MCP tools:
 
 > These tools are exposed via the MCP server (`python -m graphify.serve`). [3](https://github.com/safishamsi/graphify)  
 
-Graphify's query engine supports semantic search, multi-hop traversal, and path finding across the knowledge graph. Where GitNexus applies graph queries to code structure and history, and Codebase‑Memory‑MCP applies them to services, semantics, and time, Graphify applies them to **code, documents, concepts, and relationships** across any content type.
+Graphify's graph tools give agents semantic search, node inspection, neighbour traversal, and shortest-path queries over the knowledge graph. Its PR tools give them an AI‑ranked review queue with per-PR graph impact analysis and merge-order risk scoring.
 
-Graphify forms the **conceptual and cross-content layer** of the semantic stack, giving agents access to code, domain knowledge, documents, and any other content the team works with.
+Graphify forms the **conceptual and PR‑review layer** of the semantic stack, giving agents both graph traversal over domain knowledge and code concepts and an integrated pull‑request triage surface.
 
 ---
 
@@ -155,7 +155,7 @@ This distinction is fundamental:
   > *Who is this user? What do they prefer? How have they evolved?*
 
 - Memgraph answers:  
-  > *How is this system structured? What depends on what? What happens if something changes?*
+  > *How is this graph structured? Which nodes are most central? What is semantically similar to this node?*
 
 Instead of storing isolated entries, Memgraph represents knowledge as connected entities and relationships, making structure explicit and directly queryable. This enables agents to reason about dependencies, impact, and system behavior through deterministic graph traversal rather than indirect retrieval.
 
@@ -174,7 +174,7 @@ Through the [Memgraph AI Toolkit](https://github.com/memgraph/ai-toolkit), Memgr
 - **get_node_neighborhood** — find nodes within a specified distance from a given node  
 - **search_node_vectors** — perform vector similarity search on nodes using cosine similarity  
 
-Memgraph forms the **project memory layer** of the semantic stack — a persistent, queryable graph of services, modules, dependencies, and flows, where relationships are first‑class and reasoning emerges from structure rather than isolated facts.
+Memgraph forms the **graph analytics and query layer** of the semantic stack — a persistent graph database where agents can run arbitrary Cypher queries, inspect schema and indexes, compute PageRank and betweenness centrality, invoke MAGE graph algorithm modules, and perform vector similarity search over node embeddings alongside standard neighbourhood traversal.
 
 ---
 
@@ -237,7 +237,7 @@ Memgraph forms the **project memory layer** of the semantic stack — a persiste
 
 > The MemPalace MCP server exposes exactly 33 tools grouped by cognitive role, documented at [mempalaceofficial.com/reference/mcp-tools](https://mempalaceofficial.com/reference/mcp-tools.html).
 
-MemPalace forms the **cognitive layer** of the semantic stack — the closest thing agents have to long‑term memory, continuity, and experience. Its expanded tool surface allows agents not only to remember, but to organize, evolve, categorize, and reason over their own internal history with far more nuance than simple key‑value storage.
+MemPalace forms the **cognitive layer** of the semantic stack — the closest thing agents have to long‑term memory, continuity, and experience. Its tool surface spans spatial palace storage (read, write, sync), a temporally‑aware knowledge graph with fact invalidation and chronological timelines, cross‑wing navigation via tunnels and hallways, and a personal agent diary. Together they let agents not only remember facts, but organize them spatially, reason over how knowledge changes over time, and maintain a continuous record of their own activity.
 
 ---
 
@@ -247,9 +247,9 @@ Each of these MCP servers covers a different dimension of software understanding
 
 - GitNexus captures **structure and history**  
 - Codebase‑Memory‑MCP captures **semantics, services, and time**  
-- Graphify captures **concepts and domain knowledge**  
+- Graphify captures **concepts, domain knowledge, and PR analysis**  
 - Memobase captures **user identity and personalization**  
-- Memgraph captures **system structure and relationships**  
+- Memgraph captures **graph analytics, vector search, and structural queries**  
 - MemPalace captures **agent cognition and continuity**  
 
 They are not competing approaches. They are **complementary layers** of the same emerging architecture.
