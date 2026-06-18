@@ -41,17 +41,17 @@ GitNexus MCP tools:
 - `detect_changes` — git-diff impact: maps changed lines to affected processes and symbols  
 - `rename` — multi-file coordinated rename with graph + text search  
 - `cypher` — execute raw Cypher graph queries over the knowledge graph  
-- `trace` — find the shortest call path between two symbols  
+- `route_map` — visualize execution routes across the codebase  
+- `tool_map` — map tools and their relationships within the graph  
+- `shape_check` — validate structural shape and consistency of the graph  
+- `api_impact` — blast radius analysis scoped to API boundaries  
 
 **Group tools (multi-repo):**
 
 - `group_list` — list configured repository groups  
 - `group_sync` — extract contracts and match them across repos/services  
-- `group_contracts` — inspect extracted contracts and cross-links between repos  
-- `group_query` — search execution flows across all repos in a group  
-- `group_status` — check staleness of repos in a group  
 
-> GitNexus exposes 16 MCP tools (11 per-repo + 5 group tools for multi-repo contract analysis) per its canonical README. The surface is actively growing. [1](https://github.com/abhigyanpatwari/GitNexus)  
+> GitNexus exposes 13 MCP tools (11 per-repo + 2 group tools) as of v1.6.5. The surface is actively growing. [1](https://github.com/abhigyanpatwari/GitNexus)  
 
 
 GitNexus forms the **structural and historical layer** of the semantic stack. Its per‑repo tools give agents a maintainer’s view of how a system is wired and how it has changed, while its group‑level tools give them an architect’s view of how services interact, contract boundaries evolve, and execution flows span multiple repositories.
@@ -94,23 +94,23 @@ Codebase‑Memory‑MCP forms the **semantic substrate** of the stack: search, s
 
 ## Graphify — Concept Graphs for Domain Knowledge
 
-[Graphify](https://graphifylabs.ai/) builds a queryable knowledge graph from a codebase and associated content, then exposes that graph — together with a pull‑request analysis surface — as MCP tools. Its tool set splits into two halves: graph traversal and querying (`query_graph`, `get_node`, `get_neighbors`, `shortest_path`) and PR analysis (`list_prs`, `get_pr_impact`, `triage_prs`).
+[Graphify](https://graphifylabs.ai/) builds a queryable knowledge graph from a codebase and associated content, then exposes that graph as MCP tools. Its tool set covers graph traversal, querying, community inspection, and structural analysis.
 
 Graphify MCP tools:
 
-- `query_graph` — semantic search and graph queries over nodes, labels, and relationships  
-- `get_node` — retrieve details for a specific node by label  
-- `get_neighbors` — retrieve adjacent nodes for a given node  
-- `shortest_path` — find the shortest path between two nodes  
-- `list_prs` — PR dashboard with CI state, review status, and graph impact  
-- `get_pr_impact` — deep dive on a specific PR with graph impact analysis  
-- `triage_prs` — AI-ranked review queue with merge-order risk analysis  
+- `query_graph` — BFS/DFS search over the knowledge graph; returns relevant nodes and edges as text context  
+- `get_node` — retrieve full details for a specific node by label or ID  
+- `get_neighbors` — retrieve all direct neighbors of a node with edge details  
+- `get_community` — get all nodes in a community by community ID  
+- `god_nodes` — return the most connected nodes — the core abstractions of the knowledge graph  
+- `graph_stats` — return summary statistics: node count, edge count, communities, and confidence breakdown  
+- `shortest_path` — find the shortest path between two concepts in the knowledge graph  
 
-> These tools are exposed via the MCP server (`python -m graphify.serve`). [3](https://github.com/safishamsi/graphify)  
+> These tools are exposed via the MCP server (`graphify <path> --mcp`). [3](https://github.com/safishamsi/graphify)  
 
-Graphify's graph tools give agents semantic search, node inspection, neighbour traversal, and shortest-path queries over the knowledge graph. Its PR tools give them an AI‑ranked review queue with per-PR graph impact analysis and merge-order risk scoring.
+Graphify gives agents semantic search, node inspection, neighbour traversal, community exploration, centrality analysis, and shortest-path queries over the knowledge graph.
 
-Graphify forms the **conceptual and PR‑review layer** of the semantic stack, giving agents both graph traversal over domain knowledge and code concepts and an integrated pull‑request triage surface.
+Graphify forms the **conceptual layer** of the semantic stack, giving agents graph traversal over domain knowledge and code concepts.
 
 ---
 
@@ -161,6 +161,8 @@ Instead of storing isolated entries, Memgraph represents knowledge as connected 
 
 Through the [Memgraph AI Toolkit](https://github.com/memgraph/ai-toolkit), Memgraph exposes a unified set of tools for querying and analyzing graph data:
 
+- **list_databases** — list all available databases  
+- **use_database** — switch the active database context  
 - **run_query** — execute any Cypher query against the Memgraph database (read-only by default)  
 - **get_schema** — fetch graph schema: labels, relationships, and property keys  
 - **get_configuration** — fetch current Memgraph configuration settings  
