@@ -128,7 +128,7 @@ Practical migrations that are tractable now include:
 - **Legacy Java → modern Java**: replace deprecated APIs, adopt streams, modernize concurrency and split modules.  
 - **.NET Framework → .NET Core**: hosting, DI, middleware, configuration and runtime changes.  
 - **COBOL → Java or C#**: extract business rules, map data structures and generate modern equivalents.  
-- **Legacy JS → TypeScript and modern frameworks**: infer types, modularize and migrate DOM logic to components.  
+- **Legacy UI → TypeScript and modern frameworks**: infer types, modularize and migrate DOM logic to components.  
 - **Monolith → modular monolith or bounded modules**: extract contexts and enforce contracts.  
 - **SQL‑heavy logic → ORM or CQRS**: extract queries, map schemas and generate repositories or handlers.
 
