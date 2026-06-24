@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Profiling Coding Agents with /troubleshoot"
 date: 2026-06-24
-img_path: /assets/img/posts/20260606
+img_path: /assets/img/posts/20260624
 image:
-  path: /assets/img/posts/20260606/Estoril.webp
+  path: /assets/img/posts/20260624/Estoril.webp
 tags: [ai, agents, copilot, observability, performance]
 category: ai
 redirect_from:
