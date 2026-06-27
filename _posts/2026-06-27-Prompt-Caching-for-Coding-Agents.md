@@ -9,6 +9,7 @@ image:
   path: /assets/img/posts/20260627/Baixa.jpg
 tags: [ai, agents, copilot, llm, prompt caching, token usage]
 category: ai
+math: true
 meta_description: "How prompt caching works in coding agents, why cache hit rate drives cost, and what workflow habits preserve or destroy it."
 ---
 

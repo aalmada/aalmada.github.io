@@ -38,6 +38,7 @@ image:
   path: /assets/img/posts/YYYYMMDD/<image-file>
 tags: [tag1, tag2, tag3]
 category: <single-category>
+# math: true # optional — required when the post contains LaTeX formulas
 # redirect_from: /Old-Url.html # optional
 meta_description: "<110-145 chars, specific and page-accurate>"
 ---
@@ -47,9 +48,14 @@ Schema rules:
 
 - Required keys: `layout`, `read_time`, `show_date`, `title`, `date`, `img_path`, `image.path`, `tags`, `category`, `meta_description`.
 - `redirect_from` is optional and may be a single string or YAML list.
+- `math: true` is optional. Add it when the post contains any LaTeX/KaTeX formulas (inline `$...$` or block `$$...$$`). Without it, the Chirpy theme will not load the math renderer and formulas display as raw text.
 - Keep `tags` lowercase unless technical/proper casing is required (`.net`, `csharp`, `copilot`).
 - Keep `category` as one concise domain (`development`, `ai`, `network`, and similar).
 - Keep image paths coherent: `img_path` is the post image directory and `image.path` points to a real image file inside it.
+
+## Math rendering
+
+The Chirpy theme requires `math: true` in the frontmatter to load MathJax/KaTeX. Add it whenever the post contains any formula — inline (`$...$`) or block (`$$...$$`). Omitting it causes formulas to render as raw LaTeX text instead of typeset math.
 
 ## Image rules
 
@@ -115,6 +121,7 @@ Before finalizing, verify:
 - `meta_description` is unique, relevant, and near 110-145 chars.
 - `tags` and `category` match actual content.
 - `img_path` and `image.path` are valid and point to an existing featured image.
+- `math: true` is present in frontmatter if the post contains any LaTeX formulas.
 - Inline images (if any) include meaningful alt text.
 - Heading hierarchy is logical.
 - Links are valid and contextually useful.
