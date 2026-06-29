@@ -20,6 +20,8 @@ Always return one complete Markdown post (new file or in-place edit) that includ
 3. SEO-ready `title` and `meta_description`.
 4. Correct featured-image references (`img_path` and `image.path`) and valid inline image usage.
 
+Frontmatter must always be fenced with YAML delimiters: opening `---` on the first line of the post and closing `---` immediately before body content.
+
 If editing an existing post, preserve intent, key links, historical context, and publication `date` unless explicitly asked to change them.
 
 ## Required frontmatter schema
@@ -47,6 +49,7 @@ meta_description: "<110-145 chars, specific and page-accurate>"
 Schema rules:
 
 - Required keys: `layout`, `read_time`, `show_date`, `title`, `date`, `img_path`, `image.path`, `tags`, `category`, `meta_description`.
+- Frontmatter boundaries are mandatory: include both opening and closing `---` lines around the YAML block.
 - `redirect_from` is optional and may be a single string or YAML list.
 - `math: true` is optional. Add it when the post contains any LaTeX/KaTeX formulas (inline `$...$` or block `$$...$$`). Without it, the Chirpy theme will not load the math renderer and formulas display as raw text.
 - Keep `tags` lowercase unless technical/proper casing is required (`.net`, `csharp`, `copilot`).
@@ -61,6 +64,8 @@ The Chirpy theme requires `math: true` in the frontmatter to load MathJax/KaTeX.
 
 - Place post images under `/assets/img/posts/YYYYMMDD/`.
 - Prefer optimized images (typically `.webp`; `.jpg`/`.jpeg`/`.png` when needed).
+- Chirpy renders the featured image inside a fixed `40 / 21` frame on post pages, with `1200 x 630` intrinsic image metadata in the layout.
+- If you want the full image to read cleanly in the theme, crop or export featured images to `40:21` rather than square or 4:3.
 - Use descriptive filenames (topic-oriented, not generic camera names).
 - Ensure the featured image referenced by `image.path` exists.
 - For inline Markdown images, include meaningful alt text.
@@ -100,10 +105,11 @@ Use `references/seo-rules.md` for the source-backed rationale and checklist.
 For edits:
 
 1. Read the full post (frontmatter + body).
-2. Preserve `date` unless the user requests otherwise.
-3. Preserve permalink compatibility via existing `redirect_from`.
-4. Improve clarity, structure, and SEO fields without changing the core claim.
-5. Re-check `meta_description` length and relevance after final edits.
+2. Ensure frontmatter is still correctly fenced with opening and closing `---` lines after edits.
+3. Preserve `date` unless the user requests otherwise.
+4. Preserve permalink compatibility via existing `redirect_from`.
+5. Improve clarity, structure, and SEO fields without changing the core claim.
+6. Re-check `meta_description` length and relevance after final edits.
 
 For new posts:
 
@@ -117,10 +123,12 @@ For new posts:
 Before finalizing, verify:
 
 - Frontmatter is complete and valid YAML.
+- Frontmatter has both YAML fence lines (`---` at start and `---` before body).
 - `title` is specific and non-boilerplate.
 - `meta_description` is unique, relevant, and near 110-145 chars.
 - `tags` and `category` match actual content.
 - `img_path` and `image.path` are valid and point to an existing featured image.
+- Featured images are aligned to Chirpy's `40 / 21` post frame, so confirm the crop still works at that ratio.
 - `math: true` is present in frontmatter if the post contains any LaTeX formulas.
 - Inline images (if any) include meaningful alt text.
 - Heading hierarchy is logical.
