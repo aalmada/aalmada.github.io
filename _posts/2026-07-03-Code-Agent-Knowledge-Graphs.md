@@ -300,7 +300,7 @@ codebase-memory-mcp cli get_architecture '{}'
 | `detect_changes` | Git diff impact → blast radius + risk |
 | `query_graph` | Read-only openCypher queries |
 | `get_graph_schema` | Node/edge counts, relationship patterns, and property definitions |
-| `get_architecture` | Languages, packages, routes, hotspots, clusters in one call |
+| `get_architecture` | Languages, packages, routes, hotspots (git-history-derived churn), clusters in one call |
 | `get_code_snippet` | Source for a symbol by qualified name |
 | `manage_adr` | CRUD for Architecture Decision Records |
 | `search_code` | Graph-augmented grep over indexed files |
@@ -321,6 +321,7 @@ curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/i
 - Semantic vector search bundled (no API key, no external process)
 - Cross-service dependency detection: REST route-to-HTTP-call-site linking with confidence scoring; gRPC, GraphQL, and tRPC service detection; `EMITS`/`LISTENS_ON` pub/sub channel edges for Socket.IO, EventEmitter, and message buses; async queue dispatch — the graph captures how services actually communicate, not just how functions call each other within a service
 - Data-flow tracing: `DATA_FLOWS` edges follow values from argument to parameter, including field-access chains — shows how data moves through the system, not just who calls whom
+- Git co-change tracking: `FILE_CHANGES_WITH` edges are derived from git commit history and link files that frequently change together — useful for surfacing hidden coupling that does not appear in import graphs
 - Team-shared graph artifact: one zstd-compressed snapshot committed to the repo lets teammates skip full reindex
 - Architecture Decision Records baked into the graph
 - SLSA Level 3 supply chain provenance, Cosign signatures, 70+ VirusTotal scans per release
@@ -469,6 +470,8 @@ In practice: if your agent can call shell commands, prefer the CLI interface for
 ## Closing
 
 None of these tools covers every scenario, and the right choice depends on what you are indexing, how much latency you can tolerate during indexing, and whether your context problem is code-only or multi-format.
+
+These tools also **complement each other**. More than one can be active in the same project simultaneously — each accessible via its own MCP server or CLI commands, depending on what the agent needs. A common combination is Graphify for the docs and decision layer alongside codebase-memory-mcp or GitNexus for the code layer. They can index the whole repository or separate portions of it: one tool might own the application code graph while another owns the infrastructure manifests, the shared libraries, or the architecture decision records. The agent queries whichever graph has the answer.
 
 What they share is the same principle: **build a persistent structural index, then query it instead of exploring raw files**. This reduces agent token usage, improves answer quality, and makes long-horizon multi-step runs more reliable.
 
