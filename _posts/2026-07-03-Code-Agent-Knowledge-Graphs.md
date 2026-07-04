@@ -15,7 +15,7 @@ meta_description: "Graphify, GitNexus, codebase-memory-mcp, and CodeGraph compar
 
 The previous posts in this series covered [why coding agents need LSP and semantic graphs](../From-Grep-to-Graph) and [how indexing tools are one of the most effective levers for reducing token usage in long agent sessions](../Reducing-Token-Usage-in-Code-Agents). This post goes deeper on those tools specifically: what they build, how they classify content, how they expose query interfaces to agents, and where each one fits.
 
-Before an agent can navigate code, something has to build the map.
+We analyze the differences between **Graphify**, **GitNexus**, **codebase-memory-mcp**, and **CodeGraph** — the four most widely used tools in this space — and discuss which one is best for which scenario.
 
 ## The Origin: The LLM Wiki Pattern
 
