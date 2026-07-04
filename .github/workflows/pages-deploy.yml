@@ -65,3 +65,36 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  indexnow:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Submit URLs to IndexNow
+        run: |
+          SITE_URL="https://antaoalmada.dev"
+          KEY="a25e23958b8a4e2e9496a045db70c16d"
+
+          # Fetch sitemap and extract all URLs (up to 10000)
+          URL_LIST=$(curl -s "$SITE_URL/sitemap.xml" \
+            | grep -oP '(?<=<loc>)[^<]+' \
+            | head -10000 \
+            | jq -R . | jq -sc .)
+
+          # Submit bulk URLs to IndexNow
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "{
+              \"host\": \"antaoalmada.dev\",
+              \"key\": \"$KEY\",
+              \"keyLocation\": \"$SITE_URL/$KEY.txt\",
+              \"urlList\": $URL_LIST
+            }")
+
+          echo "IndexNow response: $HTTP_CODE"
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "202" ]; then
+            echo "URLs submitted successfully"
+          else
+            echo "Unexpected response code: $HTTP_CODE" && exit 1
+          fi
