@@ -121,7 +121,7 @@ The critical difference from LSP: graph-based tools give you this at **repositor
 - SQL schemas and PostgreSQL introspection
 - Terraform/HCL, MCP config files, package manifests
 
-For code, tree-sitter extracts AST nodes locally — no API call required. For everything else, a reasoning model extracts entities and relationships from chunks of text. When running via the `/graphify` skill inside an IDE, the model API is provided by the IDE session — no extra keys are needed. For headless extraction (`graphify extract`), a backend must be configured explicitly: Gemini, Claude, OpenAI, DeepSeek, Kimi, and Azure OpenAI each require an API key from that provider; AWS Bedrock uses IAM credentials (no API key); Ollama runs fully locally; `claude-cli` routes through your existing Claude subscription. GitHub Copilot is not a supported extraction backend. Leiden community detection groups related concepts into clusters and surfaces "god nodes" — the highest betweenness-centrality nodes whose failure has the largest blast radius.
+For code, tree-sitter extracts AST nodes locally — no API call required. For everything else, a reasoning model extracts entities and relationships from chunks of text. When running via the `/graphify` skill inside an IDE, the model API is provided by the IDE session — no extra keys are needed. For headless extraction (`graphify extract`), a backend must be configured explicitly: Gemini, Claude, OpenAI, DeepSeek, Kimi, and Azure OpenAI each require an API key from that provider; AWS Bedrock uses IAM credentials (no API key); Ollama runs fully locally; `claude-cli` routes through your existing Claude subscription. Leiden community detection groups related concepts into clusters and surfaces "god nodes" — the highest betweenness-centrality nodes whose failure has the largest blast radius.
 
 **Output artifacts:**
 
@@ -162,7 +162,7 @@ graphify install --platform codex   # use --platform (or a platform-specific sub
 
 **Limitations:**
 
-- LLM extraction for non-code content is probabilistic; when running via the `/graphify` skill inside an IDE, the IDE session provides the model — no extra keys needed. Headless extraction (`graphify extract`) requires a configured backend: Gemini, Claude, OpenAI, DeepSeek, Kimi, or Azure OpenAI (each needs a provider key), AWS Bedrock (IAM, no API key), Ollama (local), or `claude-cli` (Claude subscription) — GitHub Copilot is not a supported extraction backend
+- LLM extraction for non-code content is probabilistic; when running via the `/graphify` skill inside an IDE, the IDE session provides the model — no extra keys needed. Headless extraction (`graphify extract`) requires a configured backend: Gemini, Claude, OpenAI, DeepSeek, Kimi, or Azure OpenAI (each needs a provider key), AWS Bedrock (IAM, no API key), Ollama (local), or `claude-cli` (Claude subscription)
 - No Hybrid LSP layer — type resolution stays at tree-sitter level for code
 - No Cypher query interface; graph traversal is through the provided MCP tools and CLI commands
 - Code-only repos need no API key; mixed corpora do
@@ -435,16 +435,25 @@ The [llms.txt standard](https://llmstxt.org/) is a minimal alternative: place a 
 ## Which Tool for Which Scenario
 
 **You need code + docs + meetings + images in one graph:**
-Graphify. It is the only tool that handles multi-format corpora in a single graph. Accept the LLM extraction cost for non-code content; the combined query capability is not available elsewhere.
+Graphify. The only tool that handles multi-format corpora in a single graph. Accept the LLM extraction cost for non-code content; the combined query capability — asking "which decision led to this implementation" across three PDFs, two meeting transcripts, and the code itself — is not available anywhere else.
 
 **You need deep code intelligence for a large polyglot codebase:**
-codebase-memory-mcp. 158 languages, Hybrid LSP type resolution for 10 of them, the fastest indexer, zero infrastructure, and 120× token reduction benchmarks. The right default for any team that does not need docs in the same graph.
+codebase-memory-mcp. 158 languages, Hybrid LSP type resolution for 10 of them, the fastest indexer in the class (Linux kernel in 3 minutes), zero infrastructure, and 120× token reduction benchmarks. The right default for any team that does not need docs in the same graph.
 
-**You need execution flow tracing and multi-repo contracts:**
-GitNexus. Process detection (entry point → full call chain), cross-repo contract registries for microservices, and the richest MCP tool surface. The deeper integration with Claude Code (PreToolUse hooks that enrich Grep/Glob output) makes it the best choice if your team is Claude Code-first.
+**You need execution flow tracing:**
+GitNexus. Process detection traces entry points through full call chains and groups them as named processes, giving the agent a runtime-level view of behavior rather than just structure. The richest MCP tool surface in the class, with the deepest Claude Code integration (PreToolUse hooks that enrich Grep/Glob results with graph context before the model sees them).
 
-**You need a clean, minimal surface for a TypeScript or React Native project:**
-CodeGraph. One smart tool that answers most questions in a single call. Framework route extraction and Swift ↔ ObjC bridging are unique to this tool. Zero config, zero overhead.
+**You need security-focused analysis — taint tracking, data-flow paths, source-to-sink:**
+GitNexus. The `explain` tool surfaces taint findings with full source→sink flow traces. `pdg_query` exposes control and data dependence at the statement level, letting the agent ask "does user input ever reach this SQL call without sanitization" as a graph query rather than a manual audit.
+
+**You work on infrastructure as code alongside application code:**
+codebase-memory-mcp. It is the only tool in this class that indexes Dockerfiles, Kubernetes manifests, and Kustomize overlays as first-class graph nodes with the same edge types as application code. An agent can trace a service's deployment configuration back to the code it deploys, or ask which workloads are affected by a change to a shared ConfigMap.
+
+**You are working across multiple repositories — microservices, separate frontend/backend, shared libraries:**
+GitNexus and codebase-memory-mcp are the strongest fits. GitNexus includes a dedicated cross-repo contract registry that tracks API shapes and their consumers across service boundaries, detecting when a change in one repo breaks a contract in another. codebase-memory-mcp models cross-service HTTP, gRPC, GraphQL, and pub/sub dependencies as first-class graph edges, so the agent sees how services actually communicate rather than treating each repo in isolation. Graphify also supports multi-repo and can span repositories in a single graph, which is useful when architecture decisions or shared docs need to be linked alongside code.
+
+**You need a clean, minimal surface for a full-stack or mobile project:**
+CodeGraph. One smart tool that answers most questions in a single call. Framework route extraction covers both backend (Express, NestJS, FastAPI, Django, Spring, Gin, Axum…) and frontend (SvelteKit, Vue/Nuxt, Astro) frameworks, linking URL patterns to handler code across the full stack. Swift ↔ ObjC bridging and React Native support are unique to this tool. Zero config, zero overhead.
 
 **No full graph is needed, just structure:**
 Use Aider's built-in repo map, or generate an llms.txt file with any of the tools above. The LLM wiki pattern applies at any granularity.
