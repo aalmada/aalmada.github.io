@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Maximizing Network Security: Leveraging Multiple VLANs with UniFi Hardware"
+title: "Network Segmentation with Multiple UniFi VLANs"
 date: 2024-04-22
 img_path: /assets/img/posts/20240422
 image:

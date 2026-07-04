@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Harnessing WSL for Modern .NET Development with VS Code, Docker, and Aspire"
+title: "Modern .NET Development with VS Code and WSL"
 date: 2025-08-15
 img_path: /assets/img/posts/20250815
 image:

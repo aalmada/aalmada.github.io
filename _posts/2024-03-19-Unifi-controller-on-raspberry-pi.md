@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Deploying UniFi Controller on Raspberry Pi with Portainer"
+title: "UniFi Controller on Raspberry Pi with Portainer"
 date: 2024-03-19
 img_path: /assets/img/posts/20240319
 image:

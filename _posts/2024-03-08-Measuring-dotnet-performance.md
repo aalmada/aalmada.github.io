@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Measuring .NET Performance: Unleashing the Power of BenchmarkDotNet"
+title: "Measuring .NET Performance with BenchmarkDotNet"
 date: 2024-03-08
 img_path: /assets/img/posts/20240308
 image:

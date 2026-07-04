@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Reducing Token Usage in Code Agents with RTK-AI, Graphify, Caveman, and LSP"
+title: "Reducing Token Usage in Code Agents"
 date: 2026-04-25
 img_path: /assets/img/posts/20260425
 image:

@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Deploying a recursive DNS server on Raspberry Pi with Portainer"
+title: "Recursive DNS Server on Raspberry Pi with Portainer"
 date: 2024-03-20
 img_path: /assets/img/posts/20240320
 image:

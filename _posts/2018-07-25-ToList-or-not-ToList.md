@@ -10,7 +10,7 @@ image:
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /ToList-or-not-ToList.html
-meta_description: "Analyze the impact of using ToList() and ToArray() in LINQ queries in .NET. Learn about lazy evaluation, memory allocation, performance benchmarks, and when to use these methods for optimal results."
+meta_description: "Analyze when to use ToList() or ToArray() in .NET LINQ queries. Learn about lazy evaluation, memory allocation, and benchmarks to make the right choice."
 ---
 
 ## Introduction

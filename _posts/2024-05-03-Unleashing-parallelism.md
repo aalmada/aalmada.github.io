@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Unleashing Parallelism: A Guide to Efficient Span Processing with SIMD and Threading in C#"
+title: "Efficient Span Processing with SIMD in C#"
 date: 2024-05-03
 img_path: /assets/img/posts/20240503
 image:

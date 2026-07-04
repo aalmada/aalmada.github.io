@@ -10,7 +10,7 @@ image:
 tags: [development, .net, csharp, performance, benchmarks]
 category: development
 redirect_from: /ImmutableArray-enumeration-performance.html
-meta_description: "Analyze the iteration performance of ImmutableArray<T> in C#, compare it to arrays and lists, and see how JIT optimizations in .NET 6 and .NET 8 affect real-world benchmarks."
+meta_description: "Analyze ImmutableArray<T> iteration performance in C#, compare it to arrays and lists, and see how JIT optimizations in .NET 6 and .NET 8 affect benchmarks."
 ---
 
 ## Introduction

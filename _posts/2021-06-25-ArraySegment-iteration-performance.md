@@ -10,7 +10,7 @@ image:
 tags: [development, .net, csharp, performance, benchmarks]
 category: development
 redirect_from: /ArraySegment-iteration-performance.html
-meta_description: "Benchmark and compare the iteration performance of ArraySegment<T> in C#, including for, foreach, LINQ, and span-based approaches, with practical recommendations for high-performance code."
+meta_description: "Benchmark ArraySegment<T> iteration in C#, covering for, foreach, LINQ, and span-based approaches with recommendations for high-performance .NET code."
 ---
 
 ## Introduction

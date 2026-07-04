@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Behavior Tree Development in C# with IEnumerable<T> and Yield"
+title: "C# Behavior Trees with IEnumerable<T> and Yield"
 date: 2024-04-04
 img_path: /assets/img/posts/20240404
 image:

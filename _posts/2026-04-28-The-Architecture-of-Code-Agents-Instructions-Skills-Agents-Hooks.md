@@ -9,7 +9,7 @@ image:
   path: /assets/img/posts/20260428/Merida.jpg
 tags: [ai, code agents, architecture, skills, hooks, instructions]
 category: ai
-meta_description: "A practical guide to the four foundational building blocks of modern code agent harnesses: instructions, skills, agents, and hooks. Learn how to encode knowledge, enforce rules, and create safe, repeatable automation."
+meta_description: "A practical guide to the four building blocks of modern code agent harnesses: instructions, skills, agents, and hooks, and how to apply them in real systems."
 ---
 
 Most of us began our generative AI journey the same way:

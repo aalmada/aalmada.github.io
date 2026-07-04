@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "A 12 % improvement, easily obtained, is never considered marginal -- Donald Knuth"
+title: "Practical .NET Performance Optimization Habits"
 date: 2023-07-19
 img_path: /assets/img/posts/20230719
 image:

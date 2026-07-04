@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Defensive Coding in C#: A Closer Look at Unchecked Return Value Discards"
+title: "Defensive Coding: Return Value Discards in C#"
 date: 2024-01-15
 img_path: /assets/img/posts/20240115
 image:

@@ -32,7 +32,8 @@
 - Filename format: `YYYY-MM-DD-Title.md`.
 - Posts use frontmatter and render under permalink `/posts/:title/` (from `_config.yml`).
 - Keep frontmatter valid YAML.
-- For this repo, `meta_description` should target `110-145` characters, prioritizing clarity if a slight deviation is needed.
+- Post `title` must be ≤55 characters so the full page title (`title + " | Antão Almada"`) stays under 70 characters.
+- For this repo, `meta_description` should target `150-160` characters, prioritizing clarity if a slight deviation is needed.
 
 ## Image conventions
 

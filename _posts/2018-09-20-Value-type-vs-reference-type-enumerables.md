@@ -10,6 +10,7 @@ image:
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /Value-type-vs-reference-type-enumerables.html
+meta_description: "Learn how C# foreach handles value-type and reference-type enumerators differently, and how this choice affects allocation and iteration speed in .NET."
 ---
 
 ## Introduction

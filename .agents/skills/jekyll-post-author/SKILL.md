@@ -33,7 +33,7 @@ Use this schema exactly, with optional fields only when needed:
 layout: post
 read_time: true
 show_date: true
-title: "<post title>"
+title: "<post title — max 55 chars so full page title stays ≤70>"
 date: YYYY-MM-DD
 img_path: /assets/img/posts/YYYYMMDD
 image:
@@ -42,13 +42,14 @@ tags: [tag1, tag2, tag3]
 category: <single-category>
 # math: true # optional — required when the post contains LaTeX formulas
 # redirect_from: /Old-Url.html # optional
-meta_description: "<110-145 chars, specific and page-accurate>"
+meta_description: "<150-160 chars, specific and page-accurate>"
 ---
 ```
 
 Schema rules:
 
 - Required keys: `layout`, `read_time`, `show_date`, `title`, `date`, `img_path`, `image.path`, `tags`, `category`, `meta_description`.
+- `title` must be ≤55 characters. The Chirpy theme appends " | Antão Almada" (15 chars), making the full `<title>` tag up to 70 chars — Bing's recommended maximum.
 - Frontmatter boundaries are mandatory: include both opening and closing `---` lines around the YAML block.
 - `redirect_from` is optional and may be a single string or YAML list.
 - `math: true` is optional. Add it when the post contains any LaTeX/KaTeX formulas (inline `$...$` or block `$$...$$`). Without it, the Chirpy theme will not load the math renderer and formulas display as raw text.

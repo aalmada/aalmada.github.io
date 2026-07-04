@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Handling enumerables in Roslyn Analyzers and Code Generators"
+title: "Enumerables in Roslyn Analyzers and Code Generators"
 date: 2023-08-30
 img_path: /assets/img/posts/20230830
 image:

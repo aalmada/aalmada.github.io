@@ -10,7 +10,7 @@ image:
 tags: [development, .net, csharp]
 category: development
 redirect_from: /Enumeration-in-dotnet-Count.html
-meta_description: "Understand the performance implications of LINQ's Count() method in .NET, including optimizations, pitfalls, and best practices for working with collections and enumerables."
+meta_description: "Understand the performance implications of LINQ's Count() in .NET, including optimizations, pitfalls, and best practices for collections and enumerables."
 ---
 
 ## Count()
