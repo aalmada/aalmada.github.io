@@ -13,7 +13,7 @@ redirect_from: /The-battle-of-loops.html
 meta_description: "Compare foreach and ForEach in C#: syntax, performance, and best practices. Learn how to optimize iteration for different collection types and scenarios."
 ---
 
-Within the realm of C# programming, distinguishing between similar constructs can significantly enhance your coding prowess. This article delves into the comparison of two C# iteration methods: `foreach` and `ForEach`. Despite their apparent similarities, they function differently.
+`foreach` is a language statement; `List<T>.ForEach()` is a method that takes a delegate. They look interchangeable, but they compile to different code with different performance profiles — and `ForEach` is limited to `List<T>` only. This article benchmarks both, then shows how to extend `ForEach` to other collections and close the performance gap.
 
 The use of `ForEach` in C# programming has sparked considerable debate. Regardless of whether you embrace its utility or have reservations about it, this article aims to provide valuable insights.
 

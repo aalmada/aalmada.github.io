@@ -15,7 +15,7 @@ meta_description: "Benchmark ArraySegment<T> iteration in C#, covering for, fore
 
 ## Introduction
 
-`ArraySegment<T>` is older and somewhat similar to `Span<T>`.
+`ArraySegment<T>` predates `Span<T>` and avoids many of its restrictions — it works with generics, can be a class field, and supports `IEnumerable<T>`. But how does it actually perform when you iterate it with `for`, `foreach`, or LINQ? This article benchmarks every common iteration pattern to find the fastest approach.
 
 `ArraySegment<T>` has a lot less usage limitations than `Span<T>`. Both are value types but `Span<T>` cannot be used as a generics type and can only be used as a field type inside a `ref struct`. With any other `struct`, or `class`, you’ll have to use a `Memory<T>` field type. To enumerate a `Memory<T>`, you have to call its `Span` property, which creates a new instance of `Span<T>`. This may be a big performance hit if, for example, the type containing this field has a method that accesses just one item. It takes time to create the `Span<T>` instance to then simply access a memory location.
 

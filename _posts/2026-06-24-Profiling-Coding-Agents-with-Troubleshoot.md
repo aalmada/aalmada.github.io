@@ -14,7 +14,7 @@ redirect_from:
 meta_description: "Use GitHub Copilot for VS Code's /troubleshoot command to inspect coding agent logs, reduce token usage, improve custom agents and skills, and turn agent sessions into measurable systems."
 ---
 
-Analyzing logs has always been one of the least pleasant parts of software engineering. Logs are noisy, incomplete, repetitive, and usually produced by systems that are already failing in some inconvenient way. We collect them because we need them, not because we enjoy reading them.
+Every coding agent session has a cost — tokens burned, tools called, retries attempted. GitHub Copilot's `/troubleshoot` command turns opaque agent logs into a readable profile: where tokens went, which tool calls failed, and what changes will make the next run cheaper. This post shows how to use it as a profiler for agent sessions.
 
 Coding agents make this problem more interesting. They produce the same kind of operational evidence as other software systems: requests, responses, retries, tool calls, errors, timing information, cache behavior, and resource usage. But they also add a new layer: reasoning. An agent does not merely execute a function. It chooses a path, observes the result, and updates its plan. When it finds a blocker, it usually tries another workaround, then another, repeating that loop until it succeeds, fails, or runs out of useful context.
 

@@ -13,7 +13,7 @@ redirect_from: /Unit-testing-a-Roslyn-Analyzer.html
 meta_description: "A practical guide to unit testing Roslyn analyzers in .NET. Learn how to structure test data, use IDE tools, avoid common pitfalls, and write maintainable tests for code analyzers and code fixers."
 ---
 
-I’ve been writing here many stories about enumeration in .NET. I know it’s hard to remember everything, specially when developing large projects with several other developers. I decided to develop [NetFabric.Hyperlinq.Analyzer](https://github.com/NetFabric/NetFabric.Hyperlinq.Analyzer) that peer reviews the code while it’s typed. I actually use it myself to develop [NetFabric.Hyperlinq](https://github.com/NetFabric/NetFabric.Hyperlinq).
+Roslyn analyzers catch bugs before they reach production, but testing them is surprisingly tricky — you need to verify diagnostics fire on bad code and stay silent on good code, all without running Visual Studio. This article walks through the practical patterns I use to unit test my own analyzer, from structuring test data to avoiding the most common pitfalls.
 
 The easiest way to start developing an analyzer is to use [the template available with Visual Studio](https://docs.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/tutorials/how-to-write-csharp-analyzer-code-fix). One of its great features is that it also generates the unit testing project.
 

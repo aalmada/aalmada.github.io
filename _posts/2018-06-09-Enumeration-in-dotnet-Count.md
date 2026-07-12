@@ -15,7 +15,7 @@ meta_description: "Understand the performance implications of LINQ's Count() in 
 
 ## Count()
 
-On [my previous article](/posts/Enumeration-in-dotnet/), I analysed the usage of `IEnumerable` strictly based on its contract. [It was brought to my attention](https://twitter.com/jonaskulhanek/status/1005102953831727105) that LINQ, short for "[LINQ to Objects](https://learn.microsoft.com/en-us/dotnet/csharp/linq/query-a-collection-of-objects)", optimizes some of the described scenarios, possibly breaking some of my assumptions. It’s a good point and I did some more research.
+Calling `Count()` on an `IEnumerable` looks harmless, but its performance depends entirely on the underlying collection type — and a single LINQ operator in the chain can silently destroy the optimization. This article benchmarks `Count()` across filtered and unfiltered collections to show exactly when the fast path disappears and what you can do about it.
 
 [Checking the implementation of the `Count()` extension method in LINQ](https://github.com/dotnet/corefx/blob/70ec0ad490754fa64ab06dde1d1f10e4d36a83a9/src/System.Linq/src/System/Linq/Count.cs#L12), we can see that it handles differently the case where the `IEnumerable` instance also implements `ICollection` or one other internal interface. This optimization is tricky and let me explain why.
 

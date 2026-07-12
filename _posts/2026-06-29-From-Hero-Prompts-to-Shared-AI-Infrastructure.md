@@ -12,7 +12,7 @@ category: ai
 meta_description: "Why AI agent workflows need versioned guardrails, shared repository knowledge, custom agents, hooks, and repeatable validation."
 ---
 
-I use generative AI because I want to automate work.
+A hero prompt is the long, carefully tuned instruction one developer writes to make an agent behave well — once. If that knowledge lives only in one person's head, the team has built a dependency, not infrastructure. This post argues that the useful parts of AI workflows need to be explicit, versioned, and committed with the repository, and shows how instructions, hooks, and custom agents make that practical.
 
 That may sound obvious, but it changes the argument about coding agents.
 

@@ -12,7 +12,7 @@ category: ai
 meta_description: "How deterministic .NET tools like analyzers, tests, Aspire, and hooks create a stable foundation for high-quality automation in the code agents era."
 ---
 
-Code agents are changing how we build software. No longer by simply producing isolated snippets or filling in boilerplate, but by participating directly in the development workflow. They read entire solutions, propose changes, refactor code, and interact with distributed systems. To work effectively with them, our codebases must be structured in a way that both humans and agents can understand and evolve.
+Code agents are non-deterministic — the same prompt can produce different code every time. The .NET ecosystem already has the answer: analyzers, formatters, tests, and Aspire are deterministic by design. This post shows how these existing tools become essential guardrails that keep agent output consistent, safe, and high-quality across sessions.
 
 Code agents introduce a new layer of automation, but automation alone does not guarantee quality. What actually guarantees quality are the tools and constraints that already exist in the .NET and C# ecosystem. These tools were originally designed to help human developers write consistent and maintainable code. In the code agents era, they become essential. Conventions, analyzers, tests, and orchestration frameworks give agents the structure they need to operate safely. While instruction files, skills, agents, and hooks define how automation behaves, the .NET toolchain defines what high quality code looks like.
 

@@ -15,7 +15,7 @@ meta_description: "Explore CPU branching, branch removal, and parallelization te
 
 ## Introduction
 
-Performance depends not only on the logic of our own code but also, what the compiler does with it and how the CPU executes it.
+A branch misprediction can cost 10–20 CPU cycles per iteration — and conditional logic inside tight loops is full of them. This article demonstrates practical techniques for removing branches and enabling CPU parallelization in .NET, with benchmarks showing the real-world speedup on modern processors.
 
 Modern CPUs try to maximize its throughput by executing instructions simultaneously, while waiting for the result of logic tests. They try their best to guess the behavior of our code but, many times, the code has to be adjusted to maximize that potential. These optimizations are CPU dependent, and results may vary.
 

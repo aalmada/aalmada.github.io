@@ -15,7 +15,7 @@ meta_description: "Learn how C# foreach handles value-type and reference-type en
 
 ## Introduction
 
-The C# compiler generates different code for the `foreach` keyword, based on the collection type. When it uses the enumerator, it gets an enumerator instance by calling the `GetEnumerator()` method of the collection. The type returned by this method can be either a value type or a reference type. This can have major implications in the performance of the collection iteration.
+Whether your enumerator is a value type or reference type can mean the difference between zero-allocation iteration and a heap allocation on every loop. The C# compiler generates different `foreach` code depending on what `GetEnumerator()` returns — and most developers never notice the performance gap. This article benchmarks both paths and shows how .NET's own collections exploit this distinction.
 
 > NOTE: It uses the indexer in the case of arrays or spans. Check my other article [“Array iteration performance in C#”](https://aalmada.github.io/Array-iteration-performance-in-csharp.html) to learn about those cases.
 

@@ -13,7 +13,7 @@ redirect_from: /Leveraging-csharp-foreach-loop.html
 meta_description: "Learn how C#'s foreach loop works under the hood, including compiler-generated code, performance tips, and best practices for custom collections. Improve your understanding of efficient data processing in .NET."
 ---
 
-In the dynamic landscape of modern software development, efficient data processing lies at the core of creating high-performance applications. As developers, we constantly strive to balance readability, maintainability, and speed when writing code. In the realm of C#, a programming language known for its versatility and robustness, the `foreach` loop emerges as a powerful tool for seamlessly navigating collections.
+The C# `foreach` loop hides a surprising amount of compiler-generated code — and what gets generated depends entirely on the collection type you hand it. Understanding this lets you write custom collections that iterate with zero allocations and maximum speed. This article dissects what the compiler actually emits for each case, from arrays to custom enumerators.
 
 `foreach`` is a statement in C# that generates the code required to traverse the items of a collection. The syntax is very simple:
 

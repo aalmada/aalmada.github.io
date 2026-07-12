@@ -14,6 +14,8 @@ redirect_from:
 meta_description: "Hybrid workflows should be deterministic by default and use reasoning only when needed. Why the Copilot SDK makes that architecture practical and maintainable."
 ---
 
+If a workflow has clear inputs and outputs, using an LLM to run it is slower, more expensive, and less reliable than code. But most real workflows are hybrid — deterministic end-to-end with one or two steps that require reasoning. This post shows how to combine deterministic code with AI reasoning using the Copilot SDK, so you only pay for intelligence where you actually need it.
+
 ## Deterministic vs Non-Deterministic Work
 
 *GenAI* is extraordinary at handling **non‑deterministic workflows**: the kind of work where ambiguity exists, where interpretation matters, and where the “right” answer depends on context rather than rigid rules. These are the domains where reasoning models shine: **summarizing, rewriting, classifying, interpreting, and making sense of messy human inputs**.

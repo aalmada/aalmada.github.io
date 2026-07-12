@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Prompt Caching in Coding Harnesses"
+title: "Prompt Caching for Coding Agents Explained"
 date: 2026-06-27
 media_subpath: /assets/img/posts/20260627
 image:

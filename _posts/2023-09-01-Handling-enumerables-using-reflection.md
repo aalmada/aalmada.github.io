@@ -13,7 +13,7 @@ redirect_from: /Handling-enumerables-using-reflection.html
 meta_description: "Understand how to work with enumerables using .NET reflection, including runtime type inspection, foreach requirements, and practical tips for dynamic code scenarios."
 ---
 
-.NET Reflection is a dynamic mechanism that allows developers to inspect and interact with the metadata and behaviour of types, objects, and assemblies at runtime. This enables tasks like discovering types, accessing their properties and methods, and creating instances without having explicit compile-time knowledge. Reflection is a powerful tool for scenarios where you need to work with code in a flexible and adaptive manner.
+Determining at runtime whether a type supports `foreach` is deceptively hard — simply checking for `IEnumerable<T>` misses value-type enumerators, non-generic patterns, and extension-method scenarios. This article shows how to correctly validate enumerable types using reflection, and introduces a library that handles the edge cases for you.
 
 The requirement for an enumerable to be traversed using a `foreach` is that the type must provide a public parameterless method named `GetEnumerator()` that returns an instance of an enumerator. The returned enumerator type must provide a public parameterless method named `MoveNext()` that returns `bool`, and also a public readable property named `Current`. Alternatively, the `GetEnumerator()` method can be defined as an extension method.
 

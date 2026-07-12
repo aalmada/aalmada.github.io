@@ -15,7 +15,7 @@ meta_description: "Analyze ImmutableArray<T> iteration performance in C#, compar
 
 ## Introduction
 
-`ImmutableArray<T>` is one of the collections provided in the `System.Collections.Immutable` namespace. All collections in this namespace are immutable, meaning that they cannot be altered once created.
+`ImmutableArray<T>` is the go-to immutable collection when you need array-like performance without mutation — but does iterating it actually match regular array speed? This article benchmarks `ImmutableArray<T>` iteration across .NET versions and reveals how JIT optimizations have dramatically changed the results.
 
 These collections do provide mutation methods like `Add()`, `AddRange()`, `Remove()`, `RemoveAt()`, and so on. The thing is, for these collections, all these methods output a new collection, leaving the input collection unaltered.
 

@@ -14,7 +14,7 @@ redirect_from:
 meta_description: "GitHub Copilot is an ecosystem of integrated Copilots — the VS Code Copilot, the CLI Copilot, the SDK Copilot, the Cloud Copilot, and the GitHub Copilot App — each designed for different workflows but all connected through shared history, seamless handoffs, and unified interfaces."
 ---
 
-For a long time, “using GitHub Copilot” meant typing a prompt in VS Code. That was the Copilot we knew: the one embedded in the editor, the one that completed code, the one that felt like a natural extension of the IDE. But that Copilot is only one of several. GitHub Copilot appears in multiple places, with different capabilities, different interaction models, and different agents behind them, as I explored in [Copilot Custom Agents](/posts/copilot-custom-agents/).
+GitHub Copilot is no longer just the autocomplete in your editor. It now spans five integrated surfaces — VS Code, CLI, SDK, Cloud, and the GitHub App — each built for different workflows but sharing history and handing off work seamlessly. This post maps the full ecosystem and shows how VS Code became the hub where all Copilots converge.
 
 > Note: This post is about GitHub Copilot’s coding agent — not Microsoft 365 Copilot, Windows Copilot, Teams Copilot, or any other Microsoft Copilot.
 

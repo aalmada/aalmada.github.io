@@ -13,7 +13,7 @@ redirect_from: /From-Grep-to-Graph.html
 meta_description: "Understand why coding agents need LSP and GitNexus for deterministic semantic insight, better reuse, and lower entropy across present code and repository history."
 ---
 
-We have spent the last few months watching coding agents evolve from clever autocomplete to something closer to a real engineering component. We now package them, version them, sign them, distribute them, and monitor them. We treat them as artifacts with lifecycles, not prompts floating in the void. But there is still a missing layer in this stack: the layer that determines whether an agent truly understands the system it is modifying.
+Most coding agents today rely on ripgrep and embeddings — they can search text but cannot resolve symbols, understand types, or see architecture. This blindness is why vibe-coding produces so much accidental duplication and complexity. LSP and GitNexus give agents a structured semantic view of your codebase, turning text-matching into real code understanding.
 
 That layer is **semantics**.
 

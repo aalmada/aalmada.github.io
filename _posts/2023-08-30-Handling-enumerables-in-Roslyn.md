@@ -13,7 +13,7 @@ redirect_from: /Handling-enumerables-in-Roslyn.html
 meta_description: "Learn how to analyze and generate code for enumerables in Roslyn analyzers and code generators, including requirements for foreach support and best practices for .NET development."
 ---
 
-Roslyn Analyzers and Code Generators are essential tools in the world of .NET development. Analyzers offer real-time code analysis at compile time, catching issues and promoting best practices by interpreting the code before compilation. This ensures that potential problems are identified early in the development process. Code Generators, also operating at compile time, automate the creation of repetitive code snippets. By doing so, they enhance code quality, boost efficiency, and streamline the development process.
+Checking whether a type is a valid `foreach` source in a Roslyn analyzer isn't as simple as testing for `IEnumerable<T>` — the C# spec allows any type with a compatible `GetEnumerator()` method, including extension methods. Get it wrong and your analyzer produces false positives or misses valid collections entirely. This article shows how to handle all cases correctly using `NetFabric.CodeAnalysis`.
 
 The requirement for an enumerable to be traversed using a `foreach` is that the type must provide a public parameterless method named `GetEnumerator()` that returns an instance of an enumerator. The returned enumerator type must provide a public parameterless method named `MoveNext()` that returns `bool`, and also a public readable property named `Current`. Alternatively, the `GetEnumerator()` method can be defined as an extension method.
 

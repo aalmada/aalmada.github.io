@@ -15,7 +15,7 @@ meta_description: "Analyze when to use ToList() or ToArray() in .NET LINQ querie
 
 ## Introduction
 
-I frequently find other developers using a `ToList()` or `ToArray()` at the end of every LINQ query:
+Adding `ToList()` at the end of every LINQ query is one of the most common .NET performance anti-patterns — it forces immediate allocation and evaluation when neither may be needed. This article explains when materializing a query is justified, when it's wasteful, and shows benchmark data for the cost you're actually paying.
 
 ```csharp
 var sequence = Enumerable.Range(0, 10)

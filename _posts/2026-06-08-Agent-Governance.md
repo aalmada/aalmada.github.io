@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Agent Governance: The Control Plane for Coding Agents"
+title: "Agent Governance: Controlling Code Agents"
 date: 2026-06-08
 media_subpath: /assets/img/posts/20260608
 image:

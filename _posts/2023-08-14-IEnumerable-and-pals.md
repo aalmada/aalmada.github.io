@@ -13,7 +13,7 @@ redirect_from: /IEnumerable-and-pals.html
 meta_description: "Explore the core .NET collection interfaces, including IEnumerable, IEnumerator, and their generic and async variants. Learn their features, differences, and best practices for choosing and implementing collections in C#."
 ---
 
-A collection is a fundamental concept that refers to a grouping or container for a set of related objects or values. These objects could be of any data type, such as integers, strings, custom objects, or even other collections. Collections provide a structured and organized way to store, manipulate, and manage multiple items together, making it easier to work with and process data in various scenarios. Each collection type has its own features and developers should use the one most appropriate in the given context.
+.NET has over a dozen collection interfaces — `IEnumerable<T>`, `ICollection<T>`, `IReadOnlyList<T>`, `IAsyncEnumerable<T>`, and more — each adding specific capabilities. Choosing the wrong one means either over-constraining your API or exposing mutation you didn't intend. This reference maps every collection interface, explains what it provides, and shows when to use each.
 
 Usually, data from collections need to be processed. The collection developer should not have to implement all possible processing algorithms and processing algorithms should support multiple types of collections. That's where interfaces become useful.
 

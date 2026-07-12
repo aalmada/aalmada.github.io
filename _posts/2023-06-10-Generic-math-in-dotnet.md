@@ -15,7 +15,7 @@ meta_description: "Explore generic math in .NET 7 and C# 11, using static abstra
 
 ## Before .NET 7
 
-In C#, arithmetic operators are a handy feature that allows you to work with mathematical expressions using familiar symbols like `+`, `-`, `*`, and `/`. This simplifies your code by eliminating the need to call specific methods such as `Add`, `Subtract`, `Multiply`, or `Divide` for basic arithmetic operations.
+Before .NET 7, writing a single `Sum<T>()` method that worked across `int`, `float`, and `double` was either impossible or required ugly workarounds. Generic math — powered by static abstract interface members in C# 11 — finally solves this. This article shows how the new `System.Numerics` interfaces work and how to write truly reusable numeric algorithms.
 
 For more complex math operations, especially those involving trigonometric functions, C# provides the `System.Math` static class. It's worth noting that most of the methods in this class work with double precision (double) values. However, in certain scenarios, using single precision (float) may offer better performance. To cater to this need, starting with .NET Core 2, there's also a `System.MathF` class that handles single precision operations.
 

@@ -13,7 +13,7 @@ redirect_from: /The-Index-Layer.html
 meta_description: "Graphify, GitNexus, codebase-memory-mcp, and CodeGraph compared: how each indexes your codebase into a graph and what query surface it exposes to AI agents."
 ---
 
-The previous posts in this series covered [why coding agents need LSP and semantic graphs](../From-Grep-to-Graph) and [how indexing tools are one of the most effective levers for reducing token usage in long agent sessions](../Reducing-Token-Usage-in-Code-Agents). This post goes deeper on those tools specifically: what they build, how they classify content, how they expose query interfaces to agents, and where each one fits.
+Letting an agent grep your codebase from scratch every session is expensive and error-prone. Knowledge graph tools pre-build a navigable semantic index — functions, call graphs, types, dependencies — that agents query at near-zero cost per request. This post compares Graphify, GitNexus, codebase-memory-mcp, and CodeGraph: what each builds, how it exposes queries, and which fits your workflow.
 
 We analyze the differences between **Graphify**, **GitNexus**, **codebase-memory-mcp**, and **CodeGraph** — the four most widely used tools in this space — and discuss which one is best for which scenario.
 

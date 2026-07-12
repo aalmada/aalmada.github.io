@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Public Skills, Agents, and the New Supply‑Chain Problem"
+title: "Supply-Chain Security for AI Agent Skills"
 date: 2026-06-14
 media_subpath: /assets/img/posts/20260614
 image:
@@ -14,7 +14,7 @@ redirect_from:
 meta_description: "Public skills and agents introduce a new supply‑chain risk for AI systems. They’re easy to adopt but can hide malicious intent inside prompts. This post explains why deterministic tools like APM aren’t enough, how Skillspector adds reasoning‑based security, and why sandboxing remains essential for safe agent execution."
 ---
 
-Publicly shared skills and agents are becoming part of the everyday workflow for anyone building coding agents. They’re open, composable, and easy to adopt. That openness is exactly what makes them useful — and exactly what makes them dangerous. Skills and agents contain prompts, and prompts are executable instructions. When a coding agent reads a prompt, it doesn’t interpret it the way a developer interprets code; it executes the intent behind it. If that intent is malicious, the agent will follow it with the same confidence it follows everything else. This creates a new class of supply‑chain risk where the payload is linguistic rather than binary.
+Public skills and agents contain prompts — and prompts are executable instructions. When a coding agent reads a malicious skill, it follows the hidden intent with the same confidence it follows everything else. This creates a new supply-chain attack surface where the payload is linguistic, not binary. This post covers APM, Skillspector, and sandboxing as layered defenses.
 
 The first rule when working with public skills and agents is simple: **only use them from well‑known, reputable sources**. It’s the most effective way to reduce the attack surface. Unfortunately, it also limits innovation. New ideas appear everywhere — often from individuals or small teams experimenting in the open — and restricting ourselves only to established publishers means missing out on the most creative and fast‑moving parts of the ecosystem. Because of that tension, the following layers become essential.
 

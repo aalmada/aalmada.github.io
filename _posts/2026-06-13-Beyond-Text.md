@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Beyond Text: The Semantic Layers Agents Need"
+title: "Semantic Servers for Coding Agents"
 date: 2026-06-13
 media_subpath: /assets/img/posts/20260613
 image:

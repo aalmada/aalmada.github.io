@@ -12,7 +12,7 @@ category: ai
 meta_description: "A practical guide to the four building blocks of modern code agent harnesses: instructions, skills, agents, and hooks, and how to apply them in real systems."
 ---
 
-Most of us began our generative AI journey the same way:
+Most teams use AI as personal autocomplete — each developer rediscovering the same conventions, wasting tokens on rules the model should already know. Modern code agent harnesses fix this with four building blocks: instructions, skills, custom agents, and hooks. This post explains each one and shows how they turn AI from a personal trick into shared engineering infrastructure.
 
 - Write a prompt, get a code snippet, paste it into the project, adjust until it works.
 

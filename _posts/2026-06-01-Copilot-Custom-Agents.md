@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Custom Agents in GitHub Copilot: VS Code, CLI & Cloud"
+title: "Building Custom Agents in GitHub Copilot"
 date: 2026-06-01
 media_subpath: /assets/img/posts/20260601
 image:
@@ -11,6 +11,8 @@ tags: [ai, copilot, agents, copilot]
 category: ai
 meta_description: "Learn how to build custom GitHub Copilot agents for VS Code, CLI, and Cloud, including orchestration, handoffs, subagents, and skills for multi-agent workflows."
 ---
+
+A single Copilot agent doing everything drowns in its own context after forty turns. Custom agents fix this by splitting work across specialized agents — each starting fresh with only the context it needs. This post shows how to build custom GitHub Copilot agents using plain Markdown files, from simple reviewers to multi-agent orchestration across VS Code, CLI, and Cloud.
 
 ## The problem: one agent doing everything
 
