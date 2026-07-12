@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Observability for Coding Agents: From Black Boxes to Measurable Systems"
+title: "Coding Agent Observability: Beyond Black Boxes"
 date: 2026-06-06
 media_subpath: /assets/img/posts/20260606
 image:

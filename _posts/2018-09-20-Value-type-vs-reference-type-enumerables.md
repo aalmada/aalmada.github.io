@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Performance of value-type vs. reference-type enumerators in C#"
+title: "Value-Type vs Reference-Type Enumerators in C#"
 date: 2018-09-20
 media_subpath: /assets/img/posts/20180920
 image:

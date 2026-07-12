@@ -13,7 +13,7 @@ redirect_from: /Measuring-dotnet-performance.html
 meta_description: "Learn to benchmark .NET with BenchmarkDotNet by accounting for JIT effects, warmup, and test design so results stay accurate and useful in production."
 ---
 
-As a software engineer, I regard performance as a crucial metric for assessing the quality of my code. In my [previous article](https://aalmada.github.io/posts/Performance-optimizations/), I emphasized how performance impacts user behavior, costs, and the environment. Let's break it down:
+As a software engineer, I regard performance as a crucial metric for assessing the quality of my code. In my [previous article](/posts/Performance-optimizations/), I emphasized how performance impacts user behavior, costs, and the environment. Let's break it down:
 
 1. **Mobile Apps**: Well-performing mobile apps consume **less battery**, leading to a better user experience.
 2. **Realtime Apps**: When realtime apps perform optimally, they achieve **higher refresh rates**, ensuring smoother interactions.
@@ -206,7 +206,7 @@ An additional benchmark has been added to illustrate the usage of the `MemoryDia
 | Foreach_IEnumerable | 2,125.0 ns | 4.56 ns | 3.81 ns |  4.47 | 0.0038 |      40 B |          NA |
 | Foreach_AsSpan      |   340.2 ns | 0.15 ns | 0.13 ns |  0.72 |      - |         - |          NA |
 
-The added benchmark `Foreach_IEnumerable()` casts the `List<T>` to `IEnumerable<T>`. You can observe that this version allocates memory on the heap and is much slower. As explained in a [previous article](https://aalmada.github.io/posts/Leveraging-csharp-foreach-loop/), when using `foreach`, it calls the method `GetEnumerator()` to retrieve an instance of the list enumerator. The difference lies in the fact that when calling directly from `List<T>`, it gets a value-typed enumerator allocated on the stack, while calling it from `IEnumerable<T>` retrieves a reference-typed enumerator allocated on the heap. As elaborated in [another article](https://aalmada.github.io/posts/Value-type-vs-reference-type-enumerables/), the reference-typed enumerator is significantly slower than the value-typed one due to the invocation of virtual functions.
+The added benchmark `Foreach_IEnumerable()` casts the `List<T>` to `IEnumerable<T>`. You can observe that this version allocates memory on the heap and is much slower. As explained in a [previous article](/posts/Leveraging-csharp-foreach-loop/), when using `foreach`, it calls the method `GetEnumerator()` to retrieve an instance of the list enumerator. The difference lies in the fact that when calling directly from `List<T>`, it gets a value-typed enumerator allocated on the stack, while calling it from `IEnumerable<T>` retrieves a reference-typed enumerator allocated on the heap. As elaborated in [another article](/posts/Value-type-vs-reference-type-enumerables/), the reference-typed enumerator is significantly slower than the value-typed one due to the invocation of virtual functions.
 
 The `foreach` loop on `Span<T>` does not employ an enumerator; instead, it utilizes the indexer.
 
@@ -430,4 +430,4 @@ This setup repeats the benchmarks for each runtime. Notably, the `Ratio` column 
 
 ## Environment variables
 
-Specific environmental variables can have an impact on performance. Running different jobs with varied environmental variable values can produce diverse results. This aspect is particularly crucial when benchmarking code utilizing SIMD vectorization. For detailed guidance on benchmarking such code, please consult my [other article](https://aalmada.github.io/posts/Unit-testing-and-benchmarking-SIMD-in-dotnet/).
+Specific environmental variables can have an impact on performance. Running different jobs with varied environmental variable values can produce diverse results. This aspect is particularly crucial when benchmarking code utilizing SIMD vectorization. For detailed guidance on benchmarking such code, please consult my [other article](/posts/Unit-testing-and-benchmarking-SIMD-in-dotnet/).

@@ -158,3 +158,11 @@ Smaller, cleaner, better-targeted context usually means:
 Together, these approaches are complementary, not competing. Graphify and LSP overlap in code navigation, but they solve different layers of the problem: LSP is best for compiler-precise symbol operations inside a language, while Graphify is best for cross-artifact and cross-file conceptual navigation (code, docs, design rationale, and broader project structure). RTK reduces noisy command output, Caveman compresses linguistic overhead, LSP sharpens symbol-level lookup, and Graphify provides long-range structural memory.
 
 Code agents are getting better quickly. But at scale, the winning teams are not just good at prompts; they are good at **context engineering**.
+
+---
+
+## Continue reading
+
+- [Code Agent Architecture: Skills, Hooks & More](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/) — the layered structure that determines where context is consumed.
+- [Coding Agent Observability: Beyond Black Boxes](/posts/Observability-for-coding-agents/) — measuring whether your token reductions actually improve output quality.
+- [Prompt Caching for Coding Agents](/posts/Prompt-Caching-for-Coding-Agents/) — another approach to reducing cost without sacrificing context.

@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "From Grep to Graph: Why Coding Agents Need LSP and GitNexus to Understand Your Codebase"
+title: "From Grep to Graph: Why Agents Need LSP"
 date: 2026-06-06
 media_subpath: /assets/img/posts/20260606
 image:
@@ -154,3 +154,11 @@ Together, they form the foundation of a new category: semantic agents, agents th
 And as usage-based billing becomes the norm, deterministic semantics are not just technically superior; they are economically necessary.
 
 If APM was the moment we started treating agents like software, then semantics is the moment we start treating them like engineers.
+
+---
+
+## Continue reading
+
+- [Knowledge Graph Tools for AI Code Agents](/posts/Code-Agent-Knowledge-Graphs/) — a practical comparison of tools that implement the graph approach.
+- [Coding Agent Observability: Beyond Black Boxes](/posts/Observability-for-coding-agents/) — measuring agent behavior once you have structural context.
+- [Reducing Token Usage in Code Agents](/posts/Reducing-Token-Usage-in-Code-Agents/) — how semantic indexing directly reduces token consumption.

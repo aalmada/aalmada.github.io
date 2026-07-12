@@ -15,7 +15,7 @@ meta_description: "Understand the performance implications of LINQ's Count() in 
 
 ## Count()
 
-On [my previous article](https://aalmada.github.io/posts/Enumeration-in-dotnet/), I analysed the usage of `IEnumerable` strictly based on its contract. [It was brought to my attention](https://twitter.com/jonaskulhanek/status/1005102953831727105) that LINQ, short for "[LINQ to Objects](https://learn.microsoft.com/en-us/dotnet/csharp/linq/query-a-collection-of-objects)", optimizes some of the described scenarios, possibly breaking some of my assumptions. It’s a good point and I did some more research.
+On [my previous article](/posts/Enumeration-in-dotnet/), I analysed the usage of `IEnumerable` strictly based on its contract. [It was brought to my attention](https://twitter.com/jonaskulhanek/status/1005102953831727105) that LINQ, short for "[LINQ to Objects](https://learn.microsoft.com/en-us/dotnet/csharp/linq/query-a-collection-of-objects)", optimizes some of the described scenarios, possibly breaking some of my assumptions. It’s a good point and I did some more research.
 
 [Checking the implementation of the `Count()` extension method in LINQ](https://github.com/dotnet/corefx/blob/70ec0ad490754fa64ab06dde1d1f10e4d36a83a9/src/System.Linq/src/System/Linq/Count.cs#L12), we can see that it handles differently the case where the `IEnumerable` instance also implements `ICollection` or one other internal interface. This optimization is tricky and let me explain why.
 
@@ -125,4 +125,4 @@ If you can optimize the algorithm given more capabilities, make it explicit by u
 
 > The optimization seems to be misleading.
 
-If you follow the rules from [my previous article](https://aalmada.github.io/posts/Enumeration-in-dotnet/), you won’t have any surprises…
+If you follow the rules from [my previous article](/posts/Enumeration-in-dotnet/), you won’t have any surprises…

@@ -49,7 +49,7 @@ Every collaborator, every CI run, every new repository clone gets exactly the sa
 
 ## What APM Manages
 
-APM manages what it calls **primitives**: the foundational building blocks of a code agent setup. These map directly to the tools covered in [The Architecture of Code Agents](https://aalmada.github.io/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/):
+APM manages what it calls **primitives**: the foundational building blocks of a code agent setup. These map directly to the tools covered in [The Architecture of Code Agents](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/):
 
 - **Instructions** (`.instructions.md`) — project-specific rules scoped to files or folders
 - **Prompts** (`.prompt.md`) — executable AI workflows with parameters
@@ -270,7 +270,7 @@ The bundle includes an enriched lockfile so consumers get the same content integ
 
 ## The Broader Picture
 
-APM is the infrastructure layer that makes the primitives described in [The Architecture of Code Agents](https://aalmada.github.io/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/) manageable at scale.
+APM is the infrastructure layer that makes the primitives described in [The Architecture of Code Agents](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/) manageable at scale.
 
 Instructions, skills, agents, and hooks are valuable only if teams actually use them, keep them updated, and trust that what is running in any given repository is the version they think it is. Without tooling to manage that lifecycle, the natural outcome is drift, duplication, and eventually abandonment.
 
@@ -288,6 +288,6 @@ APM gives those primitives the same lifecycle guarantees we already expect from 
 
 For deeper context on what APM manages and how it fits into the code agent workflow:
 
-- [The Architecture of Code Agents: Instructions, Skills, Agents, Hooks](https://aalmada.github.io/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/)
-- [Reducing Token Usage in Code Agents](https://aalmada.github.io/posts/Reducing-Token-Usage-in-Code-Agents/)
-- [.NET/C# Development in the Code Agents Era](https://aalmada.github.io/posts/Dotnet-Development-in-the-Code-Agent-Era/)
+- [The Architecture of Code Agents: Instructions, Skills, Agents, Hooks](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/)
+- [Reducing Token Usage in Code Agents](/posts/Reducing-Token-Usage-in-Code-Agents/)
+- [.NET/C# Development in the Code Agents Era](/posts/Dotnet-Development-in-the-Code-Agent-Era/)

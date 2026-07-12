@@ -30,7 +30,7 @@ static void For<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right, Span<T> destinat
 
 This method employs a `for` loop to iterate over the spans and perform element-wise addition using generic math, allowing it to work with any scalar type.
 
-> For a deeper understanding of generic math, refer to my other article ["Generic math in .NET"](https://aalmada.github.io/posts/Generic-math-in-dotnet/).
+> For a deeper understanding of generic math, refer to my other article ["Generic math in .NET"](/posts/Generic-math-in-dotnet/).
 
 The method is named `For` so that its performance can be compared in the benchmarks to the next steps of the implementation.
 
@@ -116,7 +116,7 @@ So far, parallelization hasn't been employed. The primary aim was to establish a
 
 ## CPU Branching and Parallelization
 
-In my previous article on [CPU branching and parallelization](https://aalmada.github.io/posts/CPU-branching-and-parallelization/), I discussed how modern CPUs use hardware-level mechanisms for automatic parallelization, leveraging available registers and execution units. By consolidating multiple operations within a single `for` loop iteration, the CPU can efficiently exploit these capabilities, resulting in enhanced performance and reduced overhead from logical branching. This approach significantly improves execution speed and resource utilization, especially in scenarios involving repetitive computations or data processing tasks.
+In my previous article on [CPU branching and parallelization](/posts/CPU-branching-and-parallelization/), I discussed how modern CPUs use hardware-level mechanisms for automatic parallelization, leveraging available registers and execution units. By consolidating multiple operations within a single `for` loop iteration, the CPU can efficiently exploit these capabilities, resulting in enhanced performance and reduced overhead from logical branching. This approach significantly improves execution speed and resource utilization, especially in scenarios involving repetitive computations or data processing tasks.
 
 ```csharp
 static void For_GetReference_4<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right, Span<T> destination, int index = 0)
@@ -161,7 +161,7 @@ The benchmarks below conclusively demonstrate the significantly improved efficie
 
 ## SIMD
 
-As detailed in my earlier article [Single Instruction, Multiple Data (SIMD) in .NET](https://aalmada.github.io/posts/SIMD-in-dotnet/), .NET furnishes developers with two distinct APIs for SIMD operations. I prefer using `Vector<T>`, found in the `System.Numerics` namespace, due to its simplicity, support for all native scalar types, and suitability for this particular scenario.
+As detailed in my earlier article [Single Instruction, Multiple Data (SIMD) in .NET](/posts/SIMD-in-dotnet/), .NET furnishes developers with two distinct APIs for SIMD operations. I prefer using `Vector<T>`, found in the `System.Numerics` namespace, due to its simplicity, support for all native scalar types, and suitability for this particular scenario.
 
 ```csharp
 static void For_SIMD<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right, Span<T> destination)
@@ -308,7 +308,7 @@ The benchmarks were conducted for both `int` and `float` types, using spans cont
 
 Additionally, benchmarks were performed under various SIMD availability scenarios: Scalar (SIMD unavailable), 128-bit SIMD, 256-bit SIMD, and 512-bit SIMD.
 
-> Explore my other article, ["Unit Testing and Benchmarking SIMD in .NET"](https://aalmada.github.io/posts/Unit-testing-and-benchmarking-SIMD-in-dotnet/), for deeper insights into how this process functions.
+> Explore my other article, ["Unit Testing and Benchmarking SIMD in .NET"](/posts/Unit-testing-and-benchmarking-SIMD-in-dotnet/), for deeper insights into how this process functions.
 
 | Method                        | Job       | Categories | Count  |      Mean |    StdDev |    Median |        Ratio |   Gen0 | Allocated | Alloc Ratio |
 | ----------------------------- | --------- | ---------- | ------ | --------: | --------: | --------: | -----------: | -----: | --------: | ----------: |

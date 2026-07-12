@@ -57,7 +57,7 @@ public static T Single<T>(this IEnumerable<T> enumerable)
 }
 ```
 
-> NOTE: The LINQ implementation contains optimizations for certain scenarios but I’m not going to consider them. As I explained in a [previous article](https://aalmada.github.io/posts/Enumeration-in-dotnet-Count/), these are misleading.
+> NOTE: The LINQ implementation contains optimizations for certain scenarios but I’m not going to consider them. As I explained in a [previous article](/posts/Enumeration-in-dotnet-Count/), these are misleading.
 
 Both methods get an instance of `IEnumerator` and call `MoveNext()`. If it returns `false`, it means it’s empty so, they throw an `InvalidOperationException`, otherwise, `First()` simply returns the value.
 

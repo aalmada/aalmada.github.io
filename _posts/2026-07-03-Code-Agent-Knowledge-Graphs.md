@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "The Index Layer: Comparing Knowledge Graph Tools for AI Code Agents"
+title: "Knowledge Graph Tools for AI Code Agents"
 date: 2026-07-03
 media_subpath: /assets/img/posts/20260703
 image:
@@ -476,3 +476,11 @@ These tools also **complement each other**. More than one can be active in the s
 What they share is the same principle: **build a persistent structural index, then query it instead of exploring raw files**. This reduces agent token usage, improves answer quality, and makes long-horizon multi-step runs more reliable.
 
 The index layer is not a nice-to-have. At scale, it is the difference between an agent that navigates your codebase and one that merely searches it.
+
+---
+
+## Continue reading
+
+- [From Grep to Graph: Why Agents Need LSP](/posts/From-Grep-to-Graph/) — the motivation and theory behind semantic indexing for agents.
+- [Reducing Token Usage in Code Agents](/posts/Reducing-Token-Usage-in-Code-Agents/) — how structural indexes directly cut token spend.
+- [Coding Agent Observability: Beyond Black Boxes](/posts/Observability-for-coding-agents/) — measuring whether graph queries improve agent quality.

@@ -402,7 +402,7 @@ A behavior tree essentially comprises multiple nodes arranged in a tree structur
 
 A node with multiple children is known as a **composite node**, with one child is known as a **decorator node**, and a node with no children is known as a **leaf node**. Nodes with children are responsible for appropriately invoking the `MoveNext()` method of their children modules. In contrast, leaf modules perform specific, often application-customized, simple tasks. The hierarchical composition of multiple modules as a tree allows for the creation of complex tasks through their combination.
 
-> NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with `IEnumerable<T>` and `Yield`"](https://aalmada.github.io/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
+> NOTE: Behavior trees cover a broad range of concepts. For further insights, you can refer to my other article titled ["Behavior Tree Development in C# with `IEnumerable<T>` and `Yield`"](/posts/Behavior-tree-development-in-csharp-with-IEnumerable-and-yield/).
 
 ## Conclusions
 

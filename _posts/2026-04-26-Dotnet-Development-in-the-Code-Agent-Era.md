@@ -214,3 +214,11 @@ It serves as a concrete example of how a .NET solution can be structured to supp
 ## Conclusion
 
 When conventions, analyzers, tests, hooks, and Aspire all work together, .NET becomes a platform that supports agents naturally. The goal is not to write more code, but to design systems that remain coherent as both humans and agents contribute to them. Deterministic tools provide the stability that non-deterministic agents need. That combination is what makes high quality automation possible.
+
+---
+
+## Continue reading
+
+- [Code Agent Architecture: Skills, Hooks & More](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/) — how instructions, skills, and hooks compose the agent stack.
+- [Copilot Custom Agents](/posts/Copilot-Custom-Agents/) — creating specialized agents with `.agent.md` files and tool restrictions.
+- [Hybrid Workflows: Code Meets AI Reasoning](/posts/Hybrid-workflows/) — where deterministic .NET code meets non-deterministic AI reasoning.

@@ -13,7 +13,7 @@ redirect_from: /Unit-testing-and-benchmarking-SIMD-in-dotnet.html
 meta_description: "Unit test and benchmark SIMD in .NET across scalar, 128-bit, 256-bit, and 512-bit modes by controlling hardware intrinsics through environment variables."
 ---
 
-Single Instruction, Multiple Data (SIMD) is a technique used in computer architecture that allows for parallel processing on multiple data elements simultaneously. I've touched on the advantages of SIMD and its implementation in .NET in a [previous article](https://aalmada.github.io/posts/SIMD-in-dotnet/).
+Single Instruction, Multiple Data (SIMD) is a technique used in computer architecture that allows for parallel processing on multiple data elements simultaneously. I've touched on the advantages of SIMD and its implementation in .NET in a [previous article](/posts/SIMD-in-dotnet/).
 
 The performance of SIMD depends on the hardware that the application is running on. Except for a few specific scenarios, developers must ensure that their applications can function in any situation. This includes operating on systems that either don't support SIMD, or support 128-bit, 256-bit, or even 512-bit SIMD. Consequently, to achieve comprehensive coverage during unit testing, it’s crucial to conduct tests across all these diverse systems. Additionally, it’s necessary to perform performance tests on these systems to check if the application is using the system’s capabilities effectively. Even if you don't directly use SIMD, your dependencies may make use of it.
 
@@ -184,7 +184,7 @@ class VectorizationConfig : ManualConfig
 }
 ```
 
-> Note: If you're intrigued about why I use the discards in this code, you might find my other article "[Defensive Coding in C#: A Closer Look at Unchecked Return Value Discards](https://aalmada.github.io/posts/A-closer-look-at-unchecked-return-value-discards/)" interesting.
+> Note: If you're intrigued about why I use the discards in this code, you might find my other article "[Defensive Coding in C#: A Closer Look at Unchecked Return Value Discards](/posts/A-closer-look-at-unchecked-return-value-discards/)" interesting.
 
 This class adds a job named `Scalar` that executes the benchmarks with SIMD disabled and sets it as the baseline. If the hardware supports 128-bit SIMD, it adds a job named `Vector128`, and similarly for 256-bit and 512-bit SIMD.
 

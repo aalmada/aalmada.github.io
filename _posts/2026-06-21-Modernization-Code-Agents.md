@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Code Modernization Agents: making impossible projects finishable"
+title: "Code Modernization Agents in Practice"
 date: 2026-06-21
 media_subpath: /assets/img/posts/20260621
 image:
@@ -148,3 +148,11 @@ When modernization becomes predictable and auditable, not modernizing becomes th
 Modernization agents are not a magic wand. They are an engineering pattern: **index, plan, apply deterministically, verify**. Do that and projects that used to be impossible become measurable, auditable and finishable.
 
 A final, practical note: a modernized codebase should not be a one‑time artifact. After you complete the migration, **re‑index the modernized codebase** with the same class of tools — Tree‑sitter parses, hybrid LSP signals, dependency clustering and transformation manifests — so the repository itself becomes an AI‑ready, living knowledge graph. That freshly indexed modern codebase then powers continuous maintenance: automated impact analysis, incremental refactors, agent‑driven tests, contract validation and reproducible transformations. In short, modernize the code and then index the result — the repo becomes the ongoing foundation for future AI‑assisted work and continuous modernization.
+
+---
+
+## Continue reading
+
+- [From Grep to Graph: Why Agents Need LSP](/posts/From-Grep-to-Graph/) — the semantic indexing that powers the "index" step of modernization.
+- [Hybrid Workflows: Code Meets AI Reasoning](/posts/Hybrid-workflows/) — the deterministic-first pattern that modernization agents follow.
+- [Knowledge Graph Tools for AI Code Agents](/posts/Code-Agent-Knowledge-Graphs/) — comparing the tools that build the structural index.

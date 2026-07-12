@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Taming .NET Collections: A Safari Through IEnumerable and Pals"
+title: "Taming .NET Collections: IEnumerable and Pals"
 date: 2023-08-14
 media_subpath: /assets/img/posts/20230814
 image:

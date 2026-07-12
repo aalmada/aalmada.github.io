@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "Hybrid Workflows: Where Deterministic Code Meets Reasoning, and Why the Copilot SDK Matters"
+title: "Hybrid Workflows: Code Meets AI Reasoning"
 date: 2026-06-07
 media_subpath: /assets/img/posts/20260607
 image:
@@ -129,3 +129,11 @@ This is the real power of the Copilot SDK: it lets developers build workflows th
 **Deterministic** by default.
 *Non‑deterministic* by design.
 And always under your control.
+
+---
+
+## Continue reading
+
+- [Code Agent Architecture: Skills, Hooks & More](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/) — the primitives that make hybrid workflows possible.
+- [Agent Governance](/posts/Agent-Governance/) — enforcing safety and boundaries on what agents can do.
+- [Copilot Custom Agents](/posts/Copilot-Custom-Agents/) — defining specialized agents with tool restrictions and custom instructions.

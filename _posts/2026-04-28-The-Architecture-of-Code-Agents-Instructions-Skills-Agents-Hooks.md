@@ -2,7 +2,7 @@
 layout: post
 read_time: true
 show_date: true
-title: "The Architecture of Code Agents: Instructions, Skills, Agents, Hooks"
+title: "Code Agent Architecture: Skills, Hooks & More"
 date: 2026-04-28
 media_subpath: /assets/img/posts/20260428
 image:
@@ -219,5 +219,5 @@ This is how AI becomes part of the development process rather than an add-on. Th
 
 To build truly effective and efficient code agent workflows, you need to go beyond the harness itself. For deeper strategies on context management, token usage, and adapting engineering practices to the code agent era, see these complementary posts:
 
-- [Reducing Token Usage in Code Agents](https://aalmada.github.io/posts/Reducing-Token-Usage-in-Code-Agents/)
-- [Dotnet Development in the Code Agent Era](https://aalmada.github.io/posts/Dotnet-Development-in-the-Code-Agent-Era/)
+- [Reducing Token Usage in Code Agents](/posts/Reducing-Token-Usage-in-Code-Agents/)
+- [Dotnet Development in the Code Agent Era](/posts/Dotnet-Development-in-the-Code-Agent-Era/)

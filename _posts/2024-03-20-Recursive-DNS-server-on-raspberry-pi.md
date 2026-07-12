@@ -16,7 +16,7 @@ meta_description: "Set up recursive DNS on Raspberry Pi with Pi-hole, Unbound, a
 
 Pi-hole offers the option to configure it as a [recursive DNS server](https://docs.pi-hole.net/guides/dns/unbound/), which enhances the security and privacy of your internet browsing history. This functionality requires the utilization of [Unbound](https://nlnetlabs.nl/projects/unbound/about/), which supports [DNS-over-TLS](https://tools.ietf.org/html/rfc7858) and [DNS-over-HTTPS](https://tools.ietf.org/html/rfc8484), enabling clients to encrypt their communications. Furthermore, Unbound supports various modern standards, such as [Query Name Minimization](https://tools.ietf.org/html/rfc9156), [Aggressive Use of DNSSEC-Validated Cache](https://tools.ietf.org/html/rfc8198), and authority zones, which optimize privacy and bolster DNS robustness.
 
-I've configured Pi-hole and Unbound on a [Raspberry Pi 5](https://www.raspberrypi.com/products/) running [Portainer](https://www.portainer.io/), facilitating multiple servers to coexist on the same device without software conflicts. For detailed instructions on setting up these components, please refer to my [previous article](https://aalmada.github.io/posts/Unifi-controller-on-raspberry-pi/).
+I've configured Pi-hole and Unbound on a [Raspberry Pi 5](https://www.raspberrypi.com/products/) running [Portainer](https://www.portainer.io/), facilitating multiple servers to coexist on the same device without software conflicts. For detailed instructions on setting up these components, please refer to my [previous article](/posts/Unifi-controller-on-raspberry-pi/).
 
 ## Setting Up Pi-hole and Unbound
 

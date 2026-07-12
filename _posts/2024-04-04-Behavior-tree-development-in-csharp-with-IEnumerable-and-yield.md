@@ -53,7 +53,7 @@ Through hierarchical composition in a tree-like structure, complex tasks can be 
 
 There are multiple ways to implement behavior trees in C#. In this section, I'll describe a minimal approach that takes advantage of the capability of the `yield` keyword to construct state machines.
 
-> **Note:** For a deeper exploration of the `yield` keyword's functionalities, you may refer to my other article titled ["Building Custom Iterators with 'yield' in C#"](https://aalmada.github.io/posts/Building-custom-iterators-with-yield-in-csharp/).
+> **Note:** For a deeper exploration of the `yield` keyword's functionalities, you may refer to my other article titled ["Building Custom Iterators with 'yield' in C#"](/posts/Building-custom-iterators-with-yield-in-csharp/).
 
 ### Node Status Definition
 
@@ -130,7 +130,7 @@ static IEnumerable<BehaviorStatus> WriteLineRange(int start, int count)
 }
 ```
 
-> To ensure parameter validation happens during tree definition rather than the initial behavioral step, this method separates the yielding code into an internal method. For more details, refer to [my other article](https://aalmada.github.io/posts/Building-custom-iterators-with-yield-in-csharp/#lazy-evaluation) explaining this.
+> To ensure parameter validation happens during tree definition rather than the initial behavioral step, this method separates the yielding code into an internal method. For more details, refer to [my other article](/posts/Building-custom-iterators-with-yield-in-csharp/#lazy-evaluation) explaining this.
 
 > The examples provided here use parameter validation methods introduced in .NET 8. For older versions, appropriate equivalent code must be used.
 
