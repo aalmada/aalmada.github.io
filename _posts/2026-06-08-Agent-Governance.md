@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Agent Governance: The Control Plane for Coding Agents"
 date: 2026-06-08
-img_path: /assets/img/posts/20260608
+media_subpath: /assets/img/posts/20260608
 image:
-  path: /assets/img/posts/20260608/Typewriter.jpg
+  path: Typewriter.webp
 tags: [ai, agents, copilot]
 category: ai
 redirect_from:

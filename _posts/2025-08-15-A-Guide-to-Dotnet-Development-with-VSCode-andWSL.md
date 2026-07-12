@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Modern .NET Development with VS Code and WSL"
 date: 2025-08-15
-img_path: /assets/img/posts/20250815
+media_subpath: /assets/img/posts/20250815
 image:
-  path: /assets/img/posts/20250815/Infinite.jpg
+  path: Infinite.webp
 tags:
   [dotnet, aspire, wsl, vscode, docker, cloud-native, development]
 category: development

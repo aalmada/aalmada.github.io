@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "The Architecture of Code Agents: Instructions, Skills, Agents, Hooks"
 date: 2026-04-28
-img_path: /assets/img/posts/20260428
+media_subpath: /assets/img/posts/20260428
 image:
-  path: /assets/img/posts/20260428/Merida.jpg
+  path: Merida.webp
 tags: [ai, code agents, architecture, skills, hooks, instructions]
 category: ai
 meta_description: "A practical guide to the four building blocks of modern code agent harnesses: instructions, skills, agents, and hooks, and how to apply them in real systems."

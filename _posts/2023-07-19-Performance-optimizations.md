@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Practical .NET Performance Optimization Habits"
 date: 2023-07-19
-img_path: /assets/img/posts/20230719
+media_subpath: /assets/img/posts/20230719
 image:
-  path: /assets/img/posts/20230719/Hummingbird-hawk-moth.jpg
+  path: Hummingbird-hawk-moth.webp
 tags: [performance, opinion]
 category: development
 redirect_from: /Performance-optimizations.html

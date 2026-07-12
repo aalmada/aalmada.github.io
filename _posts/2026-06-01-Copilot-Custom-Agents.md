@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Custom Agents in GitHub Copilot: VS Code, CLI & Cloud"
 date: 2026-06-01
-img_path: /assets/img/posts/20260601
+media_subpath: /assets/img/posts/20260601
 image:
-  path: /assets/img/posts/20260601/Museum of Etnography - Budapest.jpg
+  path: Museum of Etnography - Budapest.webp
 tags: [ai, copilot, agents, copilot]
 category: ai
 meta_description: "Learn how to build custom GitHub Copilot agents for VS Code, CLI, and Cloud, including orchestration, handoffs, subagents, and skills for multi-agent workflows."

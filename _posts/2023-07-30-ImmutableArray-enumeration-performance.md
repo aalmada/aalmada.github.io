@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "ImmutableArray&lt;T&gt; iteration performance in C#"
 date: 2023-07-30
-img_path: /assets/img/posts/20230730
+media_subpath: /assets/img/posts/20230730
 image:
-  path: /assets/img/posts/20230730/Surf.jpg
+  path: Surf.webp
 tags: [development, .net, csharp, performance, benchmarks]
 category: development
 redirect_from: /ImmutableArray-enumeration-performance.html
@@ -158,7 +158,7 @@ It tests the performance of `foreach` when iterating an `int[]`, a `ReadOnlySpan
 
 I used a configuration to test for both .NET 6 and .NET 8, and obtained the following results:
 
-![benchmarks](Benchmarks.png)
+![benchmarks](Benchmarks.webp)
 
 What is surprising is that the performance for `ImmutableArray<int>` is equivalent to the one of the `int[]`, not to the one of the `List<int>`.
 

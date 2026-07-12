@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "ToList(), or not ToList(), that is the question"
 date: 2018-07-25
-img_path: /assets/img/posts/20180725
+media_subpath: /assets/img/posts/20180725
 image:
-  path: /assets/img/posts/20180725/Plaza.jpg
+  path: Plaza.webp
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /ToList-or-not-ToList.html
@@ -146,7 +146,7 @@ I also configured it to use .NET 6, .NET 7, and .NET 8 (all the “modern” .NE
 
 > NOTE: The benchmarking methods return the sum of the items so that the JIT compiler doesn’t remove any code that it considers "unused".
 
-![benchmarks](Benchmarks.png)
+![benchmarks](Benchmarks.webp)
 
 One thing to note is that the performance improves significantly between .NET 7 and .NET 8. That’s one good reason to upgrade to .NET 8 as soon as possible.
 
@@ -174,7 +174,7 @@ public class ToListBenchmarks
 }
 ```
 
-![benchmarks2](Benchmarks2.png)
+![benchmarks2](Benchmarks2.webp)
 
 Notice that most the allocated memory does come from the conversion operation and that it increases with the number of items in the sequence.
 

@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: ".NET/C# Development in the Code Agents Era"
 date: 2026-04-26
-img_path: /assets/img/posts/20260426
+media_subpath: /assets/img/posts/20260426
 image:
-  path: /assets/img/posts/20260426/Robots.jpg
+  path: Robots.webp
 tags: [ai, llm, code agents, .net, csharp, aspire, analyzers, hooks, copilot, claude code]
 category: ai
 meta_description: "How deterministic .NET tools like analyzers, tests, Aspire, and hooks create a stable foundation for high-quality automation in the code agents era."

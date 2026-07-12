@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Prompt Caching in Coding Harnesses"
 date: 2026-06-27
-img_path: /assets/img/posts/20260627
+media_subpath: /assets/img/posts/20260627
 image:
-  path: /assets/img/posts/20260627/Baixa.jpg
+  path: Baixa.webp
 tags: [ai, agents, copilot, llm, prompt caching, token usage]
 category: ai
 math: true

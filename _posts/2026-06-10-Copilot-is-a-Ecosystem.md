@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Copilot Is an Ecosystem, Not a Feature"
 date: 2026-06-10
-img_path: /assets/img/posts/20260610
+media_subpath: /assets/img/posts/20260610
 image:
-  path: /assets/img/posts/20260610/Copilot.jpg
+  path: Copilot.webp
 tags: [ai, agents, copilot]
 category: ai
 redirect_from:

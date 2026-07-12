@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Public Skills, Agents, and the New Supply‑Chain Problem"
 date: 2026-06-14
-img_path: /assets/img/posts/20260614
+media_subpath: /assets/img/posts/20260614
 image:
-  path: /assets/img/posts/20260614/Dial.jpg
+  path: Dial.webp
 tags: [ai, agents, copilot]
 category: ai
 redirect_from:

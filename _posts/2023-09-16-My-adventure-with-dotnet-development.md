@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Coding Chronicles: My Adventure with .NET Development"
 date: 2023-09-16
-img_path: /assets/img/posts/20230916
+media_subpath: /assets/img/posts/20230916
 image:
-  path: /assets/img/posts/20230916/Depth-camera-AR.png
+  path: Depth-camera-AR.webp
 tags: [.net, opinion]
 category: development
 redirect_from: /My-adventure-with-dotnet-development.html
@@ -21,7 +21,7 @@ If you're interested primarily in my take on the current status of .NET, feel fr
 
 I started using .NET shortly after 1.0 was released, back in 2002. I loved the simplicity of C#, coming from a long experience with C++, and loved the concept of a single runtime and single framework for multiple programming languages. I still hold as a souvenir these two DVDs of Visual Studio .NET (2003) and Visual Studio 2005.
 
-![Old Visual Studio DVD boxes](VisualStudio.jpeg)
+![Old Visual Studio DVD boxes](VisualStudio.webp)
 
 I was then working at [YDreams](https://ydreams.global/) and, for our first big project on .NET, I used [Web Forms](https://en.wikipedia.org/wiki/ASP.NET_Web_Forms) to develop a tool for the management of the truck fleet that collects recyclable garbage in the [Portalegre District, Portugal](https://en.wikipedia.org/wiki/Portalegre_District). Back then, very little was available besides the official framework. I had to develop the route-finding algorithms based on [A-star](https://en.wikipedia.org/wiki/A*_search_algorithm) and [ant colony](https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms). I implemented map browsing with dynamic panning and zooming. This was before Google Maps was released.
 
@@ -29,7 +29,7 @@ My first own open-source actually came out of this project when I published the 
 
 Around 2004, YDreams [started developing interactive applications based on detection using web cameras](https://www.youtube.com/watch?v=YCuPU6fVGCo). This required the development of both computer vision and computer graphics components. When the number of applications started to grow, we felt the need to develop a reusable framework for this kind of applications. YDreams created an R&D department where I was very lucky to work with an amazing team of developers. We decided to use .NET for it, and we named it YVision.
 
-![YVision technical paper cover](YVision.png)
+![YVision technical paper cover](YVision.webp)
 
 The purpose of this framework was to have reusable and composable components to easily develop interactive applications, based on any type of sensor, with realistic graphics and behaviours. [We published a scientific paper describing the architecture of the framework](https://www.researchgate.net/publication/221097505_YVision_A_General_Purpose_Software_Composition_Framework).
 
@@ -76,7 +76,7 @@ In 2014, I joined [LusoVU](https://lusovu.com/). A company focusing on augmented
 
 The device is called [EyeSpeak](https://lusovu.com/products/eyespeak/) and it's composed of a pair of augmented reality glasses, a camera to track the user's eyes, and a speaker. The see-through displays allow the user to interact with the user interface and also see the outside world, without having to remove the device.
 
-![The Eyespeak device](Eyespeak.jpeg)
+![The Eyespeak device](Eyespeak.webp)
 
 Using the open-source projects [Xamarin for Android](https://learn.microsoft.com/en-us/xamarin/android/), [ReactiveUI](https://www.reactiveui.net/) and [Reactive Extensions for .NET](https://github.com/dotnet/reactive), we developed a system to interact with active UI elements, like pressing the buttons and menus, using the eye gaze only. We developed a text-to-speech application that allows the user to output voice sentences through the speaker by typing the text using only the eyes. We developed a custom Android keyboard that is easier to use with gaze tracking. The system also includes a loud sound alarm to be used in case of an emergency that can be easily activated using the eye gaze.
 

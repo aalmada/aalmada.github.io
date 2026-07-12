@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "The Index Layer: Comparing Knowledge Graph Tools for AI Code Agents"
 date: 2026-07-03
-img_path: /assets/img/posts/20260703
+media_subpath: /assets/img/posts/20260703
 image:
-  path: /assets/img/posts/20260703/Aquarium.jpg
+  path: Aquarium.webp
 tags: [ai, agents, knowledge graphs, tree-sitter, mcp, lsp, context engineering, copilot, claude code]
 category: ai
 redirect_from: /The-Index-Layer.html

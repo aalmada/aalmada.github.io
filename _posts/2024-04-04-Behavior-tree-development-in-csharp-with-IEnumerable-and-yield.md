@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "C# Behavior Trees with IEnumerable<T> and Yield"
 date: 2024-04-04
-img_path: /assets/img/posts/20240404
+media_subpath: /assets/img/posts/20240404
 image:
-  path: /assets/img/posts/20240404/Obidos.jpg
+  path: Obidos.webp
 tags: [development, .net, csharp, yield]
 category: development
 meta_description: "Build behavior trees in C# with IEnumerable<T> and yield, composing reusable nodes and coroutines for game AI, robotics, and deterministic control flows."
@@ -20,7 +20,7 @@ Behavior trees, [with practical applications in game development and robotics](<
 
 Behavior trees are composed of nodes arranged in a tree structure. Each node acts as a pull stream, initiating processing whenever it's pulled, representing a behavioral step. During each step, if additional processing is needed, it yields `Running`. Once no further processing is necessary, it yields either `Succeeded` if the node completed its task successfully, or `Failed` if not.
 
-![Behavior node stream](BehaviorNodeStream.png)
+![Behavior node stream](BehaviorNodeStream.webp)
 
 ### Node Classifications
 
@@ -30,7 +30,7 @@ Behavior tree nodes are commonly classified into three main types:
 - **Decorator Nodes:** Nodes with a single child.
 - **Leaf Nodes:** Nodes devoid of children.
 
-![Behavior node types](BehaviorTree.png)
+![Behavior node types](BehaviorTree.webp)
 
 Composite and decorator nodes manage the execution flow within their child nodes, controlling how behaviors are executed and enhancing the reusability of behavior tree components. Meanwhile, leaf nodes handle specific operations, including:
 

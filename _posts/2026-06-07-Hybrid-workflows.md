@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Hybrid Workflows: Where Deterministic Code Meets Reasoning, and Why the Copilot SDK Matters"
 date: 2026-06-07
-img_path: /assets/img/posts/20260607
+media_subpath: /assets/img/posts/20260607
 image:
-  path: /assets/img/posts/20260607/Split.webp
+  path: Split.webp
 tags: [ai, agents, copilot]
 category: ai
 redirect_from:

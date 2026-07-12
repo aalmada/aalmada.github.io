@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "APM: Package Management for AI Agent Configuration"
 date: 2026-05-03
-img_path: /assets/img/posts/20260503
+media_subpath: /assets/img/posts/20260503
 image:
-  path: /assets/img/posts/20260503/Candelaria.jpg
+  path: Candelaria.webp
 tags: [ai, agents, apm, package management, instructions, skills, hooks, copilot, claude code]
 category: ai
 meta_description: "APM applies npm-style package management to AI agent configuration, making your team's instructions, skills, agents, and hooks versioned and reproducible."

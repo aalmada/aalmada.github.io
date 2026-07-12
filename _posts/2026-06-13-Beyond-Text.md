@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Beyond Text: The Semantic Layers Agents Need"
 date: 2026-06-13
-img_path: /assets/img/posts/20260613
+media_subpath: /assets/img/posts/20260613
 image:
-  path: /assets/img/posts/20260613/Fabric.jpg
+  path: Fabric.webp
 tags: [ai, agents, copilot]
 category: ai
 redirect_from:

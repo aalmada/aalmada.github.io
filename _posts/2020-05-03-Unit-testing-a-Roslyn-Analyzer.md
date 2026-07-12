@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Unit testing a Roslyn Analyzer"
 date: 2020-05-03
-img_path: /assets/img/posts/20200503
+media_subpath: /assets/img/posts/20200503
 image:
-  path: /assets/img/posts/20200503/PracaComercio.jpg
+  path: PracaComercio.webp
 tags: [development, .net, csharp, roslyn, analyzer, unit testing]
 category: development
 redirect_from: /Unit-testing-a-Roslyn-Analyzer.html
@@ -83,7 +83,7 @@ These packages are used on different contexts (_compile time_ vs. _run time_) bu
 
 For the case of the analyzer, I added a folder TestData to my unit testing project. Inside of it, I added a folder tree for each diagnostic analyzer with source files split into tests with or without diagnostics reported:
 
-![Folder structure](SolutionExplorer.png)
+![Folder structure](SolutionExplorer.webp)
 
 Once the files are added, they become part of the project and are compiled just like any other source file. One thing you’ll have to worry about now is naming conflicts. To avoid this, I use namespaces with the base name equal to the diagnostic identifier, which should be unique by definition.
 

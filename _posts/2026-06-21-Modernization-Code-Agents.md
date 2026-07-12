@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Code Modernization Agents: making impossible projects finishable"
 date: 2026-06-21
-img_path: /assets/img/posts/20260621
+media_subpath: /assets/img/posts/20260621
 image:
-  path: /assets/img/posts/20260621/Expo.jpg
+  path: Expo.webp
 tags: [ai, agents, copilot]
 category: ai
 redirect_from:

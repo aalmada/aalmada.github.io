@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "How to use Span&lt;T&gt; and Memory&lt;T&gt;"
 date: 2018-03-12
-img_path: /assets/img/posts/20180312
+media_subpath: /assets/img/posts/20180312
 image:
-  path: /assets/img/posts/20180312/Baños.jpg
+  path: Baños.webp
 tags: [development, .net, csharp, span]
 category: development
 redirect_from: /How-to-use-Span-and-Memory.html
@@ -235,7 +235,7 @@ How do these examples perform? [BenchmarkDotNet](https://benchmarkdotnet.org/) m
 
 The code for these benchmarks can be found at [EnumerationBenchmarks.cs on GitHub](https://github.com/aalmada/SpanSample/blob/master/SpanSample/EnumerationBenchmarks.cs)
 
-![benchmarks](Benchmarks.png)
+![benchmarks](Benchmarks.webp)
 
 For the benchmarks, I extended the first example into 3 options of iteration on the buffer `Span<>`: using a `foreach`, using `GetEnumerator()` and using a `for` loop with indexer operator. Interesting to see that the `foreach` has the same performance has the `for` but using the `GetEnumerator()` is twice as slow.
 

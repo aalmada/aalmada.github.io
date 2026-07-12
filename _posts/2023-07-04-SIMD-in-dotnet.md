@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Single Instruction, Multiple Data (SIMD) in .NET"
 date: 2023-07-04
-img_path: /assets/img/posts/20230704
+media_subpath: /assets/img/posts/20230704
 image:
-  path: /assets/img/posts/20230704/Margarida.jpg
+  path: Margarida.webp
 tags: [development, .net, csharp, performance, math, simd, intrinsics]
 category: development
 redirect_from: /SIMD-in-dotnet.html
@@ -273,7 +273,7 @@ The benchmark compares the following scenarios:
 - .NET 7 and .NET 8,
 - With no SIMD support (Scalar), only Vector128 support (Vector128) and with Vector256 support (Vector256).
 
-![benchmarks](Benchmarks.png)
+![benchmarks](Benchmarks.webp)
 
 The use of SIMD, together with the iteration of `List<T>` as span, totals in performance boosts of:
 

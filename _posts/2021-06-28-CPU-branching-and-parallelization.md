@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "CPU branching and parallelization"
 date: 2021-06-28
-img_path: /assets/img/posts/20210628
+media_subpath: /assets/img/posts/20210628
 image:
-  path: /assets/img/posts/20210628/OConnell-Bridge.jpg
+  path: OConnell-Bridge.webp
 tags: [development, .net, csharp, simd, performance, benchmarks]
 category: development
 redirect_from: /CPU-branching-and-parallelization.html
@@ -128,7 +128,7 @@ This benchmark tests the performance of each method using an array of random int
 
 > NOTE: You can see in [SharpLab](https://sharplab.io/#v2:EYLgxg9gTgpgtADwGwBYA0AXEBDAzgWwB8ABAJgEYBYAKGIGYACMhgYQYG8aHunHgIIAGwYBJXAFEAbjAB2ACgCWMjA0nZBAVxgBKBgF4AfKvVaGAUgakGC3AwAMAbi49n3eg35DRE6TNKLlY00dfSM5NWCGADIGcl0beydqHgZXXg8BYTEAeQATXICVCK1dQyDTCysEmQgVRzS0908s3Dzc/yUikxCy8O7o2PjbGrqkgF8gA===) that using `item % 2 is 0` or `(item & 1) is 0` generates exactly the same assembly code on the latest .NET versions but not for the older versions. I’m using `(item & 1) is 0` to guarantee equality in the benchmarks.
 
-![benchmarks](Benchmarks-1.png)
+![benchmarks](Benchmarks-1.webp)
 
 > NOTE: The results for this benchmark depend on how well the CPU can predict the branch to follow. This depends on the data used which, in this case, depends on the seed value.
 
@@ -223,7 +223,7 @@ public class ParallelizationBenchmarks
 
 This benchmark tests the performance of each method using an array of integers. It uses two lengths for the array: 10 and 1,000 items.
 
-![benchmarks](Benchmarks-2.png)
+![benchmarks](Benchmarks-2.webp)
 
 The parallelized method is 20% to 40% faster for both short and large collections. Using this method, the CPU is able to automatically parallelize instruction flows.
 
@@ -373,7 +373,7 @@ This time I used a configuration only for .NET 8 but with three variants:
 - Vector128 is available,
 - Vector256 is available.
 
-![benchmarks](Benchmarks-3.png)
+![benchmarks](Benchmarks-3.webp)
 
 The optimized version is significantly faster than the baseline version in all cases. It achieves more than a 7x gain for a 1,000 items array when Vector256 hardware is available.
 

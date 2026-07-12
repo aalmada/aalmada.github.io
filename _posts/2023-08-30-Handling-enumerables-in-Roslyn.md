@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Enumerables in Roslyn Analyzers and Code Generators"
 date: 2023-08-30
-img_path: /assets/img/posts/20230830
+media_subpath: /assets/img/posts/20230830
 image:
-  path: /assets/img/posts/20230830/Sunset-beach.jpeg
+  path: Sunset-beach.webp
 tags: [development, .net, csharp, roslyn]
 category: development
 redirect_from: /Handling-enumerables-in-Roslyn.html

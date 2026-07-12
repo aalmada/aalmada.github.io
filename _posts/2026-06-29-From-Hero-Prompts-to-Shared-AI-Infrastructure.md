@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "From Hero Prompts to Shared AI Infrastructure"
 date: 2026-06-29
-img_path: /assets/img/posts/20260629
+media_subpath: /assets/img/posts/20260629
 image:
-  path: /assets/img/posts/20260629/SlideRule.jpg
+  path: SlideRule.webp
 tags: [ai, copilot, agents, cli, workflow, automation]
 category: ai
 meta_description: "Why AI agent workflows need versioned guardrails, shared repository knowledge, custom agents, hooks, and repeatable validation."

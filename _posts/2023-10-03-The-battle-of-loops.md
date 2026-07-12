@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "The Battle of Loops: foreach vs. ForEach in C#"
 date: 2023-10-03
-img_path: /assets/img/posts/20231003
+media_subpath: /assets/img/posts/20231003
 image:
-  path: /assets/img/posts/20231003/ForEach.png
+  path: ForEach.webp
 tags: [.net, csharp, performance, simd, intrinsics]
 category: development
 redirect_from: /The-battle-of-loops.html
@@ -443,7 +443,7 @@ For the `ForEachEx` implementations, we will benchmark them using both lambda ex
 
 You can access the source code for these benchmarks by following [this link](https://github.com/NetFabric/NetFabric.ForEachEx/blob/main/NetFabric.ForEachEx.Benchmarks/ForEachBenchmarks.cs).
 
-![benchmarks](Benchmarks.png)
+![benchmarks](Benchmarks.webp)
 
 Starting with the `List_ForEach` benchmark, which assesses the performance of the `ForEach` method provided by `List<T>` and compares it to `List_foreach`, measuring the performance of iterating the same list using a `foreach` loop, it becomes evident that `ForEach` is slower. As expected, despite a faster iteration approach, the use of delegates results in reduced performance.
 

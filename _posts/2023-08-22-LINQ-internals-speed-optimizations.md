@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "LINQ Internals: Speed Optimizations"
 date: 2023-08-22
-img_path: /assets/img/posts/20230822
+media_subpath: /assets/img/posts/20230822
 image:
-  path: /assets/img/posts/20230822/Pine-processionary.jpg
+  path: Pine-processionary.webp
 tags: [development, .net, csharp, linq, performance]
 category: development
 redirect_from: /LINQ-internals-speed-optimizations.html

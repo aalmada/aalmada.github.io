@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Network Segmentation with Multiple UniFi VLANs"
 date: 2024-04-22
-img_path: /assets/img/posts/20240422
+media_subpath: /assets/img/posts/20240422
 image:
-  path: /assets/img/posts/20240422/WASD.jpg
+  path: WASD.webp
 tags: [network, security, ubiquiti, unifi, vlan]
 category: network
 meta_description: "Learn how to maximize network security by leveraging multiple VLANs with UniFi hardware, including setup, best practices, and guest network management."

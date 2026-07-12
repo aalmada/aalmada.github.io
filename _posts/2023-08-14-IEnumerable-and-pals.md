@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Taming .NET Collections: A Safari Through IEnumerable and Pals"
 date: 2023-08-14
-img_path: /assets/img/posts/20230814
+media_subpath: /assets/img/posts/20230814
 image:
-  path: /assets/img/posts/20230814/IEnumerable.png
+  path: IEnumerable.webp
 tags: [development, .net, csharp, linq, performance]
 category: development
 redirect_from: /IEnumerable-and-pals.html
@@ -442,7 +442,7 @@ The namespace `System.Collections.Immutable` also contains the declaration of co
 
 ## Which interfaces to use?
 
-![interface hierarchy](IEnumerable.png)
+![interface hierarchy](IEnumerable.webp)
 *The layered hierarchy of collection interfaces. Immutable interfaces in green and mutable interfaces in red.*
 
 The interface that should be used depends on the scenario.

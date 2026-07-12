@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Array iteration performance in C#"
 date: 2021-06-21
-img_path: /assets/img/posts/20210621
+media_subpath: /assets/img/posts/20210621
 image:
-  path: /assets/img/posts/20210621/Snails.jpg
+  path: Snails.webp
 tags: [development, .net, csharp, linq, performance, benchmarks]
 category: development
 redirect_from: /Array-iteration-performance-in-csharp.html
@@ -40,7 +40,7 @@ static int Sum(int[] array)
 One other alternative is to use the `Sum()` operation provided by LINQ. It can be applied to any enumerable, including arrays.
 So, how do all these three fairs in terms of performance?
 
-![benchmarks](Benchmarks-1.png)
+![benchmarks](Benchmarks-1.webp)
 
 The benchmark compares the performance for arrays on int, with sizes 10 and 1.000, on .NET 6, 7, and 8 (all "modern" .NET versions).
 
@@ -186,7 +186,7 @@ static int Sum(ReadOnlySpan<int> source)
 
 So, how do these fairs in terms of performance?
 
-![benchmarks](Benchmarks-2.png)
+![benchmarks](Benchmarks-2.webp)
 
 Using `foreach` on a slice of the array also performs around 20% better than using the for loop.
 

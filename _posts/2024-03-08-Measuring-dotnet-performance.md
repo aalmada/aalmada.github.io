@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Measuring .NET Performance with BenchmarkDotNet"
 date: 2024-03-08
-img_path: /assets/img/posts/20240308
+media_subpath: /assets/img/posts/20240308
 image:
-  path: /assets/img/posts/20240308/BelaVista.jpg
+  path: BelaVista.webp
 tags: [development, .net, csharp, benchmarking]
 category: development
 redirect_from: /Measuring-dotnet-performance.html

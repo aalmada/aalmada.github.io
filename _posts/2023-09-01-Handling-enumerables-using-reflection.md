@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Handling enumerables when using reflection"
 date: 2023-09-01
-img_path: /assets/img/posts/20230901
+media_subpath: /assets/img/posts/20230901
 image:
-  path: /assets/img/posts/20230901/Stormy-sunset.jpeg
+  path: Stormy-sunset.webp
 tags: [development, .net, csharp, reflection]
 category: development
 redirect_from: /Handling-enumerables-using-reflection.html

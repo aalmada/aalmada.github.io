@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "P/Invoking using Span&lt;T&gt;"
 date: 2018-03-21
-img_path: /assets/img/posts/20180321
+media_subpath: /assets/img/posts/20180321
 image:
-  path: /assets/img/posts/20180321/Observing.jpg
+  path: Observing.webp
 tags: [development, .net, csharp, span]
 category: development
 redirect_from: /PInvoke-using-Span.html
@@ -262,7 +262,7 @@ I now want to know if these abstraction affect the performance in any way. To ev
 
 Using [BenchmarkDotNet](https://benchmarkdotnet.org/) and [some code that reproduces all the scenarios described](https://github.com/aalmada/SpanSample/blob/master/SpanSample/PinvokeBenchmarks.cs), for buffers with 100 and 1000 items, I got the following results:
 
-![benchmarks](Benchmarks.png)
+![benchmarks](Benchmarks.webp)
 
 > NOTE: Choosing larger buffers would make the stack allocation fail as this type of memory is very limited.
 
@@ -270,7 +270,7 @@ I reordered the result to better understand how the method used, memory type and
 
 On this first table, each line highlights the difference in performance when using `Span<T>` and method with a `Span<T>` argument, relative to when not using them:
 
-![benchmarks](Benchmarks2.png)
+![benchmarks](Benchmarks2.webp)
 
 - The use of `Span<T>` makes almost no difference for the managed array.
 - There’s a big difference when using `Span<T>` with stack allocations.
@@ -279,7 +279,7 @@ On this first table, each line highlights the difference in performance when usi
 
 On this second table, each lines highlights the difference in performance when increasing from 100 to 1000 items:
 
-![benchmarks](Benchmarks3.png)
+![benchmarks](Benchmarks3.webp)
 
 - The factor of time-elapsed increase is constant for all scenarios except for the stack allocation where there is a big difference between using `Span<T>` and not using it.
 - Interesting to see that the factor is 1 (100%) for all unmanaged allocation scenarios.

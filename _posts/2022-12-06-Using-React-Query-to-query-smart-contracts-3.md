@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Using “React Query” to query smart contracts (part 3)"
 date: 2022-12-06
-img_path: /assets/img/posts/20221206
+media_subpath: /assets/img/posts/20221206
 image:
-  path: /assets/img/posts/20221206/Lichen.jpeg
+  path: Lichen.webp
 tags: [development, web3, react, react-query]
 category: development
 redirect_from: /Using-React-Query-to-query-smart-contracts-3.html

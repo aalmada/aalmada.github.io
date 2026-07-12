@@ -39,13 +39,20 @@
 
 - Store post images under `assets/img/posts/YYYYMMDD/`.
 - Non-post pages (for example `_tabs/about.md`) may use stable shared paths under `assets/img/`; preserve existing paths unless explicitly asked to reorganize.
+- All post images must be **WebP** format, max **1200px** width.
 - Keep frontmatter image fields aligned:
-  - `img_path: /assets/img/posts/YYYYMMDD`
-  - `image.path: /assets/img/posts/YYYYMMDD/<file>`
+  - `media_subpath: /assets/img/posts/YYYYMMDD`
+  - `image.path: <filename>.webp` (relative — `media_subpath` provides the directory)
+- Inline Markdown images in post bodies use **relative** filenames (e.g., `![alt](Screenshot.webp)`); do NOT use absolute paths starting with `/assets/…` because `media_subpath` is prepended automatically by the Chirpy theme.
 - Ensure the referenced featured image file exists.
-- Prefer optimized images (typically `.webp`; `.jpg`/`.jpeg`/`.png` are acceptable when needed).
 - Use descriptive image filenames.
 - For inline Markdown images in post bodies, always provide meaningful alt text.
+
+## Image optimization
+
+- A GitHub Actions workflow (`.github/workflows/optimize-images.yml`) automatically converts new images pushed to `assets/img/posts/` into WebP (quality 82, max 1200px width), updates Markdown references, and commits back with `[skip ci]`.
+- To run locally: `./tools/optimize-images.sh` (requires `imagemagick` and `webp` packages).
+- Do NOT commit unoptimized JPG/PNG images for posts; the CI will convert them, but prefer adding WebP directly when possible.
 
 ## Build and validation
 

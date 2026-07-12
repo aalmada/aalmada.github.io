@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "An interface for value-type enumerators, a proposal"
 date: 2023-09-10
-img_path: /assets/img/posts/20230910
+media_subpath: /assets/img/posts/20230910
 image:
-  path: /assets/img/posts/20230910/IValueEnumerable.png
+  path: IValueEnumerable.webp
 tags: [development, .net, csharp, performance]
 category: development
 redirect_from: /An-interface-for-value-type-enumerators.html

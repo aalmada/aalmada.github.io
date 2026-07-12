@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Efficient Span Processing with SIMD in C#"
 date: 2024-05-03
-img_path: /assets/img/posts/20240503
+media_subpath: /assets/img/posts/20240503
 image:
-  path: /assets/img/posts/20240503/InfanteSanto.jpg
+  path: InfanteSanto.webp
 tags:
   [development, .net, csharp, performance, span, simd, parallel, benchmarking]
 category: development

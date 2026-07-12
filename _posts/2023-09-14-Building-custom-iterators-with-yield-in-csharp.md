@@ -4,9 +4,9 @@ read_time: true
 show_date: true
 title: "Building Custom Iterators with 'yield' in C#"
 date: 2023-09-14
-img_path: /assets/img/posts/20230914
+media_subpath: /assets/img/posts/20230914
 image:
-  path: /assets/img/posts/20230914/Yield.png
+  path: Yield.webp
 tags: [development, .net, csharp, yield]
 category: development
 redirect_from: /Building-custom-iterators-with-yield-in-csharp.html
