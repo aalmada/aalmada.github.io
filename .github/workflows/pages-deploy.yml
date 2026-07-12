@@ -140,10 +140,10 @@ jobs:
             --argjson urlList "$URL_LIST" \
             '{host: $host, key: $key, keyLocation: $keyLocation, urlList: $urlList}')
 
-          # ── Submit ────────────────────────────────────────────────────────────
+          # ── Submit to Bing directly (shows in Webmaster Tools dashboard) ─────
           RESPONSE=$(curl -s -w "\n%{http_code}" \
             --retry 3 --retry-delay 5 --retry-all-errors \
-            -X POST "https://api.indexnow.org/IndexNow" \
+            -X POST "https://www.bing.com/indexnow" \
             -H "Content-Type: application/json; charset=utf-8" \
             -d "$PAYLOAD")
 
