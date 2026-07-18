@@ -10,6 +10,7 @@ image:
 tags:
   [development, .net, csharp, performance, span, simd, parallel, benchmarking]
 category: development
+redirect_from: /Unleashing-parallelism.html
 meta_description: "Learn how to maximize data processing performance in C# using span, SIMD, and multi-threading. This guide covers efficient span operations, bounds checking elimination, vectorization, and parallelization techniques with practical code examples and benchmarks."
 ---
 

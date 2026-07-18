@@ -9,6 +9,7 @@ image:
   path: WASD.webp
 tags: [network, security, ubiquiti, unifi, vlan]
 category: network
+redirect_from: /Leveraging-multiple-VLANs-with-UniFi-hardware.html
 meta_description: "Learn how to maximize network security by leveraging multiple VLANs with UniFi hardware, including setup, best practices, and guest network management."
 ---
 

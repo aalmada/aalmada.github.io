@@ -235,6 +235,9 @@ exclude:
   - "*.config.js"
   - "package*.json"
 
+plugins:
+  - jekyll-redirect-from
+
 jekyll-archives:
   enabled: [categories, tags]
   layouts:

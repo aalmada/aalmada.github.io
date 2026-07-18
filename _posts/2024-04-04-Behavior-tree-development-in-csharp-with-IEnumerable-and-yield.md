@@ -9,6 +9,7 @@ image:
   path: Obidos.webp
 tags: [development, .net, csharp, yield]
 category: development
+redirect_from: /Behavior-tree-development-in-csharp-with-IEnumerable-and-yield.html
 meta_description: "Build behavior trees in C# with IEnumerable<T> and yield, composing reusable nodes and coroutines for game AI, robotics, and deterministic control flows."
 ---
 

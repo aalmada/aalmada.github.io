@@ -9,6 +9,7 @@ image:
   path: Pears.webp
 tags: [network, ubiquiti, unifi, docker, portainer, raspberry pi]
 category: network
+redirect_from: /Unifi-controller-on-raspberry-pi.html
 meta_description: "Deploy UniFi Controller on Raspberry Pi with Docker and Portainer, covering setup, migration, backups, and maintenance for a stable home network platform."
 ---
 

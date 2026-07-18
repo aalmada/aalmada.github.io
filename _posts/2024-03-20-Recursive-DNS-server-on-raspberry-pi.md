@@ -9,6 +9,7 @@ image:
   path: CaisDoSodre.webp
 tags: [network, dns, docker, portainer, raspberry pi, pi-hole, unbound]
 category: network
+redirect_from: /Recursive-DNS-server-on-raspberry-pi.html
 meta_description: "Set up recursive DNS on Raspberry Pi with Pi-hole, Unbound, and Portainer to improve privacy, block ads, and provide secure, resilient name resolution at home."
 ---
 
