@@ -35,4 +35,11 @@ Thumbs.db
 # APM dependencies
 apm_modules/
 
+# Audit reports
+_reports/
+
+# Lighthouse temp directories (WSL/Windows)
+C:*
+
 *.env
+

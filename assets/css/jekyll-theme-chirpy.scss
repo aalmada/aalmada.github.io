@@ -1,0 +1,30 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* ── Accessibility fixes ─────────────────────────────────────────────────── */
+
+/* Fix: code line numbers have insufficient contrast (Lighthouse a11y) */
+.highlight .lineno {
+  color: #6e7681;
+  opacity: 1;
+}
+
+/* Fix: share buttons too small for touch targets (Lighthouse a11y) */
+.share-icons .btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

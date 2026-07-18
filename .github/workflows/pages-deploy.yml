@@ -153,3 +153,133 @@ jobs:
 
           [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "202" ] \
             || { echo "Unexpected response: $HTTP_CODE"; exit 1; }
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: deploy
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Run Lighthouse audit
+        run: |
+          SITE_URL=$(grep '^url:' _config.yml | head -1 | awk '{print $2}' | tr -d "'\"")
+
+          lighthouse "${SITE_URL}/" \
+            --output json --output html \
+            --output-path ./lighthouse-report \
+            --chrome-flags="--headless --no-sandbox --disable-gpu" \
+            --quiet || true
+
+          # Rename outputs
+          [ -f lighthouse-report.report.json ] && mv lighthouse-report.report.json lighthouse-report.json
+          [ -f lighthouse-report.report.html ] && mv lighthouse-report.report.html lighthouse-report.html
+
+      - name: Check scores
+        run: |
+          if [ ! -f lighthouse-report.json ]; then
+            echo "::warning::Lighthouse report not generated"
+            exit 0
+          fi
+
+          python3 -c "
+          import json, sys
+          with open('lighthouse-report.json') as f:
+              lhr = json.load(f)
+          cats = lhr.get('categories', {})
+          failed = False
+          for name in ['performance', 'accessibility', 'best-practices', 'seo']:
+              cat = cats.get(name, {})
+              score = int((cat.get('score', 0) or 0) * 100)
+              icon = '✅' if score >= 80 else '❌'
+              print(f'{icon} {name}: {score}')
+              if score < 80:
+                  print(f'::warning::{name} score {score} is below threshold (80)')
+                  failed = True
+          if failed:
+              print('::error::One or more Lighthouse scores below threshold')
+              sys.exit(1)
+          "
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: |
+            lighthouse-report.json
+            lighthouse-report.html
+          retention-days: 30
+
+  crawl-check:
+    runs-on: ubuntu-latest
+    needs: deploy
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check Bing crawl issues
+        env:
+          BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+        run: |
+          if [ -z "$BING_WEBMASTER_API_KEY" ]; then
+            echo "::warning::BING_WEBMASTER_API_KEY secret not set — skipping crawl check"
+            exit 0
+          fi
+
+          SITE_URL=$(grep '^url:' _config.yml | head -1 | awk '{print $2}' | tr -d "'\"")
+
+          # Check crawl issues
+          ISSUES=$(curl -s "https://ssl.bing.com/webmaster/api.svc/json/GetCrawlIssues?siteUrl=${SITE_URL}/&apikey=${BING_WEBMASTER_API_KEY}" \
+            | sed 's/^\xef\xbb\xbf//')
+
+          ISSUE_COUNT=$(echo "$ISSUES" | python3 -c "import json,sys; print(len(json.loads(sys.stdin.read()).get('d',[])))" 2>/dev/null || echo "0")
+
+          if [ "$ISSUE_COUNT" = "0" ]; then
+            echo "✅ No crawl issues found"
+          else
+            echo "::warning::${ISSUE_COUNT} crawl issue(s) detected"
+            echo "$ISSUES" | python3 -c "
+          import json, sys
+          data = json.loads(sys.stdin.read()).get('d', [])
+          for issue in data[:20]:
+              url = issue.get('Url', '?')
+              code = issue.get('HttpCode', '?')
+              print(f'  {code} → {url}')
+          "
+          fi
+
+          # Latest crawl stats
+          echo ""
+          echo "Latest crawl stats:"
+          curl -s "https://ssl.bing.com/webmaster/api.svc/json/GetCrawlStats?siteUrl=${SITE_URL}/&apikey=${BING_WEBMASTER_API_KEY}" \
+            | sed 's/^\xef\xbb\xbf//' \
+            | python3 -c "
+          import json, sys, datetime
+          data = json.loads(sys.stdin.read()).get('d', [])
+          if data:
+              entry = data[-1]
+              ts = int(entry['Date'].split('(')[1].split('-')[0].split('+')[0]) / 1000
+              dt = datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc).strftime('%Y-%m-%d')
+              print(f\"  Date: {dt}\")
+              print(f\"  2xx: {entry.get('Code2xx',0)}, 4xx: {entry.get('Code4xx',0)}, 5xx: {entry.get('Code5xx',0)}\")
+              print(f\"  In Index: {entry.get('InIndex',0)}, Errors: {entry.get('CrawlErrors',0)}\")
+              c4 = entry.get('Code4xx', 0)
+              if c4 > 0:
+                  print(f'::warning::{c4} pages returned 4xx status codes')
+          "
