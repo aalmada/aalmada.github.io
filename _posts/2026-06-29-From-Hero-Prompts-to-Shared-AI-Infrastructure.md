@@ -111,8 +111,10 @@ For example, a reviewer agent should not have the same tool surface as an implem
 ---
 name: app-reviewer
 description: Reviews proposed changes for correctness, maintainability, and policy violations.
-model: Claude Sonnet 4.6 (copilot)
 target: vscode
+model:
+  - Claude Sonnet 4.6 (copilot)   # primary — strong at code review
+  - GPT-5.4 (copilot)             # cross-family fallback
 tools: ['search', 'read']
 user-invocable: false
 disable-model-invocation: true
@@ -209,6 +211,7 @@ The pattern looks like this:
 ---
 name: app-reviewer
 description: Reviews proposed changes; read-only; called as a task subagent.
+target: github-copilot
 tools: ['search', 'read']
 user-invocable: false
 ---
@@ -220,6 +223,7 @@ Review proposed changes. Return issues found. Do not edit files.
 ---
 name: app-builder
 description: Orchestrates feature work — plans, implements, reviews, validates.
+target: github-copilot
 tools: ['read', 'ask_user', 'task']
 ---
 

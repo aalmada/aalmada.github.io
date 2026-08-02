@@ -39,7 +39,10 @@ Create a file at `.github/agents/security-reviewer.agent.md` in your repository:
 ```markdown
 ---
 description: Reviews code for security vulnerabilities using OWASP Top 10 guidelines.
-model: Claude Sonnet 4.6 (copilot)
+target: vscode
+model:
+  - Claude Sonnet 4.6 (copilot)   # primary — strong at code review
+  - GPT-5.4 (copilot)             # cross-family fallback
 tools: ['read', 'search']
 ---
 
@@ -50,9 +53,10 @@ location, and remediation guidance.
 Do NOT modify files. Report only.
 ```
 
-Three things are happening here:
+Four things are happening here:
 
 - **`description`** tells the runtime (and other agents) *when* to invoke this agent.
+- **`target`** scopes *which* runtime lists this agent. `vscode` restricts it to the VS Code Agents dropdown; `github-copilot` restricts it to the Copilot CLI and cloud. Omit `target` (or leave it unset) and the agent appears in every runtime that can read the file. This is how you keep VS Code-only agents (those using `vscode/memory`, handoffs, or the `agent` tool) out of the CLI picker, and vice versa.
 - **`tools`** restricts what it can access — this reviewer can read and search, but cannot edit files or run commands.
 - **The body** is the system prompt — its personality, instructions, and constraints.
 
@@ -90,7 +94,7 @@ Custom agents solve all of this. They're infrastructure, not prompts.
 If you read the [token usage post](/posts/Reducing-Token-Usage-in-Code-Agents/), you know that context size is the main cost driver in agent sessions. Custom agents directly address this:
 
 - **Fresh context per task.** Each agent starts clean with only what it needs. No pollution from earlier conversation turns.
-- **Right model, right job.** Pin o4-mini for cheap planning, Claude Sonnet 4.6 for heavy implementation. Cheaper models for cheaper tasks.
+- **Right model, right job.** Pin `Claude Sonnet 4.6` on the Planner for deep codebase comprehension and on the Implementer for tool-use quality; drop to `GPT-5.3-Codex` only when a role is pure large-volume code generation. Match the model to the role, not the other way around.
 - **Tool isolation.** A read-only planner *cannot* accidentally modify files. Fewer tools in context means less noise for the model.
 - **Encode knowledge once.** Domain expertise lives in the agent definition, loaded automatically — you don't re-send it on every message.
 
@@ -201,8 +205,10 @@ Let's build something practical: a Planner that researches and writes a plan, fo
 ---
 name: Planner
 description: Researches the codebase and writes a concrete implementation plan.
-model: o4-mini (copilot)
 target: vscode
+model:
+  - Claude Sonnet 4.6 (copilot)   # primary — deep comprehension for plan synthesis
+  - GPT-5.4 (copilot)             # cross-family fallback
 tools: ['search', 'read', 'vscode/memory']
 handoffs:
   - label: Start Implementation
@@ -226,8 +232,10 @@ You are the Planner. Your job is to research the codebase and produce a plan.
 ---
 name: Implementer
 description: Implements code changes following a plan written by the Planner.
-model: Claude Sonnet 4.6 (copilot)
 target: vscode
+model:
+  - Claude Sonnet 4.6 (copilot)   # primary — strong tool use and code reasoning
+  - GPT-5.3-Codex (copilot)       # cross-family last resort — code-tuned for large boilerplate
 tools: ['search', 'read', 'edit', 'run_in_terminal', 'vscode/memory']
 ---
 
@@ -240,7 +248,7 @@ You are the Implementer. Follow the plan exactly.
 4. Report completion
 ```
 
-Notice the model split: the Planner uses `o4-mini` (cheap reasoning, good for exploration) while the Implementer uses `Claude Sonnet 4.6` (strong at code generation). Each model does what it's best at, and you pay less for the planning phase.
+Both roles pin `Claude Sonnet 4.6` as the primary — the Planner leans on its deep comprehension for plan synthesis, the Implementer on its tool-use quality and code reasoning during the edit/test loop. `GPT-5.3-Codex` only appears as the Implementer's cross-family last resort — the house rule reserves it for cases where large-volume boilerplate is the dominant output.
 
 The `handoffs:` property on the Planner creates a button that appears after the plan is generated. Click it to switch to the Implementer with a pre-filled prompt. Since `send: false`, you get to review the prompt before it submits — a human checkpoint in the pipeline.
 
@@ -274,13 +282,16 @@ To define handoffs, add them to the agent's frontmatter:
 ```markdown
 ---
 description: Generate an implementation plan
+target: vscode
 tools: ['search', 'read']
+model:
+  - Claude Sonnet 4.6 (copilot)   # primary — deep comprehension for plan synthesis
+  - GPT-5.4 (copilot)             # cross-family fallback
 handoffs:
   - label: Start Implementation
     agent: implementation
     prompt: Now implement the plan outlined above.
     send: false
-    model: GPT-4.1 (copilot)
 ---
 
 You are a planning agent. Research the codebase and produce a step-by-step plan.
@@ -333,8 +344,11 @@ A documentation squad might use `doc-Orchestrator.agent.md`, `doc-Writer.agent.m
 ---
 name: mod-Orchestrator
 description: Routes legacy modernization tasks to specialist agents.
-model: o4-mini (copilot)
 target: vscode
+model:
+  - GPT-5.6 Terra (copilot)       # primary — 24h prompt-cache retention for coordinator idle gaps
+  - GPT-5.4 (copilot)             # same-family fallback (same 24h cache retention)
+  - Claude Sonnet 4.6 (copilot)   # cross-family last resort
 tools: ['search', 'read', 'vscode/memory', 'agent']
 agents: ['mod-Planner', 'mod-BackendFixer', 'mod-Verifier']
 user-invocable: true
@@ -362,6 +376,7 @@ You can also define an explicit orchestrator in the CLI. The `task` tool spawns 
 ---
 description: Orchestrates multi-step tasks by delegating to specialist agents
   via the `task` tool. Use for complex tasks that benefit from specialized roles.
+target: github-copilot
 model: Claude Sonnet 4.6 (copilot)
 tools: ['read', 'ask_user', 'task']
 ---
@@ -454,6 +469,11 @@ VS Code can run subagents in parallel. The most compelling use case is **adversa
 ```markdown
 ---
 name: Thorough Reviewer
+target: vscode
+model:
+  - GPT-5.6 Terra (copilot)       # primary — 24h prompt-cache retention while parallel reviewers run
+  - GPT-5.4 (copilot)             # same-family fallback
+  - Claude Sonnet 4.6 (copilot)   # cross-family last resort
 tools: ['agent', 'read', 'search']
 ---
 You review code through multiple perspectives simultaneously. Run each perspective
