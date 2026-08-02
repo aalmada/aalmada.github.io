@@ -14,6 +14,10 @@ meta_description: "Learn how to build custom GitHub Copilot agents for VS Code, 
 
 A single Copilot agent doing everything drowns in its own context after forty turns. Custom agents fix this by splitting work across specialized agents — each starting fresh with only the context it needs. This post shows how to build custom GitHub Copilot agents using plain Markdown files, from simple reviewers to multi-agent orchestration across VS Code, CLI, and Cloud.
 
+> **Edit (2026-08-02):**
+> - Updated the *CLI: building squads with the task tool* section. Since [v1.0.19](https://github.com/github/copilot-cli/issues/690), `task(agent_type="<name>", prompt="…")` can dispatch to other custom agents, not just built-ins — the CLI supports the same orchestrator + independent specialist files pattern as VS Code, with per-agent `tools:` and `user-invocable: false` for hidden specialists.
+> - Clarified the `model:` frontmatter split: **VS Code custom agents accept a fallback-chain array** of qualified model names, while the [Copilot CLI documents `model:` as a single string](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference). On CLI, resilience comes from the per-user `~/.copilot/settings.json` → `subagents.agents.<name>.model` override, not from an inline chain.
+
 ## The problem: one agent doing everything
 
 Picture a typical Copilot session. You ask it to add a feature. The agent searches your codebase, reads files, makes edits, runs tests, hits an error, backtracks, searches again. Forty turns in, the conversation is bloated with abandoned paths, irrelevant code snippets, and stale context.
@@ -181,7 +185,7 @@ Now that you've seen each runtime in action, here's the full comparison:
 | User interaction | `vscode/askQuestions` tool | `ask_user` tool | Asynchronous (PR comments) |
 | Terminal/shell execution | `execute/runInTerminal` tool | Shell commands via tool approval | Sandboxed environment |
 | Skill loading | Automatic (from multiple paths) | Loaded when task matches description | Not available |
-| Model pinning | `model:` frontmatter | `model:` frontmatter or `--model` flag | Selected at session start |
+| Model pinning | `model:` frontmatter (single string or **fallback-chain array**) | `model:` frontmatter (single string per CLI reference) or `--model` flag | Selected at session start |
 | MCP tools | `<server>/*` tool pattern | `<server>/*` tool pattern | Cloud-configured MCP servers only |
 | Visibility control | `user-invocable` + `disable-model-invocation` | Same properties | N/A |
 | Organization sharing | `.github-private` repo | `.github-private` repo | `.github-private` repo |
@@ -249,7 +253,7 @@ By default, **any agent can invoke any other agent** in VS Code. The visibility 
 
 When combined, these create a strict hierarchy: only agents that declare a specific subagent in their `agents:` array can call it. This prevents accidental invocations and makes the coordination graph explicit and auditable.
 
-The `model:` field can also accept a prioritized array — the runtime tries each in order until an available one is found. One constraint: a subagent's requested model cannot exceed the cost tier of the main model; if it does, the subagent falls back to the main model.
+In VS Code, the `model:` field also accepts a **prioritized array** (fallback chain) — the runtime tries each entry in order until an available one is found, so a rate limit, preview instability, or provider outage falls through to the next model instead of failing the run. One constraint: a subagent's requested model cannot exceed the cost tier of the main model; if it does, the subagent falls back to the main model. The [Copilot CLI documents `model:` as a single string](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference) — arrays are undocumented and may be flagged by strict validators; on CLI, add resilience through `~/.copilot/settings.json` → `subagents.agents.<name>.model` instead.
 
 ## Handoffs vs. subagents: choosing the right coordination
 
@@ -348,33 +352,35 @@ You are the Modernization Orchestrator. You coordinate the team but never write 
 
 The `agents:` allowlist declares which subagents this Orchestrator may invoke — without it, the `agent` tool could call any agent in the workspace. The Orchestrator is the only squad member with `user-invocable: true`; all others use `disable-model-invocation: true`, creating a controlled hierarchy.
 
-## CLI: simulating squads with the task tool
+## CLI: building squads with the task tool
 
 The CLI supports **plan mode** (Shift+Tab) where it builds a structured implementation plan before writing code. In plan mode, the CLI may delegate individual plan steps to different agents — achieving something like VS Code's squad pattern, but driven by the model's judgment.
 
-You can also define an explicit orchestrator in the CLI. The `task` tool spawns a fresh context for each subtask — the CLI equivalent of VS Code's `agent` tool:
+You can also define an explicit orchestrator in the CLI. The `task` tool spawns a fresh context for each subtask — the CLI equivalent of VS Code's `agent` tool. Since [v1.0.19](https://github.com/github/copilot-cli/issues/690), `task(agent_type="<agent-name>", prompt="...")` can dispatch not just to built-in subagents (`explore`, `general-purpose`, `rubber-duck`, …) but to **other custom agents** in the same repo. That means the VS Code squad pattern — an orchestrator plus separate specialist files, each with its own `tools:` list — works in the CLI too:
 
 ```markdown
 ---
-description: Orchestrates multi-step tasks by delegating to subagents with
-  appropriate models. Use for complex tasks that benefit from specialized roles.
+description: Orchestrates multi-step tasks by delegating to specialist agents
+  via the `task` tool. Use for complex tasks that benefit from specialized roles.
 model: Claude Sonnet 4.6 (copilot)
-tools: ['read', 'shell', 'ask_user', 'task', 'skill']
+tools: ['read', 'ask_user', 'task']
 ---
 
 You are an orchestrator. You never write code directly — you delegate via the `task` tool.
 
 ## Protocol
 1. Analyze the task and break it into subtasks.
-2. For each independent subtask, dispatch a `task` with:
-   - A detailed prompt describing exactly what to do.
-   - The `model` field set to the most appropriate model for the job
-     (e.g. "o4-mini (copilot)" for planning, "Claude Sonnet 4.6 (copilot)" for implementation).
+2. For each independent subtask, dispatch a `task` naming the specialist agent:
+   - `task(agent_type="mod-Planner", prompt="…")` for research and planning.
+   - `task(agent_type="mod-Implementer", prompt="…")` for source edits.
+   - `task(agent_type="mod-Verifier", prompt="…")` for validation.
 3. Independent tasks CAN be dispatched in parallel.
 4. Synthesize results and report back to the user.
 ```
 
-Unlike VS Code (where model selection is static per agent definition), the CLI allows specifying the model at invocation time — you can reuse the same agent with different models dynamically.
+Notice the orchestrator's `tools:` list has no `edit` and no `shell` — since [v1.0.42 the CLI is biased against unnecessary delegation](https://github.blog/ai-and-ml/how-we-made-github-copilot-cli-more-selective-about-delegation/), so stripping direct-work tools is what makes the model actually dispatch instead of doing work inline. Each specialist agent lives in its own file with its own `tools:` list, and setting `user-invocable: false` on internal specialists hides them from the `/agent` picker while keeping them dispatchable via `task`. This gives the CLI the same per-subagent tool enforcement VS Code gets from its `agents:` allowlist.
+
+One difference from VS Code: the CLI documents `model:` as a **single string** per the [CLI reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference) — VS Code's fallback-chain array form is not part of the CLI schema. In return, the CLI lets the caller specify the model at invocation time (via `task(...)` or `--model`), so you can reuse the same agent with different models dynamically, and per-user resilience is expressed through `~/.copilot/settings.json` → `subagents.agents.<name>.model`.
 
 ## Skills: keeping agent files lean
 

@@ -14,6 +14,10 @@ meta_description: "Why AI agent workflows need versioned guardrails, shared repo
 
 A hero prompt is the long, carefully tuned instruction one developer writes to make an agent behave well — once. If that knowledge lives only in one person's head, the team has built a dependency, not infrastructure. This post argues that the useful parts of AI workflows need to be explicit, versioned, and committed with the repository, and shows how instructions, hooks, and custom agents make that practical.
 
+> **Edit (2026-08-02):**
+> - Rewrote the *Copilot CLI Is a Different Harness* section and its conclusion. An earlier version said the CLI could not enforce per-subagent tool boundaries and required specialists to be user-visible. Since [v1.0.19](https://github.com/github/copilot-cli/issues/690), a custom orchestrator can dispatch to other custom agents via `task(agent_type="<name>", prompt="…")`; each specialist keeps its own `tools:` list, and `user-invocable: false` hides internal specialists from the `/agent` picker while keeping them dispatchable.
+> - Noted the `model:` frontmatter split: VS Code custom agents accept a **fallback-chain array** (as shown in the `app-orchestrator` example below), while the [Copilot CLI documents `model:` as a single string](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference). On CLI, per-agent resilience lives in `~/.copilot/settings.json` → `subagents.agents.<name>.model`.
+
 That may sound obvious, but it changes the argument about coding agents.
 
 The goal is not to sit beside an AI assistant and manually control every step. If I wanted to do that, I would just do the work myself. The useful promise of agentic development is that I can delegate exploration, planning, implementation, review, validation, and follow-up work to a system that can move faster than one person typing prompts into a chat box.
@@ -193,41 +197,46 @@ But there is a tradeoff.
 
 When the harness delegates the complexity of orchestration, it also asks me to hand over part of the control model.
 
-The CLI currently gives me two practical ways to build a multi-agent squad.
+The CLI gives me two practical ways to build a multi-agent squad.
 
-The first is to define the squad as a single custom orchestrator agent. That agent contains the workflow and the specification of the specialists it should create or invoke. This is close to the pattern I described in [the custom agents post](/posts/Copilot-Custom-Agents/): one entry point coordinates planning, implementation, review, and validation.
+The first is an explicit orchestrator agent that dispatches to independent custom-agent files via the `task` tool. Since [v1.0.19](https://github.com/github/copilot-cli/issues/690), `task(agent_type="<custom-agent-name>", prompt="...")` can invoke another custom agent, not just built-ins like `explore` or `general-purpose`. This is the CLI equivalent of the VS Code squad pattern I described in [the custom agents post](/posts/Copilot-Custom-Agents/): one entry point coordinates planning, implementation, review, and validation, and each specialist is a separate agent file.
 
-That shape is convenient because the workflow is committed as one file. A teammate can inspect it. A pull request can improve it. The agent can describe the sequence, the evidence each worker should return, and the conditions under which work should stop.
+Because each specialist is its own file, it has its own `tools:` list. The reviewer can be `['search', 'read']`, the verifier can be `['read', 'shell']` without `edit`, and the implementer can have `edit`. Those boundaries are enforced by the harness, not merely requested in a prompt. Specialists can also carry `user-invocable: false`, which hides them from the `/agent` picker while keeping them dispatchable by the orchestrator — so a repository can expose a single public entry point like `app-builder` while `app-reviewer`, `app-verifier`, and `app-test-fixture-writer` remain internal implementation details.
 
-But the file becomes long quickly. It has to carry both orchestration logic and subagent specifications. The more specialized the squad becomes, the more the orchestrator turns into a compressed operating manual.
-
-The bigger problem is tool control. If the subagents are described inside the orchestrator prompt rather than as independent agent definitions with their own tool surfaces, I cannot reliably say that the reviewer is read-only, the verifier can run commands but not edit files, and the implementer can write source code. The prompt can request those boundaries, but the harness is not enforcing them as separate capability envelopes for each worker.
-
-That matters because the entire guardrails argument depends on the difference between asking and constraining.
-
-A prompt says:
-
-```markdown
-Use a review subagent. It should only inspect the diff and report issues.
-```
-
-A capability boundary says:
+The pattern looks like this:
 
 ```markdown
 ---
 name: app-reviewer
+description: Reviews proposed changes; read-only; called as a task subagent.
 tools: ['search', 'read']
 user-invocable: false
 ---
 
-Review proposed changes. Do not edit files.
+Review proposed changes. Return issues found. Do not edit files.
 ```
 
-Those are not equivalent. One is an instruction. The other is an enforceable shape of work.
+```markdown
+---
+name: app-builder
+description: Orchestrates feature work — plans, implements, reviews, validates.
+tools: ['read', 'ask_user', 'task']
+---
+
+You orchestrate. You do not edit files directly. Dispatch specialists via
+`task(agent_type="app-planner", ...)`, `task(agent_type="app-implementer", ...)`,
+`task(agent_type="app-reviewer", ...)`, and `task(agent_type="app-verifier", ...)`.
+```
+
+The orchestrator has no `edit` and no `shell`, so it physically cannot do the work itself — it has to delegate. Each specialist has exactly the capability envelope it needs, and no more. That is the same "asking vs. constraining" distinction VS Code enforces through its `agents:` allowlist, expressed through the CLI's per-agent `tools:` list plus `user-invocable`.
+
+One schema difference to keep in mind: the `model:` fallback-chain array shown in the VS Code `app-orchestrator` above is a **VS Code-only** feature. The [Copilot CLI documents `model:` as a single string](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference), so CLI specialists pin one model per file; resilience comes from the per-user `~/.copilot/settings.json` → `subagents.agents.<name>.model` override rather than from an inline chain.
+
+The tradeoff of this shape is that dispatch is model-decided. Both the CLI `task` tool and the VS Code `agent` tool depend on the model choosing to delegate, and [since v1.0.42 the CLI is biased against unnecessary delegation](https://github.blog/ai-and-ml/how-we-made-github-copilot-cli-more-selective-about-delegation/). Stripping `edit` and `shell` from the orchestrator's `tools:` is what makes dispatch reliable in practice.
 
 The second option is to use [`/fleet`](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/fleet).
 
-`/fleet` is appealing because it pushes the automation further. It can take a task or plan, decompose it into independent pieces, and run those pieces through parallel subagents. It may use existing custom agents when they match the work, or it may use built-in agents when they are enough.
+`/fleet` pushes the automation further. It can take a task or plan, decompose it into independent pieces, and run those pieces through parallel subagents. It may use existing custom agents when they match the work, or it may use built-in agents when they are enough.
 
 That is useful. It is also a very different control model.
 
@@ -235,23 +244,14 @@ With `/fleet`, I am not defining the orchestrator. The orchestrator is implicit.
 
 That is the point of the feature. It is also the source of tension.
 
-If the orchestration logic is implicit, it is harder for a team to review. If the worker selection is implicit, it is harder to guarantee that the same kinds of work will be routed the same way tomorrow. If the output contract is implicit, it is harder to enforce consistent evidence across workers. And if `/fleet` uses defined custom agents as possible workers, those agents have to exist in the visible agent surface even when I do not want users to call them directly.
+If the orchestration logic is implicit, it is harder for a team to review. If the worker selection is implicit, it is harder to guarantee that the same kinds of work will be routed the same way tomorrow. If the output contract is implicit, it is harder to enforce consistent evidence across workers.
 
-That last part is more than cosmetic.
+So the CLI gives me a real tradeoff — but between the explicit orchestrator and `/fleet`, not between "monolithic prompt" and "no control":
 
-In a squad, many agents are implementation details. I may want a public orchestrator called `app-builder`, but I do not want users to manually invoke `app-reviewer`, `app-verifier`, `app-migration-reader`, or `app-test-fixture-writer`. Those agents exist so the orchestrator can compose work safely. Listing all of them to the user makes the workflow noisier and weakens the idea that the repository exposes a small number of supported entry points.
+- the explicit-orchestrator pattern is shareable and enforces per-subagent tool boundaries, but dispatch is model-decided and the orchestrator has to be carefully authored (no `edit`, no `shell`) so the model actually delegates;
+- `/fleet` gives me automatic parallel delegation, but the orchestrator is implicit and the team cannot review or version the decomposition strategy directly.
 
-So the CLI gives me a real tradeoff:
-
-- the single-orchestrator pattern is shareable, but it tends to become a large prompt and cannot define strong per-subagent tool boundaries;
-- `/fleet` gives me automatic parallel delegation, but the orchestrator is implicit and the team cannot review or version the decomposition strategy directly;
-- custom agents can help `/fleet`, but they may also become visible user-facing choices even when they were meant to be private squad members.
-
-That does not make Copilot CLI bad. In many cases, it is exactly the right abstraction. A developer who does not want to learn the details of VS Code custom-agent orchestration can still get useful parallel work from the CLI. The harness absorbs complexity and turns a broad task into multiple worker contexts.
-
-But the cost is important: less harness knowledge is required up front, while some of the shared workflow knowledge becomes harder to capture, review, and reuse as team infrastructure.
-
-That is the opposite side of the guardrails argument.
+That does not make Copilot CLI weaker than VS Code — the primitives for explicit orchestration are there. It just means the two harnesses reach the same pattern through different mechanisms: VS Code with an `agents:` allowlist, the CLI with per-agent `tools:` plus `user-invocable`.
 
 ## The CLI Needs Repository Knowledge Too
 
@@ -326,11 +326,11 @@ The point of all this is not to slow agents down with ceremony.
 
 The point is to let them do more.
 
-Copilot CLI makes that direction clear in a slightly uncomfortable way. It is powerful because it automates delegation. It can create worker contexts, run parallel work, and reduce the amount of harness-specific knowledge a developer needs before getting useful results.
+Copilot CLI makes that direction clear. It is powerful because it automates delegation. It can create worker contexts, run parallel work, and reduce the amount of harness-specific knowledge a developer needs before getting useful results.
 
 But automation is not the same thing as shareable engineering control.
 
-If the squad is hidden inside one large orchestrator prompt, the team can version the file but cannot strongly constrain each subagent's tools. If the squad is created through `/fleet`, the team gets parallel execution but not a reviewable orchestrator. If all custom agents must be visible so the CLI can use them, implementation details leak into the user-facing agent list.
+An explicit orchestrator agent dispatching to named custom agents via `task` gives the team both — a reviewable orchestration file and per-subagent tool boundaries, with `user-invocable: false` keeping internal specialists out of the user-facing picker. `/fleet` gives parallel execution without a reviewable orchestrator; it is the right tool for one-off decomposition, but not the shape you commit to the repository as the canonical workflow.
 
 Those tradeoffs are manageable, but they should be named.
 
