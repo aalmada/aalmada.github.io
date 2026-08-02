@@ -17,14 +17,6 @@ Letting an agent grep your codebase from scratch every session is expensive and 
 
 We analyze the differences between **Graphify**, **GitNexus**, **codebase-memory-mcp**, and **CodeGraph** — the four most widely used tools in this space — and discuss which one is best for which scenario.
 
-## The Origin: The LLM Wiki Pattern
-
-The underlying idea is simple and well-known in the community. Instead of letting the agent explore your codebase raw on every session — grepping, reading files, following imports, rebuilding structure from scratch — you pre-build a persistent, navigable representation. The agent queries the representation instead of the raw files.
-
-The pattern is sometimes called the ["LLM wiki"](https://x.com/karpathy/status/2039805659525644595) approach: treat your codebase the same way you would treat a knowledge base. Build it once, update it incrementally, and query it repeatedly at near-zero cost per query.
-
-This is analogous to what compilers and IDEs have been doing for decades. They do not parse your entire codebase from scratch every time you hover over a symbol. They maintain an index, and they query the index. The only difference now is that the consumer is an LLM-based agent rather than a tooltip.
-
 ## Two Paths Into the Graph
 
 The first architectural decision is how to extract entities and relationships from your source material. There are two fundamentally different approaches, and the right one depends entirely on what you are indexing.
