@@ -19,7 +19,7 @@ We analyze the differences between **Graphify**, **GitNexus**, **codebase-memory
 
 ## Two Paths Into the Graph
 
-The first architectural decision is how to extract entities and relationships from your source material. There are two fundamentally different approaches, and the right one depends entirely on what you are indexing.
+The first point of separation between these tools is how they extract entities and relationships. Before comparing query surfaces or higher-level features, it helps to start with that ingestion layer, because the field splits into two fundamentally different approaches depending on whether the input is structured code or free-form content.
 
 ### Parser-based: source code
 
