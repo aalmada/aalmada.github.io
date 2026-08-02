@@ -10,6 +10,7 @@ image:
 tags: [ai, agents, copilot, llm, prompt caching, token usage]
 category: ai
 math: true
+mermaid: true
 meta_description: "How prompt caching works in coding agents, why cache hit rate drives cost, and what workflow habits preserve or destroy it."
 ---
 
@@ -29,12 +30,23 @@ Think of it like a compiled header in C++. The compiler does not reparse `<vecto
 
 Here is the important part: the matching must start at the beginning. If the first token differs, the entire cache is invalidated. The prefix must be identical, byte for byte, for the cached computation to apply.
 
-```text
-Turn 1:  [system prompt] [instructions] [user message A]
-Turn 2:  [system prompt] [instructions] [user message A] [assistant reply] [user message B]
-                                                          ─────────────────────────────────
-                         ▲ cached prefix (reused) ▲       ▲ new tokens (computed fresh) ▲
+```mermaid
+flowchart LR
+    subgraph T1["Turn 1 (initial call)"]
+        direction LR
+        A1[system prompt]:::fresh --> B1[instructions]:::fresh --> C1[user message A]:::fresh
+    end
+    subgraph T2["Turn 2 (follow-up)"]
+        direction LR
+        A2[system prompt]:::cached --> B2[instructions]:::cached --> C2[user message A]:::cached --> D2[assistant reply]:::fresh --> E2[user message B]:::fresh
+    end
+    T1 -. prefix reused .-> T2
+
+    classDef cached fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef fresh fill:#ffcdd2,stroke:#c62828,color:#000
 ```
+
+Green blocks are billed at the cached rate; red blocks are computed fresh. The prefix reused in Turn 2 is exactly the tokens Turn 1 already processed — nothing more.
 
 When a cache hit occurs, two things improve simultaneously:
 
@@ -121,21 +133,50 @@ Agent squads — multiple specialized agents working on a shared task — introd
 
 A squad helps caching when each agent keeps a narrow, stable role:
 
-```text
-Orchestrator:  [shared brief] [coordination state]
-Planner:       [shared brief] [design context]
-Editor:        [shared brief] [code context]
-Validator:     [shared brief] [test context]
+```mermaid
+flowchart LR
+    subgraph Orch[Orchestrator]
+        direction LR
+        OS[shared brief]:::shared --> OL[coordination state]:::local
+    end
+    subgraph Plan[Planner]
+        direction LR
+        PS[shared brief]:::shared --> PL[design context]:::local
+    end
+    subgraph Edit[Editor]
+        direction LR
+        ES[shared brief]:::shared --> EL[code context]:::local
+    end
+    subgraph Val[Validator]
+        direction LR
+        VS[shared brief]:::shared --> VL[test context]:::local
+    end
+
+    classDef shared fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef local fill:#fff9c4,stroke:#f9a825,color:#000
 ```
 
 Each agent reuses its own smaller prefix turn after turn. The shared brief is common but compact. The task-local state is different per agent but stable within each agent's scope.
 
 A squad hurts caching when it duplicates the full context across every agent:
 
-```text
-Agent A:  [full conversation] [full brief] [full code] [task A]
-Agent B:  [full conversation] [full brief] [full code] [task B]
-Agent C:  [full conversation] [full brief] [full code] [task C]
+```mermaid
+flowchart LR
+    subgraph AgA[Agent A]
+        direction LR
+        AA1[full conversation]:::duplicated --> AA2[full brief]:::duplicated --> AA3[full code]:::duplicated --> AA4[task A]:::local
+    end
+    subgraph AgB[Agent B]
+        direction LR
+        AB1[full conversation]:::duplicated --> AB2[full brief]:::duplicated --> AB3[full code]:::duplicated --> AB4[task B]:::local
+    end
+    subgraph AgC[Agent C]
+        direction LR
+        AC1[full conversation]:::duplicated --> AC2[full brief]:::duplicated --> AC3[full code]:::duplicated --> AC4[task C]:::local
+    end
+
+    classDef duplicated fill:#ffcdd2,stroke:#c62828,color:#000
+    classDef local fill:#fff9c4,stroke:#f9a825,color:#000
 ```
 
 Here the system is not reusing context — it is multiplying prompt reconstruction. Each agent pays the full cost of ingesting everything, and none benefits from the other's cached state (since caches are per-session, not shared across agents).

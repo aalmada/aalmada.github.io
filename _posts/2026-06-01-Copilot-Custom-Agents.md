@@ -9,6 +9,7 @@ image:
   path: Museum of Etnography - Budapest.webp
 tags: [ai, copilot, agents, copilot]
 category: ai
+mermaid: true
 meta_description: "Learn how to build custom GitHub Copilot agents for VS Code, CLI, and Cloud, including orchestration, handoffs, subagents, and skills for multi-agent workflows."
 ---
 
@@ -104,7 +105,7 @@ One cost tradeoff to keep in mind: splitting work across multiple agents means m
 
 GitHub Copilot supports custom agents across three surfaces: [**VS Code**](https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-chat-in-your-ide), the [**Copilot CLI**](https://docs.github.com/copilot/how-tos/copilot-cli), and [**Cloud**](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent). They share the `.agent.md` file format and accept agent files from `.github/agents/` or `~/.copilot/agents/`. VS Code also recognizes `.md` files in `.claude/agents/` following the [Claude sub-agents format](https://code.claude.com/docs/en/sub-agents), making it possible to share agent definitions with Claude Code.
 
-But beyond file format, the runtimes diverge significantly in how they coordinate multiple agents.
+Beyond file format, the runtimes still differ in how they coordinate multiple agents — in what's built in, how routing decisions are made, and which coordination primitives (allowlists, handoffs, plan mode, `/fleet`) are available.
 
 ### VS Code: explicit orchestration
 
@@ -125,13 +126,17 @@ VS Code also ships with built-in agents that are always available:
 | Ask | yes | Answers questions about coding concepts, your codebase, or VS Code itself without making file changes |
 | Explore | no (subagent only) | Fast read-only codebase exploration and Q&A — runs in a separate context to avoid bloating the main conversation; safe to call in parallel |
 
-### CLI: autonomous delegation
+### CLI: autonomous delegation (and explicit orchestration)
 
-The CLI takes a fundamentally different approach. Instead of explicit orchestrators dispatching specific agents, the CLI model **autonomously decides** when to delegate — reading each agent's `description` field and routing accordingly.
+The CLI defaults to a lighter-touch style: rather than requiring an orchestrator, the CLI model can **autonomously decide** when to delegate — reading each agent's `description` field and routing accordingly.
 
 This means the `description` field does double duty: it tells humans what the agent does *and* tells the model when to invoke it. Vague descriptions like "Backend developer" won't trigger delegation. Be specific about scope and triggers.
 
 You can also invoke agents explicitly: `@agentName` inline in your prompt, the `/agent` slash command, or the `--agent` CLI flag.
+
+And since [v1.0.19](https://github.com/github/copilot-cli/issues/690) the CLI supports the **same orchestrator pattern as VS Code** — a custom agent can dispatch to other custom agents through the `task` tool (see [*CLI: building squads with the task tool*](#cli-building-squads-with-the-task-tool) below). So the CLI covers both ends: implicit routing based on descriptions *and* explicit orchestrator agents with their own tool restrictions.
+
+One caveat that shapes the sections below: the CLI **does not implement the `agents:` allowlist** property in frontmatter. There is no way to declare "only this orchestrator may invoke this specialist," which also means `disable-model-invocation: true` has nothing to grant an exception to — on the CLI it effectively removes the agent from model invocation across the board. The workarounds (per-file `tools:` lists and `user-invocable: false` to hide specialists from the picker) are covered below.
 
 **When to use which approach:** Use autonomous delegation (good descriptions, let the model route) for simple projects with a handful of agents. Define an explicit orchestrator agent when you need deterministic sequencing — when the order of operations matters and you can't leave routing decisions to the model's judgment.
 
@@ -191,7 +196,7 @@ Now that you've seen each runtime in action, here's the full comparison:
 | Skill loading | Automatic (from multiple paths) | Loaded when task matches description | Not available |
 | Model pinning | `model:` frontmatter (single string or **fallback-chain array**) | `model:` frontmatter (single string per CLI reference) or `--model` flag | Selected at session start |
 | MCP tools | `<server>/*` tool pattern | `<server>/*` tool pattern | Cloud-configured MCP servers only |
-| Visibility control | `user-invocable` + `disable-model-invocation` | Same properties | N/A |
+| Visibility control | `user-invocable` + `disable-model-invocation` + `agents:` allowlist | `user-invocable` + `disable-model-invocation` (no `agents:` allowlist) | N/A |
 | Organization sharing | `.github-private` repo | `.github-private` repo | `.github-private` repo |
 | Execution environment | Local machine | Local machine | Remote infrastructure |
 
@@ -303,26 +308,14 @@ When `send: true`, the prompt auto-submits without confirmation. The optional `m
 
 Once you're comfortable with two-agent workflows, you can scale up to full **squads** — coordinated teams with an Orchestrator as the single entry point.
 
-```text
-                         ┌──────────────┐
-                         │     User     │
-                         └──────┬───────┘
-                                │
-                         ┌──────▼───────┐
-                         │ Orchestrator │
-                         └──┬───┬───┬───┘
-                ┌───────────┘   │   └───────────┐
-                │               │               │
-         ┌──────▼──────┐ ┌─────▼──────┐ ┌──────▼───────┐
-         │   Planner   │ │ Backend Dev│ │ Code Reviewer│
-         └──────┬──────┘ └─────┬──────┘ └─────────────┘
-                │               │
-                │  writes plan  │ reads plan
-                ▼               ▼
-         ┌────────────┐
-         │  Session   │
-         │  Memory    │
-         └────────────┘
+```mermaid
+flowchart TD
+    User([User]) --> Orch[Orchestrator]
+    Orch --> Planner
+    Orch --> Backend[Backend Dev]
+    Orch --> Reviewer[Code Reviewer]
+    Planner -- writes plan --> Memory[(Session Memory)]
+    Backend -- reads plan --> Memory
 ```
 
 Each role has a clear responsibility. The Orchestrator routes tasks but never edits files. The Planner researches but never writes production code. Specialists implement. Code Reviewers critique.
@@ -393,7 +386,13 @@ You are an orchestrator. You never write code directly — you delegate via the 
 4. Synthesize results and report back to the user.
 ```
 
-Notice the orchestrator's `tools:` list has no `edit` and no `shell` — since [v1.0.42 the CLI is biased against unnecessary delegation](https://github.blog/ai-and-ml/how-we-made-github-copilot-cli-more-selective-about-delegation/), so stripping direct-work tools is what makes the model actually dispatch instead of doing work inline. Each specialist agent lives in its own file with its own `tools:` list, and setting `user-invocable: false` on internal specialists hides them from the `/agent` picker while keeping them dispatchable via `task`. This gives the CLI the same per-subagent tool enforcement VS Code gets from its `agents:` allowlist.
+Notice the orchestrator's `tools:` list has no `edit` and no `shell` — since [v1.0.42 the CLI is biased against unnecessary delegation](https://github.blog/ai-and-ml/how-we-made-github-copilot-cli-more-selective-about-delegation/), so stripping direct-work tools is what makes the model actually dispatch instead of doing work inline. Each specialist agent lives in its own file with its own `tools:` list, and setting `user-invocable: false` on internal specialists hides them from the `/agent` picker while keeping them dispatchable via `task`.
+
+One thing the CLI cannot reproduce from VS Code is the **`agents:` allowlist** — that property is not part of the CLI schema. In VS Code, `agents:` lets an orchestrator declare *which* specialists it may invoke, and pairs with `disable-model-invocation: true` on specialists so only allowlisted orchestrators can call them. On the CLI, any agent with the `task` tool can dispatch to any specialist that isn't excluded some other way, and `disable-model-invocation: true` — with no allowlist to grant exceptions — just removes the specialist from model dispatch entirely. Practical consequences:
+
+- Per-file `tools:` lists still enforce **what each specialist can do**, so a specialist with only `read` and `search` cannot edit files regardless of who invokes it.
+- Enforcing **who can invoke whom** requires convention rather than schema — clear naming, `user-invocable: false` on specialists, and orchestrator prompts that name only the intended specialists.
+- If multiple orchestrators coexist in a repo, there is no way to say "only orchestrator X can call specialist Y" the way `agents:` does in VS Code.
 
 One difference from VS Code: the CLI documents `model:` as a **single string** per the [CLI reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference) — VS Code's fallback-chain array form is not part of the CLI schema. In return, the CLI lets the caller specify the model at invocation time (via `task(...)` or `--model`), so you can reuse the same agent with different models dynamically, and per-user resilience is expressed through `~/.copilot/settings.json` → `subagents.agents.<name>.model`.
 
@@ -426,28 +425,32 @@ In VS Code, enabling `github.copilot.chat.organizationCustomAgents.enabled` make
 
 ## Decision guide
 
-```text
-              Need a custom agent?
-                      │
-            Single focused task?
-              /              \
-           Yes                No
-            │                  │
-  Create one .agent.md    Which platform?
-                        /    |    |       \
-                VS Code   CLI  Cloud   Cross-platform
-                  │        │     │          │
-         Human review   Define  Well-defined  MCP tools +
-          at each step? agents   scope + all   shared files
-           /       \    w/good  context in repo?
-         Yes       No   desc.    /        \
-          │         │     │    Yes         No
-       Handoffs  Orchestrator  │           │
-                 + subagents Cloud agent  Start local,
-          │         │     │     │      hand off to cloud
-          └─────────┴─────┴─────┴──────────┘
-                          │
-              Pin optimal model per role
+```mermaid
+flowchart TD
+    Start([Need a custom agent?]) --> Q1{Single focused task?}
+    Q1 -- Yes --> One[Create one .agent.md]
+    Q1 -- No --> Q2{Which platform?}
+
+    Q2 --> VSC[VS Code]
+    Q2 --> CLI[CLI]
+    Q2 --> Cloud[Cloud]
+    Q2 --> Cross[Cross-platform]
+
+    VSC --> QV{Human review<br/>at each step?}
+    QV -- Yes --> HO[Handoffs]
+    QV -- No --> VO[Orchestrator +<br/>agent tool]
+
+    CLI --> QC{Deterministic<br/>sequencing?}
+    QC -- Yes --> CO[Orchestrator +<br/>task tool]
+    QC -- No --> AD[Auto-delegate<br/>via descriptions]
+
+    Cloud --> QCl{Well-defined scope +<br/>all context in repo?}
+    QCl -- Yes --> CAg[Cloud agent]
+    QCl -- No --> LocalHO[Start local,<br/>hand off to cloud]
+
+    Cross --> MCP[MCP tools +<br/>shared files]
+
+    One & HO & VO & CO & AD & CAg & LocalHO & MCP --> Pin([Pin optimal model per role])
 ```
 
 ## Troubleshooting
@@ -459,12 +462,19 @@ In VS Code, enabling `github.copilot.chat.organizationCustomAgents.enabled` make
 | Subagent silently uses a different model than requested | Cost tier exceeded | A subagent can't request a model more expensive than the parent; check the parent's model tier |
 | CLI ignores your agent | Missing or ambiguous `description` | The CLI routes based on description quality; add explicit trigger phrases |
 | `disable-model-invocation` seems to have no effect | No other agents are trying to invoke it | This property only matters when other agents exist; without it, any agent with the `agent` tool can invoke yours |
+| `disable-model-invocation` on CLI blocks all invocation, not just non-allowlisted ones | CLI does not implement the `agents:` allowlist | On CLI there is no allowlist to grant exceptions to; use `user-invocable: false` plus per-file `tools:` restrictions instead, and rely on orchestrator prompts to name intended specialists |
 | Cloud session can't use your squad | Multi-agent not supported in cloud | Cloud supports single custom agents only; use local for multi-agent, then hand off the result |
 | Agent loads but produces poor output | Too many tools in context | Restrict `tools:` to only what the agent actually needs |
 
-## Advanced: parallel subagents and adversarial review
+## Advanced: adversarial review with per-agent model pinning
 
-VS Code can run subagents in parallel. The most compelling use case is **adversarial review**: dispatching multiple independent critics that approach the code fresh, without being anchored by each other's findings.
+Both VS Code and the CLI can run subagents in parallel — VS Code through the `agent` tool, the CLI through parallel `task` dispatches (see the orchestrator example [above](#cli-building-squads-with-the-task-tool)). Parallelism is table stakes, and the built-in review agents (VS Code's Code Review, the CLI's Code Review and Rubber Duck) already exploit it.
+
+The feature that turns parallel review into **adversarial review** is one that only custom agents have: **per-agent model pinning**. Built-in review agents run on whatever model the session is currently using, so spawning two of them in parallel gives you two runs of the *same* model — same training data, same blind spots, same systematic misses. Custom agents let you pin a specific model (or fallback chain) per file, so you can put a Claude reviewer next to a GPT reviewer and get findings that are genuinely independent.
+
+That flips the design priority. When building an adversarial review setup, model diversity is the primitive; parallelism is just how you keep wall-clock time reasonable.
+
+The example below defines a single reviewer role. The tribunal pattern in the next subsection is what actually makes it adversarial — two instances of this role, each pinned to a different vendor family, invoked in parallel by a merge arbiter.
 
 ```markdown
 ---
@@ -488,6 +498,8 @@ When asked to review code, run these subagents in parallel:
 After all subagents complete, synthesize findings into a prioritized summary.
 ```
 
+The same shape works in the CLI: swap the `agent` tool for `task`, drop the VS Code-only frontmatter, and remember that the CLI's `model:` is a single string per the [CLI reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#custom-agents-reference) — pin a *different* string in each reviewer file to get cross-family diversity.
+
 > **Important**: By default, subagents cannot spawn further subagents — this prevents infinite recursion. To enable nested delegation, set `chat.subagents.allowInvocationsFromSubagents` to `true` in VS Code settings. When enabled, subagents can spawn their own subagents up to a maximum nesting depth of 5.
 
 ### The review tribunal pattern
@@ -496,37 +508,20 @@ The recommended pattern for high-quality review uses a **review tribunal** — t
 
 | Agent | Role | Key constraint |
 |-------|------|----------------|
-| `<prefix>-ReviewerA` | Independent reviewer #1 | Writes findings to its own output file |
-| `<prefix>-ReviewerB` | Independent reviewer #2 | Writes findings to its own output file |
+| `<prefix>-ReviewerA` | Independent reviewer #1 | Pinned to vendor family A; writes findings to its own output file |
+| `<prefix>-ReviewerB` | Independent reviewer #2 | Pinned to vendor family B; writes findings to its own output file |
 | `<prefix>-CodeReviewer` | Merge arbiter | Invokes both in parallel, deduplicates, merges, classifies severity |
 
-The critical constraint: **ReviewerA and ReviewerB must use models from two different vendor families** (e.g., Claude vs GPT, GPT vs Gemini). Same-family models share blind spots, defeating the purpose.
+The critical constraint: **ReviewerA and ReviewerB must be pinned to models from two different vendor families** (e.g., Claude vs GPT, GPT vs Gemini) via the `model:` field in each reviewer's frontmatter. Same-family models share blind spots, defeating the purpose — which is exactly why you can't get this from two invocations of a built-in reviewer.
 
-```text
-  ┌──────────────┐
-  │ Orchestrator │
-  └──────┬───────┘
-         │ invoke
-  ┌──────▼───────┐
-  │ CodeReviewer │
-  └───┬──────┬───┘
-      │      │  parallel
-┌─────▼───┐ ┌▼────────┐
-│ReviewerA│ │ReviewerB │
-│ (GPT)   │ │ (Claude) │
-└────┬────┘ └────┬─────┘
-     │ writes    │ writes
-     ▼           ▼
-┌──────────┐ ┌──────────┐
-│reviewerA-│ │reviewerB-│
-│output.md │ │output.md │
-└─────┬────┘ └────┬─────┘
-      └─────┬─────┘
-            │ reads both, merges
-     ┌──────▼──────┐
-     │review-output│
-     │    .md      │
-     └─────────────┘
+```mermaid
+flowchart TD
+    Orch[Orchestrator] -- invoke --> CR[CodeReviewer]
+    CR -- dispatch in parallel --> RA[ReviewerA<br/>GPT family]
+    CR -- dispatch in parallel --> RB[ReviewerB<br/>Claude family]
+    RA -- writes --> OA[reviewerA-output.md]
+    RB -- writes --> OB[reviewerB-output.md]
+    OA & OB -- read + merge --> Merged[review-output.md<br/>deduplicated + severity-classified]
 ```
 
 The workflow:
@@ -544,7 +539,7 @@ The CLI takes a different approach. Rather than requiring explicit adversarial a
 
 The core principle is the same across all three platforms: **divide work into focused contexts, assign the right model to each, and pass only necessary context between steps.**
 
-In VS Code, you achieve this through explicit orchestration — the `agents:` allowlist, handoffs, and subagent invocation give you precise control. In the CLI, the model takes a more autonomous approach, delegating based on descriptions. In the Cloud, agents work independently on well-scoped tasks and deliver pull requests.
+In VS Code, you achieve this through explicit orchestration — the `agents:` allowlist, handoffs, and subagent invocation give you precise control. The CLI now supports the same orchestrator pattern via the `task` tool, and additionally lets the model delegate autonomously based on agent descriptions when no orchestrator is defined. In the Cloud, agents work independently on well-scoped tasks and deliver pull requests.
 
 Start simple: one custom agent that solves a real pain point. Verify it works. Then add a second agent and coordinate them. Build complexity gradually — the same way you'd build any other system.
 
