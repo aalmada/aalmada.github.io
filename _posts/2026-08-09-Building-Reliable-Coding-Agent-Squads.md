@@ -27,7 +27,7 @@ This is the practical destination of several ideas I have written about recently
 
 Context engineering supplies the right evidence to the right specialist. Graph engineering defines the controlled workflow connecting those specialists. A squad turns both into a repeatable delivery process.
 
-I have implemented one such squad in [NetFabric.Numerics](https://github.com/NetFabric/NetFabric.Numerics/tree/main/.github/agents). This post explains the ideas behind it, how the implementation works, and why authoring a squad by hand is substantial work.
+I have implemented one such squad in [NetFabric.Numerics](https://github.com/NetFabric/NetFabric.Numerics/tree/main/.github/agents) to implement reliable changes. This post explains the ideas behind it, how the implementation works, and why authoring a squad by hand is substantial work.
 
 ## What Context Engineering Means Here
 
