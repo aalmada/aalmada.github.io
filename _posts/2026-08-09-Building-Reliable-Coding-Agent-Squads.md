@@ -9,6 +9,7 @@ image:
   path: Oriente.webp
 tags: [ai, agents, copilot, context engineering, graph engineering, multi-agent]
 category: ai
+mermaid: true
 meta_description: "How a coding-agent squad applies context and graph engineering, model routing, TDD, quality gates, and review to deliver reliable changes in production."
 ---
 
