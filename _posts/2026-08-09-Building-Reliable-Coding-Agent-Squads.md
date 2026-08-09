@@ -4,7 +4,7 @@ read_time: true
 show_date: true
 title: "Building Reliable Coding-Agent Squads"
 date: 2026-08-09
-media_subpath: /assets/img/posts/20260718
+media_subpath: /assets/img/posts/202600809
 image:
   path: Oriente.webp
 tags: [ai, agents, copilot, context engineering, graph engineering, multi-agent]
