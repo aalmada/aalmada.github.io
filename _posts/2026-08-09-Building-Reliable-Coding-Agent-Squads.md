@@ -15,9 +15,17 @@ meta_description: "How a coding-agent squad applies context and graph engineerin
 
 Giving one coding agent a large task and a broad instruction sounds simple. It is also a fragile way to work. The agent has to discover the repository, decide what to change, choose a test strategy, make the change, validate it, review itself, and communicate the result. Each responsibility expands the context it must hold and gives it more opportunities to make an unsupported assumption.
 
-The alternative is a explicit squad of custom agents: specialists with bounded responsibilities, defined inputs and outputs, and a coordinator that controls the order of work.
+The alternative is an explicit squad of custom agents: specialists with bounded responsibilities, defined inputs and outputs, and a coordinator that controls the order of work.
 
-This is the practical destination of several ideas I have written about recently: [shared AI infrastructure](/posts/From-Hero-Prompts-to-Shared-AI-Infrastructure/), [custom Copilot agents](/posts/Copilot-Custom-Agents/), [knowledge graphs](/posts/Code-Agent-Knowledge-Graphs/), and [agent-readable wikis](/posts/OpenWiki-and-OKF-Agent-Wikis/). Context engineering supplies the right evidence to the right specialist. Graph engineering defines the controlled workflow connecting those specialists. A squad turns both into a repeatable delivery process.
+This is the practical destination of several ideas I have written about recently:
+
+1. [The Architecture of Code Agents: Instructions, Skills, Agents, Hooks](/posts/The-Architecture-of-Code-Agents-Instructions-Skills-Agents-Hooks/)
+2. [Custom Copilot Agents](/posts/Copilot-Custom-Agents/)
+3. [Prompt Caching for Coding Agents](/posts/Prompt-Caching-for-Coding-Agents/)
+4. [From Hero Prompts to Shared AI Infrastructure](/posts/From-Hero-Prompts-to-Shared-AI-Infrastructure/)
+5. [Knowledge Graph Tools for AI Code Agents](/posts/Code-Agent-Knowledge-Graphs/)
+
+Context engineering supplies the right evidence to the right specialist. Graph engineering defines the controlled workflow connecting those specialists. A squad turns both into a repeatable delivery process.
 
 I have implemented one such squad in [NetFabric.Numerics](https://github.com/NetFabric/NetFabric.Numerics/tree/main/.github/agents). This post explains the ideas behind it, how the implementation works, and why authoring a squad by hand is substantial work.
 
