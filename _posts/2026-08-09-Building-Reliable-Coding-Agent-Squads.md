@@ -101,6 +101,8 @@ The orchestrator is a policy boundary. It prevents common shortcuts:
 - No skipped review because a gate has found a problem.
 - No branch, commit, push, or draft pull request before deterministic validation and review approve the artifact.
 
+The orchestrator's model calls are naturally infrequent because it waits for other agents to complete their tasks. I configured it to use OpenAI-family models because their longer prompt-cache TTL keeps the large orchestration context warm across those staged handoffs. That is another form of control a custom squad provides: model selection can account for the workflow's timing and cache behavior, not only raw reasoning quality or per-token cost.
+
 ### The planner
 
 `nf-dev-planner` has a narrower assignment: convert one request into a numbered table of test and implementation subtasks. It identifies exact files and symbols through the repository code graph, classifies each test task as a new or existing test, records dependencies, and marks only genuinely independent work as parallel.
