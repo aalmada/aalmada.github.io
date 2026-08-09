@@ -6,7 +6,7 @@ title: "Building Reliable Coding-Agent Squads"
 date: 2026-08-09
 media_subpath: /assets/img/posts/20260718
 image:
-  path: oriente.jpg
+  path: Oriente.webp
 tags: [ai, agents, copilot, context engineering, graph engineering, multi-agent]
 category: ai
 meta_description: "How a coding-agent squad applies context and graph engineering, model routing, TDD, quality gates, and review to deliver reliable changes in production."
