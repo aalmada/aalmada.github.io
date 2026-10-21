@@ -22,7 +22,13 @@ Not because a manufacturer decided there was a market for it. Because someone wa
 
 ## The synth I always wanted to play
 
-I've always loved the sound of synthesizers. I grew up listening to Jean-Michel Jarre, Vangelis, Depeche Mode, The Human League, and so many others. Those sounds have stayed with me.
+I've always loved the sound of synthesizers. I grew up listening to Jean-Michel Jarre, Vangelis, Kitaro, Depeche Mode, The Human League, and so many others. More recently, I've discovered Kebu, Madis, Oruda, VNV Nation, CHROM, Zynic, and more. Those sounds have stayed with me.
+
+That love of synth music has also turned into three Spotify playlists, each exploring a different genre:
+
+- [Electronic Journeys!](https://open.spotify.com/playlist/5cJ4AR5Q0aED3Y9PeS1TY4)
+- [Best of Synth Pop](https://open.spotify.com/playlist/1WNi34oj8ithLWRv727M19)
+- [Dark Synth Society](https://open.spotify.com/playlist/7dARyh8zcetOf9XrfoEcYG)
 
 I had piano lessons, but what I really wanted was to play synths. I wanted to explore the sounds, turn the knobs, and understand how those textures were made.
 
@@ -30,25 +36,27 @@ The price was always a barrier. A synthesizer felt like a considerable investmen
 
 Recently, while watching synthesizer reviews on YouTube, I kept seeing the same little device appear on different channels: the **M-VAVE FM-1**.
 
-A small digital synth from China, available through marketplaces such as AliExpress and Temu, for around $60, depending on the seller and the usual taxes and shipping. Rechargeable battery, Bluetooth MIDI, a surprisingly decent color display, a built-in speaker, and a sound engine compatible with Yamaha DX7 voices from the 1980s.
+A small digital synth from China, available through marketplaces such as AliExpress and Temu, for around $60, depending on the seller and the usual taxes and shipping. Rechargeable battery, Bluetooth MIDI, a surprisingly decent color display, a built-in speaker, and a sound engine compatible with [Yamaha DX7](https://en.wikipedia.org/wiki/Yamaha_DX7) voices from the 1980s.
 
-The [manufacturer's specifications](https://www.cuvave.com/product.html?id=fm-1) describe six-operator FM synthesis with 32 algorithms. In less technical terms: a very inexpensive way to start exploring that classic world of FM sounds. It is not a complete replacement for an original DX7, but that was never what I needed.
+The [manufacturer's specifications](https://www.cuvave.com/product.html?id=fm-1) describe six-operator [frequency modulation (FM) synthesis](https://en.wikipedia.org/wiki/Frequency_modulation_synthesis) with 32 algorithms. In less technical terms: a very inexpensive way to start exploring that classic world of FM sounds. It is not a complete replacement for an original DX7, but that was never what I needed.
 
 Finally, a chance to play with a hardware synth without making a large financial commitment!
 
 ## Then the firmware started arriving
 
-A few days after I got mine, I discovered custom firmware with a much better-looking interface, FM synthesis, and **virtual analog synthesis**. That last term means digitally recreating aspects of an analog synth's sound generation and filtering. The hardware had not changed, but the range of sounds and the experience of using it had.
+A few days after I got mine, I discovered the first alternative firmware for the FM-1: [Baud Girl's FM-1+VA](https://baudgirl.com/work/FM-1+VA). It offered a much better-looking interface, FM synthesis, and **[virtual analog synthesis](https://en.wikipedia.org/wiki/Analog_modeling_synthesizer)**. That last term means digitally recreating aspects of an analog synth's sound generation and filtering. The hardware had not changed, but the range of sounds and the experience of using it had.
 
-[Baud Girl's FM-1+VA](https://baudgirl.com/work/FM-1+VA) is one example of that approach. It adds virtual analog capabilities and reworks the interface and sequencing. It is free to install, although it is not open source.
+FM-1+VA also reworks the sequencing. It is free to install, although it is not open source.
 
 What also caught my attention was the installation. Open a compatible browser, connect the synth by USB, give the page MIDI access, and install. No need to compile firmware or buy a hardware programmer. The community installers commonly use Chrome or Edge and a USB data cable.
 
-A couple of days later, I was looking at firmware offering four tracks and many more synthesis engines. Projects such as [Felucca](https://github.com/hugelton/Felucca), by Leo Kuroshita of Hügelton Instruments, and [SLOOP](https://github.com/isod89/sloop-fm1), by isod89, turn the FM-1 into a multi-engine instrument or a live groovebox: a device that combines sounds, drums, and sequencing to build up music.
+A couple of days later, I was looking at firmware offering four tracks and many more synthesis engines. [Felucca](https://github.com/hugelton/Felucca), by Leo Kuroshita of Hügelton Instruments, turned the FM-1 into a multi-engine instrument. Unlike FM-1+VA, it was both free to install and open source. That gave the community a foundation to build on.
 
-These projects are open source. Other people can inspect them, change them, and publish their own versions. And they did.
+Other people could inspect the code, change it, and publish their own versions. And they did.
 
-Some forks focus on particular sounds. Others change the performance workflow. [X0X](https://github.com/charlesvestal/fm1-x0x), by Charles Vestal, takes it toward classic drum machines and acid basslines. [FoMni](https://github.com/charlesvestal/fm1-fomni) turns the same keys into a chord harp inspired by the Omnichord.
+Notable derivatives include [SLOOP](https://github.com/isod89/sloop-fm1), by isod89, a Felucca fork that turns it into a four-track live groovebox: a device that combines sounds, drums, and sequencing to build up music. [X0X](https://github.com/charlesvestal/fm1-x0x), by Charles Vestal, is another Felucca fork, focused on classic drum machines and acid basslines.
+
+Vestal's [FoMni](https://github.com/charlesvestal/fm1-fomni) builds on that foundation through X0X, turning the same keys into a chord harp inspired by the [Omnichord](https://en.wikipedia.org/wiki/Omnichord). Some developers were refining a workflow; others were making an entirely different kind of instrument.
 
 And, of course, someone [ported Doom](https://github.com/zvenson/fm1doom). Apparently, a screen and a processor are an invitation.
 
