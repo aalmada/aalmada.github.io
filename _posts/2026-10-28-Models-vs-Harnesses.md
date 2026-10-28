@@ -9,10 +9,10 @@ media_subpath: /assets/img/posts/20261028
 image:
   path: models-vs-harnesses.webp
   alt: "A model and a harness collaborating in a coding agent"
-tags: [ai, agents, copilot, llm, multi-agent, hydrafusion]
+tags: [ai, agents, copilot, llm, multi-agent, hydrafusion, copilot-fusion]
 category: ai
 mermaid: true
-meta_description: "What an LLM does, what an agent harness does, how their roles now overlap, and how GitHub Copilot's HydraFusion turns multi-model orchestration into a choice."
+meta_description: "What an LLM does, what an agent harness does, how their roles now overlap, and how GitHub Copilot Fusion turns multi-model orchestration into a runtime choice."
 ---
 
 There are two loud opinions about coding agents right now.
@@ -143,11 +143,11 @@ That is the real answer to the debate. Frontier models do not make harnesses irr
 
 The interesting question is who makes that choice, and when.
 
-## HydraFusion: Orchestration as a Model
+## Copilot Fusion: Orchestration as a Model
 
-GitHub recently introduced [Project HydraFusion](https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/), a research preview now available in GitHub Copilot CLI. It answers that question at runtime.
+GitHub introduced [Project HydraFusion](https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/) as a research preview in GitHub Copilot CLI. It has since been renamed **GitHub Copilot Fusion**, as described in the [VS Code 1.144 release notes](https://code.visualstudio.com/updates/v1_144#_models). It answers that question at runtime.
 
-You select HydraFusion like any other model. Behind that single choice, it is not one model. For each request, it builds an execution plan across models from multiple providers, balancing quality, cost, and latency.
+You select Copilot Fusion like any other model. Behind that single choice, it is not one model. For each request, it builds an execution plan across models from multiple providers, balancing quality, cost, and latency.
 
 It currently chooses one of three execution patterns:
 
@@ -157,7 +157,7 @@ It currently chooses one of three execution patterns:
 
 ```mermaid
 flowchart TD
-  R[Request] --> S{HydraFusion<br/>selects a workflow}
+  R[Request] --> S{Copilot Fusion<br/>selects a workflow}
   S -->|Single| M1[One model solves the task]
   S -->|Cascade| C1[Efficient model drafts]
   C1 --> G{Quality gate}
@@ -171,7 +171,7 @@ flowchart TD
   M1 --> Done
 ```
 
-The key word in the announcement is *selectivity*. HydraFusion picks the least complex workflow it expects to meet the quality bar. It uses additional model calls only when they are likely to improve the result. That is precisely the trade-off from the previous section, made per request instead of per configuration.
+The key word in the announcement is *selectivity*. Copilot Fusion picks the least complex workflow it expects to meet the quality bar. It uses additional model calls only when they are likely to improve the result. That is precisely the trade-off from the previous section, made per request instead of per configuration.
 
 The published offline results are worth reading with their caveats:
 
@@ -190,9 +190,9 @@ The engineering principles are also familiar to anyone who has built a squad:
 - **Isolated review**, with critics running in tool-less contexts so they cannot modify the repository.
 - **Fail-safe application**: no patch is applied if the workflow fails or is cancelled.
 
-## Trying HydraFusion in Copilot CLI
+## Trying Copilot Fusion in Copilot CLI
 
-HydraFusion is an experimental feature, so it has to be enabled first. Inside a Copilot CLI session, run these commands one at a time:
+The original CLI research preview required experimental features to be enabled first. Inside a Copilot CLI session, run these commands one at a time:
 
 ```text
 /update
@@ -202,17 +202,17 @@ HydraFusion is an experimental feature, so it has to be enabled first. Inside a 
 
 1. `/update` makes sure the CLI is on a version that includes the preview.
 2. `/experimental on` enables experimental features. The CLI may restart.
-3. `/model` opens the model picker, where you select the **HydraFusion (Research Preview)** entry.
+3. `/model` opens the model picker, where you select **Copilot Fusion**. Older preview versions may still use the **HydraFusion (Research Preview)** name.
 
 If the entry is missing, check that the update completed and that experimental mode is on. Preview names and availability can change.
 
 While a request runs, the CLI shows which workflow was selected and its progress. Stephen W. Thomas walks through this in his [HydraFusion guide](https://www.stephenwthomas.com/artificial-intelligence/hydrafusion-github-copilot-cli/): a trivial `add two plus two` was routed to **Single**, while a more involved prompt was routed to **Cascade**, with main, review, and conditional fix-up passes. That is the selectivity in action: the simple request did not pay for a review it did not need.
 
-## HydraFusion and Agent Squads
+## Copilot Fusion and Agent Squads
 
 In [Building Reliable Coding-Agent Squads](/posts/Building-Reliable-Coding-Agent-Squads/), I described a squad where the model of each agent is chosen by role, a deterministic gate decides whether work can move forward, and an independent reviewer cannot edit the code it critiques.
 
-HydraFusion performs a similar job automatically:
+Copilot Fusion performs a similar job automatically:
 
 - **Cascade** is model routing with a quality gate: try the cheap model first, escalate only when needed.
 - **Critique** is the adversarial reviewer from a different model family, without write access.
@@ -222,11 +222,11 @@ The difference is who designs the workflow.
 
 A hand-authored squad is a fixed, versioned graph. Its roles, models, tools, handoffs, repair limits, and publication criteria live in the repository. It encodes project-specific knowledge: run these tests first, compare against this baseline, never publish without this approval. That is what makes it repeatable and auditable, and also what makes it [substantial work to author](/posts/Building-Reliable-Coding-Agent-Squads/#the-manual-authoring-cost).
 
-HydraFusion requires no authoring. It decides the workflow per request, from general capability signals, and its model pool improves as GitHub adds new models. What it does not know is your project's definition of done.
+Copilot Fusion requires no authoring. It decides the workflow per request, from general capability signals, and its model pool improves as GitHub adds new models. What it does not know is your project's definition of done.
 
-They are not mutually exclusive. A custom agent declares a model, and that model can be HydraFusion. A squad can keep its fixed outer workflow and its deterministic gates, while the individual specialists let HydraFusion decide how to solve their bounded tasks.
+They are not mutually exclusive. A custom agent declares a model, and that model can be Copilot Fusion. A squad can keep its fixed outer workflow and its deterministic gates, while the individual specialists let Copilot Fusion decide how to solve their bounded tasks.
 
-GitHub recommends starting with substantial, well-scoped, single-prompt tasks in autopilot mode, as multi-turn performance is the next focus of the preview. That is also a good way to compare it with your current setup: give the same task to your usual frontier model, to HydraFusion, and to your squad, and compare quality, cost, and the number of corrections you had to make.
+GitHub recommends starting with substantial, well-scoped, single-prompt tasks in autopilot mode, as multi-turn performance is the next focus of the preview. That is also a good way to compare it with your current setup: give the same task to your usual frontier model, to Copilot Fusion, and to your squad, and compare quality, cost, and the number of corrections you had to make.
 
 ## Conclusion
 
@@ -236,4 +236,4 @@ The model reasons. It plans, writes, and judges, and every token of that work is
 
 Frontier models raised the ceiling of what a single call can do. Harnesses raised the floor of what a workflow can guarantee. The trade-off between them is cost per token versus cache reuse, one rich context versus several clean ones, self-review versus independent review.
 
-HydraFusion is interesting because it moves that trade-off out of the developer's hands and into the runtime. You no longer choose between the best model and the best harness. You choose a runtime that decides, for each task, how much model it actually needs.
+Copilot Fusion is interesting because it moves that trade-off out of the developer's hands and into the runtime. You no longer choose between the best model and the best harness. You choose a runtime that decides, for each task, how much model it actually needs.
