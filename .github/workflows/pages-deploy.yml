@@ -171,29 +171,34 @@ jobs:
         run: npm install -g lighthouse
 
       - name: Install Chrome
+        id: chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
+          install-dependencies: true
 
       - name: Run Lighthouse audit
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
         run: |
           SITE_URL=$(grep '^url:' _config.yml | head -1 | awk '{print $2}' | tr -d "'\"")
 
           lighthouse "${SITE_URL}/" \
             --output json --output html \
             --output-path ./lighthouse-report \
-            --chrome-flags="--headless --no-sandbox --disable-gpu" \
-            --quiet || true
+            --port=9222 \
+            --chrome-flags="--headless --no-sandbox --disable-gpu --disable-dev-shm-usage" \
+            --verbose
 
           # Rename outputs
-          [ -f lighthouse-report.report.json ] && mv lighthouse-report.report.json lighthouse-report.json
-          [ -f lighthouse-report.report.html ] && mv lighthouse-report.report.html lighthouse-report.html
+          mv lighthouse-report.report.json lighthouse-report.json
+          mv lighthouse-report.report.html lighthouse-report.html
 
       - name: Check scores
         run: |
           if [ ! -f lighthouse-report.json ]; then
-            echo "::warning::Lighthouse report not generated"
-            exit 0
+            echo "::error::Lighthouse report not generated"
+            exit 1
           fi
 
           python3 -c "
@@ -245,10 +250,10 @@ jobs:
           SITE_URL=$(grep '^url:' _config.yml | head -1 | awk '{print $2}' | tr -d "'\"")
 
           # Check crawl issues
-          ISSUES=$(curl -s "https://ssl.bing.com/webmaster/api.svc/json/GetCrawlIssues?siteUrl=${SITE_URL}/&apikey=${BING_WEBMASTER_API_KEY}" \
+          ISSUES=$(curl -fsS "https://ssl.bing.com/webmaster/api.svc/json/GetCrawlIssues?siteUrl=${SITE_URL}/&apikey=${BING_WEBMASTER_API_KEY}" \
             | sed 's/^\xef\xbb\xbf//')
 
-          ISSUE_COUNT=$(echo "$ISSUES" | python3 -c "import json,sys; print(len(json.loads(sys.stdin.read()).get('d',[])))" 2>/dev/null || echo "0")
+          ISSUE_COUNT=$(echo "$ISSUES" | python3 -c "import json,sys; print(len(json.load(sys.stdin)['d']))")
 
           if [ "$ISSUE_COUNT" = "0" ]; then
             echo "✅ No crawl issues found"
@@ -267,14 +272,17 @@ jobs:
           # Latest crawl stats
           echo ""
           echo "Latest crawl stats:"
-          curl -s "https://ssl.bing.com/webmaster/api.svc/json/GetCrawlStats?siteUrl=${SITE_URL}/&apikey=${BING_WEBMASTER_API_KEY}" \
+          curl -fsS "https://ssl.bing.com/webmaster/api.svc/json/GetCrawlStats?siteUrl=${SITE_URL}/&apikey=${BING_WEBMASTER_API_KEY}" \
             | sed 's/^\xef\xbb\xbf//' \
             | python3 -c "
-          import json, sys, datetime
-          data = json.loads(sys.stdin.read()).get('d', [])
+          import json, sys, datetime, re
+          data = json.load(sys.stdin)['d']
           if data:
               entry = data[-1]
-              ts = int(entry['Date'].split('(')[1].split('-')[0].split('+')[0]) / 1000
+              match = re.fullmatch(r'/Date\((-?\d+)(?:[+-]\d{4})?\)/', entry['Date'])
+              if match is None:
+                  raise ValueError(f\"Invalid Bing date: {entry['Date']!r}\")
+              ts = int(match[1]) / 1000
               dt = datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc).strftime('%Y-%m-%d')
               print(f\"  Date: {dt}\")
               print(f\"  2xx: {entry.get('Code2xx',0)}, 4xx: {entry.get('Code4xx',0)}, 5xx: {entry.get('Code5xx',0)}\")
@@ -282,4 +290,6 @@ jobs:
               c4 = entry.get('Code4xx', 0)
               if c4 > 0:
                   print(f'::warning::{c4} pages returned 4xx status codes')
+          else:
+              print('  No crawl stats available')
           "

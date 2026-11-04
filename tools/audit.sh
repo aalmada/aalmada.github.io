@@ -128,7 +128,7 @@ else
   curl -s "${BING_BASE}/GetCrawlStats?siteUrl=${SITE_URL_SLASH}&apikey=${BING_WEBMASTER_API_KEY}" \
     | sed 's/^\xef\xbb\xbf//' \
     | python3 -c "
-import json, sys, datetime
+import json, sys, datetime, re
 data = json.loads(sys.stdin.read()).get('d', [])
 if not data:
     print('  No crawl stats available')
@@ -137,7 +137,10 @@ else:
     print('  │ Date       │  2xx │  301 │  4xx │  5xx │ InIndex │ Errors  │')
     print('  ├────────────┼──────┼──────┼──────┼──────┼─────────┼─────────┤')
     for entry in data[-5:]:
-        ts = int(entry['Date'].split('(')[1].split('-')[0].split('+')[0]) / 1000
+        match = re.fullmatch(r'/Date\((-?\d+)(?:[+-]\d{4})?\)/', entry['Date'])
+        if match is None:
+            raise ValueError(f\"Invalid Bing date: {entry['Date']!r}\")
+        ts = int(match[1]) / 1000
         dt = datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc).strftime('%Y-%m-%d')
         c2 = entry.get('Code2xx', 0)
         c301 = entry.get('Code301', 0)
