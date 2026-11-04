@@ -39,16 +39,9 @@ The Bing check requires the `BING_WEBMASTER_API_KEY` repository secret; without 
 the check logs a warning and skips. Crawl issues are reported as warnings, while
 HTTP errors and invalid responses fail the check.
 
-### Session recording consent
+### Homepage images
 
-Microsoft Clarity is not requested until a visitor chooses **Allow Clarity**.
-The choice is saved locally; **Session recording settings** below the footer lets
-visitors change it. Declining after allowing revokes consent and reloads the page
-to unload the recorder. Advertising storage stays denied. If browser storage is
-unavailable, the UI explains that the choice cannot be saved.
-
-This setting controls Clarity only; the existing Google Analytics integration is
-unchanged. Homepage previews load the first two images eagerly with high fetch
+Homepage previews load the first two images eagerly with high fetch
 priority so above-the-fold images do not wait for lazy loading.
 
 For a smaller homepage card image, place an 800px-wide WebP named

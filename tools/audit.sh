@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# Run Lighthouse, Bing Webmaster, and Clarity audits against the live site.
+# Run Lighthouse and Bing Webmaster audits against the live site.
 #
 # Prerequisites:
 #   npm install -g lighthouse
-#   source .env   (for BING_WEBMASTER_API_KEY and CLARITY_API_TOKEN)
+#   source .env   (for BING_WEBMASTER_API_KEY)
 #
 # Usage:
 #   bash tools/audit.sh                    # audit homepage only
@@ -170,40 +170,6 @@ else:
         code = issue.get('HttpCode', '?')
         print(f'    {code} → {url}')
 " 2>/dev/null || echo -e "  ${RED}Failed to fetch crawl issues${NC}"
-fi
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 3. CLARITY — Traffic Summary
-# ══════════════════════════════════════════════════════════════════════════════
-header "Clarity — Traffic Summary (last 24h)"
-
-if [[ -z "${CLARITY_API_TOKEN:-}" ]]; then
-  echo "  CLARITY_API_TOKEN not set — skipping."
-  echo "  Generate at: Clarity dashboard → Settings → Data Export → Generate new API token"
-  echo "  Then add to .env: CLARITY_API_TOKEN='your-token'"
-else
-  curl -s "https://www.clarity.ms/export-data/api/v1/project-live-insights?numOfDays=1" \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer ${CLARITY_API_TOKEN}" \
-    | python3 -c "
-import json, sys
-data = json.loads(sys.stdin.read())
-if isinstance(data, list):
-    for metric in data:
-        name = metric.get('metricName', '?')
-        info = metric.get('information', [])
-        if name == 'Traffic' and info:
-            total_sessions = sum(int(i.get('totalSessionCount', 0)) for i in info)
-            total_users = sum(int(i.get('distantUserCount', 0)) for i in info)
-            bot_sessions = sum(int(i.get('totalBotSessionCount', 0)) for i in info)
-            print(f'  Sessions: {total_sessions:,}  |  Users: {total_users:,}  |  Bot sessions: {bot_sessions:,}')
-            break
-    else:
-        print('  No traffic data in response')
-else:
-    msg = data.get('Message', data.get('message', str(data)))
-    print(f'  Error: {msg}')
-" 2>/dev/null || echo -e "  ${RED}Failed to fetch Clarity data${NC}"
 fi
 
 echo ""
