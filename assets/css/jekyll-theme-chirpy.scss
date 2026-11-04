@@ -28,3 +28,23 @@
   align-items: center;
   justify-content: center;
 }
+
+.clarity-consent {
+  padding-block: 1rem;
+  border-top: 1px solid var(--main-border-color);
+
+  a {
+    text-decoration: underline;
+  }
+
+  .btn {
+    min-height: 44px;
+    color: var(--text-color);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--main-bg);
+      background-color: var(--text-color);
+    }
+  }
+}

@@ -47,6 +47,7 @@
 {% if _content contains IMG_TAG %}
   {% assign _img_content = null %}
   {% assign _img_snippets = _content | split: IMG_TAG %}
+  {% assign _home_preview_count = 0 %}
 
   {% for _img_snippet in _img_snippets %}
     {% if forloop.first %}
@@ -127,6 +128,22 @@
 
     {% assign _final_src = null %}
     {% assign _lazyload = true %}
+    {% assign _priority_image = false %}
+
+    {% if page.layout == 'home' %}
+      {% assign _home_preview_count = _home_preview_count | plus: 1 %}
+      {% if _home_preview_count <= 2 %}
+        {% assign _priority_image = true %}
+        {% assign _lazyload = false %}
+      {% endif %}
+
+      {% assign _preview_path = _src | replace: '.webp', '-preview.webp' %}
+      {% assign _preview_file = site.static_files | where: 'path', _preview_path | first %}
+      {% if _preview_file and _preview_path != _src %}
+        {% assign _left = _left | replace: _src, _preview_path %}
+        {% assign _src = _preview_path %}
+      {% endif %}
+    {% endif %}
 
     {%- capture _img_url -%}
       {% include media-url.html src=_src subpath=page.media_subpath %}
@@ -159,6 +176,8 @@
     <!-- lazy-load images -->
     {% if _lazyload %}
       {% assign _left = _left | append: ' loading="lazy"' %}
+    {% elsif _priority_image %}
+      {% assign _left = _left | append: ' loading="eager" fetchpriority="high"' %}
     {% endif %}
 
     {% if page.layout == 'home' %}
