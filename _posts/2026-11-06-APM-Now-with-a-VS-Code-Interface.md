@@ -7,7 +7,7 @@ date: 2026-11-06
 img_path: /assets/img/posts/20261106
 media_subpath: /assets/img/posts/20261106
 image:
-  path: anta.jpg
+  path: anta.webp
   alt: "A cropped view of VS Code's context display"
 tags: [ai, agents, apm, vscode, extensions, vibe coding]
 category: ai
