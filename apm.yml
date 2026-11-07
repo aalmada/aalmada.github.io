@@ -3,12 +3,10 @@ version: 1.0.0
 description: APM project for aalmada.github.io
 author: Antao Almada
 targets:
-- copilot
+  - copilot
 dependencies:
   apm:
-  - anthropics/skills/skills/skill-creator
-  mcp:
-  - io.github.upstash/context7
-  - microsoftdocs/mcp
+    - anthropics/skills/skills/skill-creator
+  mcp: []
 includes: auto
 scripts: {}

@@ -8,7 +8,6 @@ img_path: /assets/img/posts/20261106
 media_subpath: /assets/img/posts/20261106
 image:
   path: anta.webp
-  alt: "A cropped view of VS Code's context display"
 tags: [ai, agents, apm, vscode, extensions, vibe coding]
 category: ai
 meta_description: "Turn common APM CLI tasks into guided VS Code interactions with validation, feedback, package browsing, marketplace management, and synced APM settings."
@@ -26,15 +25,21 @@ The difference is easiest to see in the package browser. The APM icon opens a vi
 
 No terminal command to assemble. No guessing whether I’m installing to this project or my user-wide setup: I choose a workspace or global scope in the interface. When the operation finishes, I get a result in the editor. If something fails, the notification can take me to the APM output or offer a relevant next step, such as checking authentication or running the doctor command.
 
+For much of this workflow, I can keep a hand on the mouse and manage a project’s AI plugins without constantly switching back to the keyboard.
+
+![APM package browser showing catalog, installed packages, and updates in VS Code](Extension.png)
+
 That’s what I mean by making the CLI visual. The point isn’t to hide that a command runs. It’s to replace command syntax as the interface with choices, validation, progress, and useful feedback.
 
-The package view keeps the same idea when I’m just exploring. Catalog, Installed, and Updates are separate, searchable sections; I can resize or collapse them and keep my layout. I can inspect package contents—skills, agents, instructions, prompts, and documentation—before deciding to install. If I want to narrow the results, I can combine search terms with filters such as:
+The package view keeps the same idea when I’m just exploring. Catalog, Installed, and Updates are separate, searchable sections; I can resize or collapse them and keep my layout. I can inspect package contents—skills, agents, instructions, prompts, and documentation—before deciding to install.
+
+For everyday filtering, I use the menu items—no special syntax to remember. I can combine them with search terms, or type `@`-style filters directly, just like in VS Code’s native Extensions view:
 
 ```text
 @marketplace:"team tools" @updates
 ```
 
-I can also switch to `@installed` or `@dependencies`, or change the sort order. It feels like browsing a collection, not querying a CLI and reconstructing the answer from its output.
+Other filters include `@installed` and `@dependencies`, and I can change the sort order too. It feels like browsing a collection, not querying a CLI and reconstructing the answer from its output.
 
 ## A wizard instead of a pile of flags
 
@@ -71,6 +76,8 @@ Marketplaces are part of the same workflow. I can define marketplace sources in 
   ]
 }
 ```
+
+![APM marketplace and configuration settings in VS Code](Settings.png)
 
 The extension synchronizes those entries with APM’s marketplace registry. It also exposes a supported subset of APM configuration as `apm.config.*` settings—things like the default install target, SSH preference, automatic integration, and MCP registry URL—and keeps those values in sync with APM’s own configuration. I don’t have to choose between the editor and the CLI’s existing configuration.
 
