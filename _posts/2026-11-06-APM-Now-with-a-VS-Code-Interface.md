@@ -27,7 +27,7 @@ No terminal command to assemble. No guessing whether I’m installing to this pr
 
 For much of this workflow, I can keep a hand on the mouse and manage a project’s AI plugins without constantly switching back to the keyboard.
 
-![APM package browser showing catalog, installed packages, and updates in VS Code](Extension.png)
+![APM package browser showing catalog, installed packages, and updates in VS Code](Extension.webp)
 
 That’s what I mean by making the CLI visual. The point isn’t to hide that a command runs. It’s to replace command syntax as the interface with choices, validation, progress, and useful feedback.
 
@@ -77,7 +77,7 @@ Marketplaces are part of the same workflow. I can define marketplace sources in 
 }
 ```
 
-![APM marketplace and configuration settings in VS Code](Settings.png)
+![APM marketplace and configuration settings in VS Code](Settings.webp)
 
 The extension synchronizes those entries with APM’s marketplace registry. It also exposes a supported subset of APM configuration as `apm.config.*` settings—things like the default install target, SSH preference, automatic integration, and MCP registry URL—and keeps those values in sync with APM’s own configuration. I don’t have to choose between the editor and the CLI’s existing configuration.
 
